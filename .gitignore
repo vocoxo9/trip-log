@@ -1,0 +1,13 @@
+# 모든 파일 제외
+/*
+!.gitignore
+
+# src 디렉터리 제외
+!/src/
+!/src/**
+!/webapp/
+!/webapp/**
+
+# 기타 파일 제외
+/webapp/META-INF/
+/webapp/WEB-INF/classes/
