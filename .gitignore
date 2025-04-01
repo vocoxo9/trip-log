@@ -8,6 +8,10 @@
 !/webapp/
 !/webapp/**
 
+# docs 디렉터리 제외
+!/docs/
+!/docs/**
+
 # 기타 파일 제외
 /webapp/META-INF/
 /webapp/WEB-INF/classes/
