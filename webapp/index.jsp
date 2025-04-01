@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Trip:Log</title>
 </head>
 <body>
-	<h1>Trip Log</h1>
+	<div id="root">
+		<%-- Main Area(+ Header, Footer) --%>
+		<jsp:include page="WEB-INF/views/main.jsp" />
+	</div>
 </body>
 </html>
