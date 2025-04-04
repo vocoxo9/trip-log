@@ -5,6 +5,8 @@
 # src 디렉터리 제외
 !/src/
 !/src/**
+!/resources/
+!/resources/**
 !/webapp/
 !/webapp/**
 
@@ -12,6 +14,9 @@
 !/docs/
 !/docs/**
 
-# 기타 파일 제외
+# DB 연결 정보 파일 예외
+/resources/driver.properties
+
+# 기타 파일 예외
 /webapp/META-INF/
 /webapp/WEB-INF/classes/
