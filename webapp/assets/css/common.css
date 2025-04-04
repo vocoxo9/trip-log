@@ -27,7 +27,7 @@ header {
     align-items: center;
     justify-content: space-between;
 }
-.team-logo {
+.team-logo a {
     display: flex;
     align-items: baseline;
 }
@@ -40,6 +40,7 @@ header {
     height: 100%;
     background-image: url(../images/logo-t.png);
     background-size: cover;
+    display: block;
 }
 .logo-o-image-area {
     width: 2rem;
@@ -50,6 +51,7 @@ header {
     height: 100%;
     background-image: url(../images/logo-o.png);
     background-size: cover;
+    display: block;
 }
 .logo-text {
     font-size: 3rem;
@@ -68,7 +70,7 @@ header {
     justify-content: space-around;
 }
 
-.menu-list li {
+.menu-list .menu-list-item {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -94,7 +96,7 @@ nav {
     justify-content: space-around;
 }
 
-.nav-list li {
+.nav-list-item a {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -106,13 +108,13 @@ nav {
     font-weight: 700;
 }
 /* 메뉴에 호버했을 때 */
-.nav-list li:hover {
+.nav-list-item:hover a {
     cursor: pointer;
     color: var(--strong-color);
 }
 
 /* 메뉴의 li 요소의 마지막 자식으로 가상요소 생성! */
-.nav-list li::after {
+.nav-list-item a::after {
     content: "";
     padding: 0.1rem;
     width: 100%;
@@ -122,16 +124,48 @@ nav {
 }
 
 /* 메뉴에 호버했을 때 가상요소에 적용되는 효과 지정! */
-.nav-list li:hover::after {
+.nav-list-item:hover a::after {
     transform: scaleX(1);
 }
 
-.nav-list p {
+.active {
+    color: var(--strong-color);
+}
+
+.nav-list-item span {
     font-size: 1.3rem;
 }
 
-.nav-list li.active {
-    color: var(--strong-color);
+
+/* 페이지네이션 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    gap: 0.4rem;
+}
+
+.pagination li {
+    list-style: none;
+}
+
+.pagination a {
+    color: var(--text-color);
+    padding: 0.4rem 0.9rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+}
+.pagination a:hover {
+    color: var(--bg-color);
+    background-color: var(--strong-color);
+}
+
+.icon-paging {
+    background-color: var(--main-color);
+    padding: 0.3rem;
+    color: var(--bg-color) !important;
 }
 
 /* 푸터 */
