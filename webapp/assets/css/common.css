@@ -1,0 +1,195 @@
+@charset "UTF-8";
+header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3rem;
+}
+
+.quick {
+    text-align: end;
+    padding: 0.3rem;
+}
+
+.user-btn {
+    background-color: var(--main-color);
+    color: var(--strong-color);
+}
+.user-btn:hover {
+    background-color: var(--strong-color);
+    color: var(--bg-color);
+}
+
+.header-top {
+    width: 100%;
+    padding: 1.3rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.team-logo {
+    display: flex;
+    align-items: baseline;
+}
+.logo-t-image-area {
+    width: 3rem;
+    height: 3rem;
+}
+.logo-t {
+    width: 100%;
+    height: 100%;
+    background-image: url(../images/logo-t.png);
+    background-size: cover;
+}
+.logo-o-image-area {
+    width: 2rem;
+    height: 2rem;
+}
+.logo-o {
+    width: 100%;
+    height: 100%;
+    background-image: url(../images/logo-o.png);
+    background-size: cover;
+}
+.logo-text {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--main-color);
+}
+
+/* 사용자 메뉴 */
+.user-menu {
+    width: 15%;
+    padding: 0.5rem;
+}
+
+.menu-list {
+    display: flex;
+    justify-content: space-around;
+}
+
+.menu-list li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.menu-list li:hover {
+    cursor: pointer;
+}
+
+/* 네비게이션 메뉴 */
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-list {
+    width: 70%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.nav-list li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    line-height: 2.5rem;
+    color: var(--main-color);
+    transition: all .3s ease-in-out;
+    font-weight: 700;
+}
+/* 메뉴에 호버했을 때 */
+.nav-list li:hover {
+    cursor: pointer;
+    color: var(--strong-color);
+}
+
+/* 메뉴의 li 요소의 마지막 자식으로 가상요소 생성! */
+.nav-list li::after {
+    content: "";
+    padding: 0.1rem;
+    width: 100%;
+    transform: scaleX(0);
+    transition: all .3s ease-in-out;
+    background-color: var(--strong-color);
+}
+
+/* 메뉴에 호버했을 때 가상요소에 적용되는 효과 지정! */
+.nav-list li:hover::after {
+    transform: scaleX(1);
+}
+
+.nav-list p {
+    font-size: 1.3rem;
+}
+
+.nav-list li.active {
+    color: var(--strong-color);
+}
+
+/* 푸터 */
+footer {
+    width: 100%;
+    background: var(--main-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5rem;
+    padding-bottom: 0.5rem;
+}
+
+footer a {
+	text-decoration: none;
+}
+
+.team-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 0;
+    font-size: 1.5rem;
+    color: var(--bg-color);
+}
+
+.team-name {
+    font-size: 5rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+}
+
+.team-member-git-icon {
+    width: 100%;
+    color: var(--bg-color);
+    font-size: 3rem;
+    display: flex;
+    justify-content: center;
+}
+
+.team-member-list {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 2rem 3rem;
+    color: var(--bg-color);
+}
+
+.copyright {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.team-member-list a,
+.copyright a {
+    color: var(--bg-color);
+}
