@@ -107,7 +107,11 @@ $(function() {
 const payment = () => {
     const $paymentBtn = $("#paymentBtn");
 
-    console.log(productInfo.name);
+    console.log("상품 정보 : " + productInfo.productId);
+    console.log("상품 정보 : " + productInfo.name);
+    console.log("상품 정보 : " + productInfo.memberId);
+    console.log("상품 정보 : " + productInfo.price);
+    console.log("상품 정보 : " + productInfo.productId);  
 
     $paymentBtn.on("click", $.ajax({
         // 결제 API

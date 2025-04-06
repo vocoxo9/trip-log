@@ -162,10 +162,10 @@
     <script>
         // 외부 JS 파일에서 상품 정보를 출력하기 위해 전역변수에 저장
         const productInfo = {
-            productId = ${productInfo.productId},
-            name = "${productInfo.name}",
-            memberId = "test",
-            price = ${productInfo.price}
+            productId: ${productInfo.productId},
+            name: "${productInfo.name}",
+            memberId: "test",
+            price: ${productInfo.price}
         }
     </script>
 	<script src="<%= rootPath %>/assets/js/product/productDetail.js"></script>
