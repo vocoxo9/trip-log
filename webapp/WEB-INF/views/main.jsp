@@ -67,13 +67,13 @@
 	                    <div class="list-item-image">
 	                        <img src="assets/images/board/board-img1.jpg">
 	                        <span class="list-item-text">
-	                            <p class="list-item-text-title">
+	                            <span class="list-item-text-title">
 	                                <span>Title</span><span>25.04.02~25.04.02(00일)</span>
-	                            </p>
-	                            <p class="list-item-text-content">
+	                            </span>
+	                            <span class="list-item-text-content">
 	                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, ...
-	                            </p>
-	                            <p class="list-item-text-footer">
+	                            </span>
+	                            <span class="list-item-text-footer">
 	                                <span>
 	                                    <i class="fa-solid fa-heart" style="color: var(--heart-color)"></i>
 	                                    <span>99개</span>
@@ -82,21 +82,21 @@
 	                                    <i class="fa-solid fa-comment"></i>
 	                                    <span>99개</span>
 	                                </span>
-	                            </p>
+	                            </span>
 	                        </span>
 	                    </div>
 	                </div>
 	                <div class="list-item">
 	                    <div class="list-item-image">
-	                        <img src="assets/images/board/board-img2.jpg">
+	                        <img src="assets/images/board/board-img1.jpg">
 	                        <span class="list-item-text">
-	                            <p class="list-item-text-title">
+	                            <span class="list-item-text-title">
 	                                <span>Title</span><span>25.04.02~25.04.02(00일)</span>
-	                            </p>
-	                            <p class="list-item-text-content">
+	                            </span>
+	                            <span class="list-item-text-content">
 	                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, ...
-	                            </p>
-	                            <p class="list-item-text-footer">
+	                            </span>
+	                            <span class="list-item-text-footer">
 	                                <span>
 	                                    <i class="fa-solid fa-heart" style="color: var(--heart-color)"></i>
 	                                    <span>99개</span>
@@ -105,21 +105,21 @@
 	                                    <i class="fa-solid fa-comment"></i>
 	                                    <span>99개</span>
 	                                </span>
-	                            </p>
+	                            </span>
 	                        </span>
 	                    </div>
 	                </div>
 	                <div class="list-item">
 	                    <div class="list-item-image">
-	                        <img src="assets/images/board/board-img3.jpg">
+	                        <img src="assets/images/board/board-img1.jpg">
 	                        <span class="list-item-text">
-	                            <p class="list-item-text-title">
+	                            <span class="list-item-text-title">
 	                                <span>Title</span><span>25.04.02~25.04.02(00일)</span>
-	                            </p>
-	                            <p class="list-item-text-content">
+	                            </span>
+	                            <span class="list-item-text-content">
 	                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, ...
-	                            </p>
-	                            <p class="list-item-text-footer">
+	                            </span>
+	                            <span class="list-item-text-footer">
 	                                <span>
 	                                    <i class="fa-solid fa-heart" style="color: var(--heart-color)"></i>
 	                                    <span>99개</span>
@@ -128,21 +128,21 @@
 	                                    <i class="fa-solid fa-comment"></i>
 	                                    <span>99개</span>
 	                                </span>
-	                            </p>
+	                            </span>
 	                        </span>
 	                    </div>
 	                </div>
 	                <div class="list-item">
 	                    <div class="list-item-image">
-	                        <img src="assets/images/board/board-img4.jpg">
+	                        <img src="assets/images/board/board-img1.jpg">
 	                        <span class="list-item-text">
-	                            <p class="list-item-text-title">
+	                            <span class="list-item-text-title">
 	                                <span>Title</span><span>25.04.02~25.04.02(00일)</span>
-	                            </p>
-	                            <p class="list-item-text-content">
+	                            </span>
+	                            <span class="list-item-text-content">
 	                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, ...
-	                            </p>
-	                            <p class="list-item-text-footer">
+	                            </span>
+	                            <span class="list-item-text-footer">
 	                                <span>
 	                                    <i class="fa-solid fa-heart" style="color: var(--heart-color)"></i>
 	                                    <span>99개</span>
@@ -151,7 +151,7 @@
 	                                    <i class="fa-solid fa-comment"></i>
 	                                    <span>99개</span>
 	                                </span>
-	                            </p>
+	                            </span>
 	                        </span>
 	                    </div>
 	                </div>
