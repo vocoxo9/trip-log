@@ -14,6 +14,7 @@
 
 	<typeAliases>
 		<!-- 별칭 목록 -->
+		<typeAlias alias="Product" type="kr.co.khedu.product.model.vo.Product" />
 	</typeAliases>
 
 	<environments default="develop">
@@ -30,5 +31,6 @@
 
 	 <mappers>
 		<!-- mapper 목록 -->
+		<mapper resource="/mappers/product-mapper.xml" />
 	 </mappers>
 </configuration>
