@@ -15,6 +15,7 @@
 	<typeAliases>
 		<!-- 별칭 목록 -->
 		<typeAlias alias="Product" type="kr.co.khedu.product.model.vo.Product" />
+		<typeAlias alias="Member" type="kr.co.khedu.member.model.vo.Member" />
 	</typeAliases>
 
 	<environments default="develop">
@@ -32,5 +33,6 @@
 	 <mappers>
 		<!-- mapper 목록 -->
 		<mapper resource="/mappers/product-mapper.xml" />
+		<mapper resource="/mappers/member-mapper.xml" />
 	 </mappers>
 </configuration>
