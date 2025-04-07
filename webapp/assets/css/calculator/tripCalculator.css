@@ -1,0 +1,309 @@
+.calculator-header {
+	/* border: solid 1px black; */
+	width: 100%;
+	padding: 1rem;
+}
+
+.calculator-header h2 {
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.calculator-body {
+	/* border: solid 2px red; */
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+}
+
+/* 탭과 리스트 */
+.calculator-body-first {
+	/* border: solid 2px blue; */
+	width: 70%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	position: relative;
+	/* display: inline-block; */
+}
+
+.calculator-body-second {
+	width: 30%;
+	/* border: solid 2px #09F; */
+}
+
+.title::before {
+	content: "";
+	background-color: var(--sub-strong-color);
+	padding: 0.2rem;
+	margin-left: 0.9rem;
+	margin: 0.5rem;
+}
+
+.title {
+	padding: 0.7rem;
+	margin-bottom: 2rem;
+}
+
+.calculator-tabs {
+	width: 100%;
+	/* border: solid orange 2px; */
+	display: flex;
+	flex-direction: column;
+}
+
+.tabs {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.tab {
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+	border: solid 2px var(--main-color);
+	background-color: var(--main-color);
+	color: white;
+	font-weight: bold;
+	padding: 1.2rem 3rem;
+	font-size: 1rem;
+	border-bottom: none;
+	transition: all .3s ease-in-out;
+	/* 호버 커서 포인트 */
+	cursor: pointer;
+}
+
+.tab.active {
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+	border: solid 2px var(--main-color);
+	background-color: white;
+	color: var(- -strong-color);
+	font-weight: bold;
+	padding: 1.2rem 3rem;
+	font-size: 1rem;
+	border-bottom: none;
+}
+
+.add-btn {
+	width: 35px;
+	border: solid 3px var(--main-color);
+	border-radius: 10px;
+	color: var(--main-color);
+	font-weight: bold;
+	font-size: 1.4rem;
+	float: right;
+	margin: 0.5rem;
+}
+
+.people-count {
+	/* border: solid 2px blue; */
+	text-align: center;
+}
+
+#downBtn, #upBtn {
+	color: var(--main-color);
+	background-color: white;
+	cursor: pointer;
+}
+
+.button {
+	margin-top: 0.5rem;
+}
+
+.people-count span {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.cost-lists {
+	/* border: solid 1px blue; */
+	width: 98%;
+	display: flex;
+	flex-direction: column;
+	/* align-items: center; */
+}
+
+/* 
+        .cost-lists div {
+            display: flex;
+            justify-content: space-between;
+        } */
+.cost-list {
+	/* border: solid 2px green; */
+	display: none;
+}
+
+.cost-list.active {
+	/* border: solid 2px green; */
+	display: block;
+	padding: 0.6rem;
+	height: 22rem;
+}
+
+.cost-items {
+	/* border: solid 2px aqua; */
+	width: 100%;
+	/* display: flex;
+            flex-direction: column; */
+}
+
+.cost-item {
+	width: 100%;
+	/* border: solid 2px rgb(255, 0, 0); */
+	display: flex;
+	align-items: center;
+	margin-top: 1rem;
+	margin: 0.8rem auto;
+}
+
+.content {
+	width: 700px;
+	padding: 0.2rem;
+	margin-right: 2rem;
+	text-align: center;
+	font-weight: bold;
+	border-width: 0;
+	border-width: 0 0 1px;
+}
+
+.price {
+	width: 100px;
+}
+
+.calculator-price {
+	border: solid 2px var(--main-color);
+	padding: 0.2rem;
+	margin: 1rem auto;
+	width: 80%;
+	bottom: 50px;
+	box-shadow: 1px 1px 1px 1px var(--main-color);
+}
+
+.calculator-price div {
+	margin: 0.5rem;
+	padding: 0.5rem;
+}
+
+#totalPrice {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#duchPrice {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.submit button {
+	border-radius: 4px;
+	border: none;
+	/* box-shadow: 1px 1px grey; */
+	background-color: var(--strong-color);
+	color: white;
+	font-weight: 500;
+	float: right;
+	/* padding: 0.4rem; */
+	padding: 0.8rem 1.8rem;
+	margin: 1rem 4.5rem;
+}
+
+.submit button:hover {
+	border-radius: 4px;
+	border: none;
+	box-shadow: 1px 1px grey;
+	background-color: var(--sub-strong-color);
+	color: white;
+	font-weight: 500;
+	float: right;
+	/* padding: 0.4rem; */
+	padding: 0.8rem 1.8rem;
+	margin: 1rem 4.5rem;
+	transition: 0.3s ease-in-out;
+}
+
+.calculator-graph {
+	/* border: solid 2px aqua; */
+	
+}
+
+.donut-graph {
+	/* border: solid 3px black; */
+	padding: 0.5rem;
+	margin-top: 1.5rem;
+	display: flex;
+	justify-content: space-around;
+}
+
+.graph {
+	/* border: solid 2px yellow; */
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 0.3rem;
+	font-weight: bold;
+}
+
+.color-explanation li {
+	padding: 0.3rem;
+}
+
+.percentage-explanation {
+	/* border: solid 2px green; */
+	padding: 3rem;
+	display: flex;
+	justify-content: center;
+	font-size: 1rem;
+	font-weight: bold;
+}
+
+.percentage-explanation i {
+	padding: 0.6em;
+	display: flex;
+}
+
+.calculator-price span {
+	text-decoration: underline;
+	text-decoration-color: var(--strong-color);
+}
+
+.delete-icon {
+	color: var(--main-color);
+	font-size: 1.4rem;
+	align-items: center;
+	margin: 0.5rem;
+	cursor: pointer;
+}
+
+.percentage-explanation p::before {
+	width: 1rem;
+	border: solid 1px black;
+}
+
+/* 비율 글씨 */
+.fa-solid.fa-tents {
+	color: #f39c12;
+}
+
+.fa-solid.fa-utensils {
+	color: #09F;
+}
+
+.fa-solid.fa-van-shuttle {
+	color: #E8C1A0;
+}
+
+.fa-solid.fa-ticket {
+	color: #2ecc71;
+}
+
+.fa-solid.fa-suitcase-rolling {
+	color: #e74c3c;
+}
+
+.donut-segment {
+	transition: stroke-dasharray 0.6s ease, stroke-dashoffset 0.6s ease;
+}
