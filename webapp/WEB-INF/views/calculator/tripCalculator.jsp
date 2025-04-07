@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="EUC-KR"%>
+<% 
+	String rootPath = request.getContextPath();
+%>    
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -19,7 +22,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="<%= rootPath %>/assets/css/reset.css" />
     <style>
         .calculator-header {
             /* border: solid 1px black; */
@@ -724,6 +727,7 @@
 
                     percentages.forEach((percent, idx) => {
                         const span = document.querySelector(`#${categoryIds[idx]} span`);
+                        // EL로 인식되는거 같아서 다시 구현 ㄱㄱ
                         span.textContent = `${percent}%`;
                     });
 
