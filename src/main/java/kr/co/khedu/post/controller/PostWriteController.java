@@ -1,0 +1,18 @@
+package kr.co.khedu.post.controller;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+
+@WebServlet("/post/write")
+public final class PostWriteController extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("form", null);
+        request.getRequestDispatcher("/WEB-INF/views/post/write.jsp").forward(request, response);
+    }
+}
