@@ -1,28 +1,23 @@
 package kr.co.khedu.member.controller;
 
 import java.io.IOException;
-import java.sql.Date;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kr.co.khedu.member.model.vo.Member;
-import kr.co.khedu.member.service.MemberServiceImpl;
-
 /**
- * Servlet implementation class MemberSignupController
+ * Servlet implementation class SignupPageController
  */
-@WebServlet("/members/sign-up")
-public class MemberSignupController extends HttpServlet {
+@WebServlet("/signup.do")
+public class SignupPageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberSignupController() {
+    public SignupPageController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,25 +26,7 @@ public class MemberSignupController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		String phone = request.getParameter("phone");
-		String nickname = request.getParameter("nickname");
-		String birthdayStr = request.getParameter("birthday");
-		String country = request.getParameter("country");
-		
-		Date birthday = null;
-		if(birthdayStr != null && !birthdayStr.isEmpty()) {
-			birthday = Date.valueOf(birthdayStr);
-		}
-		
-		Member member = new Member(email, password, nickname, birthday, phone, country);
-		
-		int result = new MemberServiceImpl().insertMember(member);
-		
-		if(result > 0 ) {
-			response.sendRedirect(request.getContextPath());
-		}
+		request.getRequestDispatcher("WEB-INF/views/member/signUp.jsp").forward(request, response);
 	}
 
 	/**

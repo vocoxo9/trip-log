@@ -12,18 +12,19 @@
     <title>회원가입</title>
 
     <!-- CSS style -->
-    <link href="resources/reset.css" rel="stylesheet">
+    <link href="<%= rootPath %>/assets/css/reset.css" rel="stylesheet">
     <link rel="stylesheet" href="<%= rootPath %>/assets/css/member/signupPage.css">
 
 </head>
 
 <body>
     <div id="root">
+    <jsp:include page="../common/header.jsp" />
         <div class="signup-title">회원가입</div>
         <div class="container">
             <div class="signup-left">
                 <div class="img-box">
-                    <img src="resources/img/girl-1459248_1280 1.png" alt="회원가입 이미지">
+                    <img src="<%= rootPath %>/assets/images/member/signup-background.png" alt="회원가입 이미지">
                 </div>
                 <div class="img-text">
                     <p>시간이 지나도<strong>기억될 여행</strong>, <br>
@@ -34,7 +35,7 @@
             </div>
             <div class="signup-right">
                 <div class="signup-box">
-                    <form action="#" method="post">
+                    <form action="members/sign-up" method="post">
                         <div class="requiredItems">
                             <p id="requiredTitle">필수항목</p>
                             <label for="email">이메일</label> <br>
@@ -68,9 +69,9 @@
                                         <input type="date" name="birthday" id="birthday">
                                     </td>
                                     <td>
+                                        <label for="country">국적</label> <br>
                                         <div class="form-floating">
                                             <select name="country" id="country">
-                                            <option selected>국적을 선택해 주세요.</option>
                                               <option value="1">대한민국</option>
                                               <option value="2">일본</option>
                                               <option value="3">중국</option>
@@ -97,23 +98,41 @@
                                               <option value="24">파푸아뉴기니</option>
                                               <option value="25">남극</option>
                                             </select>
-                                            <!-- <label for="floatingSelect">국적</label> -->
-                                          </div>
+                                        </div>
                                     </td>
                                 </tr>
                             </table>
                         </div>
 
                         <div class="singup-button">
-                            <button type="submit" id="signupButton">가입하기</button>
+                            <button type="submit" id="signupButton" onclick="return pwdCheck();">가입하기</button>
                             <button type="button" id="cancelButton">취소</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+        <jsp:include page="../common/footer.jsp" />
     </div>
-
+	
+	<script>
+	// 비밀번호 체크
+	function pwdCheck(){
+		const pwd = document.querySelector(".signup-box #password").value;
+		const pwdCheck = document.querySelector(".signup-box #passwordCheck").value;
+		
+		if(pwd != pwdCheck){
+			//Swal.fire("비밀번호가 일치하지 않습니다.");
+			Swal.fire({
+				  title: "비밀번호가 일치하지 않습니다.",
+				  text: "확인 후 다시 입력해 주세요."
+				});
+			return false;
+		} else{
+			return true;
+		}
+	}
+	</script>
 </body>
 
 </html>
