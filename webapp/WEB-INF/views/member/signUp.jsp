@@ -12,7 +12,6 @@
     <title>회원가입</title>
 
     <!-- CSS style -->
-    <link href="<%= rootPath %>/assets/css/reset.css" rel="stylesheet">
     <link rel="stylesheet" href="<%= rootPath %>/assets/css/member/signupPage.css">
 
 </head>
@@ -122,11 +121,11 @@
 		const pwdCheck = document.querySelector(".signup-box #passwordCheck").value;
 		
 		if(pwd != pwdCheck){
-			//Swal.fire("비밀번호가 일치하지 않습니다.");
 			Swal.fire({
-				  title: "비밀번호가 일치하지 않습니다.",
-				  text: "확인 후 다시 입력해 주세요."
-				});
+                title: "비밀번호가 일치하지 않습니다.",
+                text: "확인 후 다시 입력해 주세요.",
+                icon: "warning"
+            });
 			return false;
 		} else{
 			return true;

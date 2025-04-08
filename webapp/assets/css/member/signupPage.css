@@ -1,7 +1,7 @@
-body {
+/*body {
     background-color: white;
 }
-
+*/
 /* .container {
     display: flex;
     justify-content: center;
@@ -152,4 +152,17 @@ body {
     background-color: white;
     border: 3px solid var(--sub-strong-color);
     color : var(--sub-strong-color)
+}
+
+.swal2-container.swal2-center>.swal2-popup {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+    align-self: center !important;
+    justify-self: center !important;
+}
+
+.swal2-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
 }
