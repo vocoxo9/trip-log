@@ -22,7 +22,7 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int insertMember(Member member) {
 		SqlSession sqlSession = Template.getSqlSession();
-		int result = mDAO.insertMember(sqlSession, member);
+		int result = mDao.insertMember(sqlSession, member);
 		if(result > 0) {
 			sqlSession.commit();
 		}

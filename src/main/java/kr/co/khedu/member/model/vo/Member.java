@@ -10,9 +10,9 @@ public class Member {
 	private String nickname;
 	private Date birthday;
 	private String phone;
-	private Date createdAt;
-	private Date deletedAt;
-	private int countryId;
+	private String createdAt;
+	private String deletedAt;
+	private String countryId;
 	
 	public Member() {
 		super();
@@ -106,27 +106,27 @@ public class Member {
 		this.phone = phone;
 	}
 
-	public Date getCreatedAt() {
+	public String getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(String createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public Date getDeletedAt() {
+	public String getDeletedAt() {
 		return deletedAt;
 	}
 
-	public void setDeletedAt(Date deletedAt) {
+	public void setDeletedAt(String deletedAt) {
 		this.deletedAt = deletedAt;
 	}
 
-	public int getCountryId() {
+	public String getCountryId() {
 		return countryId;
 	}
 
-	public void setCountryId(int countryId) {
+	public void setCountryId(String countryId) {
 		this.countryId = countryId;
 	}
 
