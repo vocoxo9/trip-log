@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class TripCalculatorController
  */
-@WebServlet("/tripCalculator.do")
+@WebServlet("/tripCalculator")
 public class TripCalculatorController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

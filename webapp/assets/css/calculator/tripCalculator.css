@@ -35,7 +35,7 @@
 
 .title::before {
 	content: "";
-	background-color: var(--sub-strong-color);
+	background-color: var(--strong-color);
 	padding: 0.2rem;
 	margin-left: 0.9rem;
 	margin: 0.5rem;

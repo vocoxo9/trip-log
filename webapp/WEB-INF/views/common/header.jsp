@@ -80,13 +80,13 @@
                     </a>
                 </div>
                 <div class="nav-list-item">
-                    <a href="travelVote.do">
+                    <a href="travelVote">
                         <i class="fa-solid fa-check-to-slot"></i>
                         <span>여행지투표</span>
                     </a>
                 </div>
                 <div class="nav-list-item">
-                    <a href="tripCalculator.do">
+                    <a href="tripCalculator">
                         <i class="fa-solid fa-calculator"></i>
                         <span>여행경비계산기</span>
                     </a>

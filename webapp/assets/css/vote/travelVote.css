@@ -8,7 +8,7 @@
 .title::before {
     content: "";
     background-color: var(--strong-color);
-    color: var(--strong-color);
+    /* color: var(--strong-color); */
     padding: 0.25rem;
     margin-left: 0.9rem;
     margin: 0.5rem;
