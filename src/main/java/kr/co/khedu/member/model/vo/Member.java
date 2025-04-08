@@ -19,7 +19,7 @@ public class Member {
 	}
   
 	// 회원가입용 생성자
-	public Member(String email, String password, String nickname, Date birthday, String phone, String countryId) {
+	public Member(String email, String password, String nickname, Date birthday, String phone, int countryId) {
 		super();
 		this.email = email;
 		this.password = password;
@@ -30,7 +30,7 @@ public class Member {
 	}
 
 	public Member(int memberId, String email, String password, String role, String nickname, Date birthday,
-			String phone, String createdAt, String deletedAt, String countryId) {
+			String phone, Date createdAt, Date deletedAt, int countryId) {
 		super();
 		this.memberId = memberId;
 		this.email = email;

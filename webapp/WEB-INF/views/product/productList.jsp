@@ -37,7 +37,7 @@
 						<c:when test="${ not empty pList }">
 							<c:forEach var="p" items="${ pList }">
 								<li class="product-list-card">
-									<a href="products/${p.productId }"> <%-- url 요청 주소 생각하기! + 상품의 찜 아이콘 우측 정렬하기! --%>
+									<a href="products/detail/${p.productId }"> <%-- url 요청 주소 생각하기! + 상품의 찜 아이콘 우측 정렬하기! --%>
 										<span class="product-list-card-header">
 											<span class="heart-icon"><i class="fa-solid fa-heart"></i></span>
 										</span>
@@ -65,8 +65,6 @@
 					</c:choose>
 				</ul>
 			</div>
-
-
 		</div>
 		<jsp:include page="../common/footer.jsp"></jsp:include>
 		<script src="assets/js/product/productList.js"></script>
