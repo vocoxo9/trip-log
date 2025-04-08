@@ -21,6 +21,15 @@ public class MemberServiceImpl implements MemberService{
 		return result;
 	}
 
+	// 이메일 중복확인
+	@Override
+	public int countMemberByEmail(String email) {
+		SqlSession sqlSession = Template.getSqlSession();
+		int result = mDAO.countMemberByEmail(sqlSession, email);
+		sqlSession.close();
+		return result;
+	}
+	
 	@Override
 	public Member selectMember() {
 		SqlSession sqlSession = Template.getSqlSession();
@@ -40,5 +49,6 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 }

@@ -13,7 +13,10 @@
 
     <!-- CSS style -->
     <link rel="stylesheet" href="<%= rootPath %>/assets/css/member/signupPage.css">
-
+    
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+	
 </head>
 
 <body>
@@ -39,7 +42,8 @@
                             <p id="requiredTitle">필수항목</p>
                             <label for="email">이메일</label> <br>
                             <input type="email" name="email" id="email" placeholder="이메일" required> <br>
-
+                            <input type="button" id="emailCheckButton" value="중복체크" onclick="emailCheck();" /> <br><br>
+                            
                             <label for="password">비밀번호</label> <br>
                             <input type="password" name="password" id="password" placeholder="비밀번호" required> <br>
 
@@ -115,11 +119,46 @@
     </div>
 	
 	<script>
+	
+	// 이메일 체크
+	function emailCheck(){
+		const $email = $(".signup-box #emailCheckButton");
+		
+		$.ajax({
+			url : 'members/email-check',
+			data : {
+				email : $email.val()
+				},
+			success : function(result){
+				
+				if(result == "available"){
+					console.log(result);
+					Swal.fire({
+						  title: "사용 가능한 이메일입니다!",
+						  //text: "That thing is still around?",
+						  icon: "success"
+						});					
+				} else {
+					Swal.fire({
+						  title: "이미 사용 중인 이메일입니다.",
+						  //text: "That thing is still around?",
+						  icon: "error"
+						});
+				}
+			},
+			error : function(error){
+				console.log(error);
+			}
+		});
+	}
+	
+	
 	// 비밀번호 체크
 	function pwdCheck(){
 		const pwd = document.querySelector(".signup-box #password").value;
 		const pwdCheck = document.querySelector(".signup-box #passwordCheck").value;
 		
+			
 		if(pwd != pwdCheck){
 			Swal.fire({
                 title: "비밀번호가 일치하지 않습니다.",
@@ -131,6 +170,7 @@
 			return true;
 		}
 	}
+	
 	</script>
 </body>
 

@@ -10,13 +10,8 @@
 		VALUES (SEQ_MEM_ID.NEXTVAL , #{email}, #{password}, #{nickname}, #{birthday}, #{phone}, #{countryId})
 	</insert>
 	
-	<!--  
-	<select id="selectMember" resultType="Member">
-		SELECT EMAIL, NICKNAME, BIRTHDAY, PHONE, NAME AS COUNTRY_ID
-		FROM TB_MEMBER 
-		JOIN TR_COUNTRY USING(COUNTRY_ID)
-		WHERE MEMBER_ID = 2
+	<select id="countMemberByEmail" resultType="_int">
+		SELECT COUNT(*) FROM TB_MEMBER WHERE EMAIL = #{email} AND DELETED_AT IS NULL
 	</select>
-	-->
 	
 </mapper>

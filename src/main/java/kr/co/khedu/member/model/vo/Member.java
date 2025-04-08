@@ -30,7 +30,5 @@ public class Member {
 		this.phone = phone;
 		this.countryId = countryId;
 	}
-	
-
 
 }

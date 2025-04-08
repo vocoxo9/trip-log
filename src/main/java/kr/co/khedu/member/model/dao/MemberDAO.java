@@ -16,4 +16,8 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.selectMember");
 	}
 
+	public int countMemberByEmail(SqlSession sqlSession, String email) {
+		return sqlSession.selectOne("memberMapper.countMemberByEmail", email);
+	}
+
 }

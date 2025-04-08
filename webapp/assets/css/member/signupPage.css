@@ -1,13 +1,3 @@
-/*body {
-    background-color: white;
-}
-*/
-/* .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-} */
 
 .signup-title {
     font-size: 2.7rem;
@@ -80,6 +70,8 @@
     border-radius: 5px;
     margin-bottom: 10px
 }
+
+
 .signup-box select {
     width: 100%;
     padding: 0.4rem;
@@ -140,19 +132,20 @@
 
 .singup-button #signupButton {
     background-color: var(--main-color);
-    border: 3px solid var(--main-color);
+    border: 0.2rem solid var(--main-color);
     color: white;
 }
 .singup-button #signupButton:hover {
     background-color: var(--sub-strong-color);
-    border : 3px solid var(--sub-strong-color);
+    border : 0.2rem solid var(--sub-strong-color);
 }
 
 .singup-button #cancelButton {
     background-color: white;
-    border: 3px solid var(--sub-strong-color);
+    border:  0.2rem solid var(--sub-strong-color);
     color : var(--sub-strong-color)
 }
+
 
 .swal2-container.swal2-center>.swal2-popup {
     grid-column: 2 !important;
@@ -165,4 +158,20 @@
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
+}
+.signup-box .requiredItems #emailCheckButton{
+    width: 30%;
+    float : right;
+    margin-right : 1.5rem;
+    margin-bottom : 1.5rem;
+    border-radius: 25px;
+    font-weight: 500;
+    background-color: var(--main-color);
+    border: 0.2rem solid var(--main-color);
+    color: white;
+}
+
+.signup-box .requiredItems #emailCheckButton:hover {
+    background-color: var(--sub-strong-color);
+    border : 0.2rem solid var(--sub-strong-color);
 }
