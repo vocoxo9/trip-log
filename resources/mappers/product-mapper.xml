@@ -36,4 +36,8 @@
 		FROM TB_PRODUCT
 		WHERE PRODUCT_ID = #{productId}
 	</select>
+	
+	<insert id="insertProduct" parameterType="Product">
+		INSERT INTO TB_PRODUCT VALUES (SEQ_PRODUCT_ID.NEXTVAL, #{name}, #{price}, #{stock}, #{description}, DEFAULT, 1, 25)
+	</insert>
 </mapper>

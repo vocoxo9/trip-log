@@ -14,7 +14,7 @@ import kr.co.khedu.product.service.ProductServiceImpl;
 /**
  * Servlet implementation class ProductDetailPageController
  */
-@WebServlet("/products/*")
+@WebServlet("/products/detail/*")
 public class ProductDetailPageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
