@@ -36,4 +36,24 @@
 		FROM TB_PRODUCT
 		WHERE PRODUCT_ID = #{productId}
 	</select>
+	
+	<!-- 상품의 전체 갯수 조회 -->
+	<select id="selectByProductNameCount" resultType="_int">
+		SELECT COUNT(*) FROM TB_PRODUCT
+		WHERE 1=1
+			<if test="keyword != null">
+				AND NAME LIKE '%' || #{keyword} || '%'
+			</if>
+	</select>
+	
+	<!-- 상품의 전체 데이터 조회(키워드가 있을 검색 포함) -->
+	<select id="findByProductNameLike" resultType="Product">
+		SELECT PRODUCT_ID, NAME, PRICE, CREATED_AT
+		FROM TB_PRODUCT
+		WHERE 1 = 1
+			<if test="keyword != null">
+				AND NAME '%' || #{keyword} || '%'
+			</if>
+		ORDER BY PRODUCT_ID DESC
+	</select>
 </mapper>

@@ -116,3 +116,9 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.active > .page-link {
+	color: var(--bg-color) !important;
+	background-color: var(--strong-color) !important;
+	border-color: var(--strong-color) !important;
+}

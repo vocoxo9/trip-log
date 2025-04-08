@@ -1,15 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import='kr.co.khedu.common.PageInfo' %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	String rootPath = request.getContextPath();
+	PageInfo pageInfo = (PageInfo) request.getAttribute("pageInfo");
+	String keyword = (String) request.getAttribute("keyword");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Trip:Log</title>
 <link rel="stylesheet" href="<%= rootPath %>/assets/css/product/productList.css">
 </head>
 <body>
@@ -60,6 +63,63 @@
 						<c:otherwise>
 							<li class="product-list-card" style="width: 100%; display:flex; justify-content: center; text-align: center;">
 								<p>등록된 상품이 없습니다...ㅠ</p>
+							</li>
+						</c:otherwise>
+					</c:choose>
+				</ul>
+			</div>
+			<%
+				int currentPageNo = 0; 	// 현재 페이지 번호
+				int startPageNo = 0;	// 시작 페이지 번호
+				int endPageNo = 0;		// 끝 페이지 번호
+				int maxPageNo = 0; 		// 가장 마지막 페이지 번호
+				
+				if(pageInfo != null) {
+					currentPageNo = pageInfo.getCurrentPageNo(); 	
+					startPageNo = pageInfo.getStartPageNo();	
+					endPageNo = pageInfo.getEndPageNo();		
+					maxPageNo = pageInfo.getMaxPageNo();
+				}
+				
+				System.out.println(pageInfo);
+			%>
+			<div id="pagingArea">
+				<ul class="pagination">
+					<c:choose>
+						<c:when test="<%= currentPageNo == 1 %>">
+							<%-- 현재 페이지 번호가 1일 경우 --%>
+							<li class="page-item disabled">
+								<a href="" class="page-link icon-paging">
+									<i class="fa-solid fa-less-than"></i>
+								</a>
+							</li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item">
+								<a href="" class="page-link icon-paging">
+									<i class="fa-solid fa-less-than"></i>
+								</a>
+							</li>
+						</c:otherwise>
+					</c:choose>
+					<% for(int p = startPageNo; p <= endPageNo; p++) { %>
+						<li class="page-item <% if (currentPageNo == p) { %>active<% } %>">
+                           	<a class="page-link" data-current="<%= p %>"><%= p %></a>
+                        </li>
+					<% } %>
+					<c:choose>
+						<c:when test="<%= currentPageNo == maxPageNo %>">
+							<li class="page-item disabled">
+								<a href="" class="page-link icon-paging">
+									<i class="fa-solid fa-greater-than"></i>
+								</a>
+							</li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item">
+								<a href="" class="page-link icon-paging">
+									<i class="fa-solid fa-greater-than"></i>
+								</a>
 							</li>
 						</c:otherwise>
 					</c:choose>

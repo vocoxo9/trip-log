@@ -28,3 +28,22 @@ $(function () {
         // location.href = currentPathName.concat("/1");
     });
 });
+
+// 페이징 바 클릭 시 해당 페이지로 이동
+const pagingArr = document.querySelectorAll("#pagingArea a");
+console.log(pagingArr);
+
+for(let ele of pagingArr) {
+    ele.onclick = function() {
+        let keyword = "<%= keyword %>";
+        
+        // let requestUrl = "/notice/list?cpage=" + ele.innerText;
+        let requestUrl = "products?cpage=" + ele.getAttribute("data-current");
+        
+        if(keyword !== "") {
+            requestUrl += "&keyword=" + keyword;
+        }
+        
+        ele.href = requestUrl;
+    }
+}
