@@ -13,10 +13,6 @@
 
     <!-- CSS style -->
     <link rel="stylesheet" href="<%= rootPath %>/assets/css/member/signupPage.css">
-    
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-	
 </head>
 
 <body>
@@ -37,7 +33,7 @@
             </div>
             <div class="signup-right">
                 <div class="signup-box">
-                    <form action="members/sign-up" method="post">
+                    <form action="<%= rootPath %>/members/sign-up" method="post">
                         <div class="requiredItems">
                             <p id="requiredTitle">필수항목</p>
                             <label for="email">이메일</label> <br>
@@ -108,7 +104,7 @@
                         </div>
 
                         <div class="singup-button">
-                            <button type="submit" id="signupButton" onclick="return pwdCheck();">가입하기</button>
+                            <button type="submit" id="signupButton" onclick="return pwdCheck();" disabled>가입하기</button>
                             <button type="button" id="cancelButton">취소</button>
                         </div>
                     </form>
@@ -122,12 +118,12 @@
 	
 	// 이메일 체크
 	function emailCheck(){
-		const $email = $(".signup-box #emailCheckButton");
+		const $email = $(".signup-box #email").val();
 		
 		$.ajax({
 			url : 'members/email-check',
 			data : {
-				email : $email.val()
+				email : $email
 				},
 			success : function(result){
 				
@@ -135,15 +131,17 @@
 					console.log(result);
 					Swal.fire({
 						  title: "사용 가능한 이메일입니다!",
-						  //text: "That thing is still around?",
 						  icon: "success"
-						});					
+						});		
+					$(".signup-box #signupButton").removeAttr("disabled");
+					
 				} else {
+					console.log(result);
 					Swal.fire({
 						  title: "이미 사용 중인 이메일입니다.",
-						  //text: "That thing is still around?",
 						  icon: "error"
 						});
+					$(".signup-box #emailCheckButton").attr("readonly",true);
 				}
 			},
 			error : function(error){

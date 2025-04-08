@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.khedu.member.model.vo.Member;
 import kr.co.khedu.member.service.MemberService;
 import kr.co.khedu.member.service.MemberServiceImpl;
 
@@ -31,13 +32,16 @@ public class MemberEmailCheckController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("email");
+		new Member().setEmail(email);
+		
 		MemberService mService = new MemberServiceImpl();
+		
 		int count = mService.countMemberByEmail(email);
 		
-		if(count > 0) {
-			response.getWriter().print("unavailable");
-		}else {
+		if(count == 0) {
 			response.getWriter().print("available");
+		}else {
+			response.getWriter().print("unavailable");
 		}
 	}
 

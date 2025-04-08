@@ -17,11 +17,10 @@ public class Member {
 	private String phone;
 	private Date createdAt;
 	private Date deletedAt;
-	private String countryId;
-	
+	private int countryId;
 
-	// 회원가입, 회원정보 수정 생성자
-	public Member(String email, String password, String nickname, Date birthday, String phone, String countryId) {
+	// 회원가입용 생성자
+	public Member(String email, String password, String nickname, Date birthday, String phone, int countryId) {
 		super();
 		this.email = email;
 		this.password = password;
@@ -30,5 +29,12 @@ public class Member {
 		this.phone = phone;
 		this.countryId = countryId;
 	}
+
+	public Member(String email, String password) {
+		super();
+		this.email = email;
+		this.password = password;
+	}
+
 
 }

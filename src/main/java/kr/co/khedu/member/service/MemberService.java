@@ -1,15 +1,13 @@
 package kr.co.khedu.member.service;
-
-
 import kr.co.khedu.member.model.vo.Member;
 
 public interface MemberService {
 	
+	// 로그인
+	Member loginMember(Member m);
+	
 	// 회원가입
 	int insertMember(Member member);
-	
-	// 회원정보 조회(로그인)
-	Member selectMember();
 	
 	// 이메일 중복확인
 	int countMemberByEmail(String email);
