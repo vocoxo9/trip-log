@@ -36,7 +36,7 @@ public class MemberSignupController extends HttpServlet {
 		String phone = request.getParameter("phone");
 		String nickname = request.getParameter("nickname");
 		String birthdayStr = request.getParameter("birthday");
-		String country = request.getParameter("country");
+		int country = Integer.parseInt(request.getParameter("countryId"));
 		
 		Date birthday = null;
 		if(birthdayStr != null && !birthdayStr.isEmpty()) {
@@ -48,7 +48,7 @@ public class MemberSignupController extends HttpServlet {
 		int result = new MemberServiceImpl().insertMember(member);
 		
 		if(result > 0 ) {
-			request.getSession().setAttribute("alertMsg", "íšŒì›ê°€ì…ì— ì„±ê³µí•˜ì˜€ìŠµë‹ˆë‹¤!");
+			request.getSession().setAttribute("alertMsg", "È¸¿ø°¡ÀÔ¿¡ ¼º°øÇÏ¿´½À´Ï´Ù!");
 			response.sendRedirect(request.getContextPath());
 		} else {
 			

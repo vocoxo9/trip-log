@@ -42,7 +42,6 @@ public class MemberLoginController extends HttpServlet{
         	session.setAttribute("loginMember", loginMember);
         	response.sendRedirect(request.getContextPath());
         }else {
-        	request.setAttribute("errorMsg", "로그인 정보가 잘못되었습니다");
 			 request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
         }
 	}

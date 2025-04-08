@@ -31,7 +31,7 @@ public class ProductListPageController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ìƒí’ˆ ì¡°íšŒ í›„ List Collectionì— ì €ì¥
+		// »óÇ° Á¶È¸ ÈÄ List Collection¿¡ ÀúÀå
 		List<Product> pList = new ProductServiceImpl().selectProductList();
 		
 		for(Product p : pList) System.out.println(p);
