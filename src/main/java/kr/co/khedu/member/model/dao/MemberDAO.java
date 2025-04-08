@@ -9,4 +9,8 @@ public class MemberDAO {
 		
 		return sqlSession.selectOne("memberMapper.loginMember", m);
 	}
+	// 회원가입
+	public int insertMember(SqlSession sqlSession, Member member) {
+		return sqlSession.insert("memberMapper.insertMember", member);
+	}
 }

@@ -17,9 +17,20 @@ public class Member {
 	public Member() {
 		super();
 	}
+  
+	// 회원가입용 생성자
+	public Member(String email, String password, String nickname, Date birthday, String phone, String countryId) {
+		super();
+		this.email = email;
+		this.password = password;
+		this.nickname = nickname;
+		this.birthday = birthday;
+		this.phone = phone;
+		this.countryId = countryId;
+	}
 
 	public Member(int memberId, String email, String password, String role, String nickname, Date birthday,
-			String phone, Date createdAt, Date deletedAt, int countryId) {
+			String phone, String createdAt, String deletedAt, String countryId) {
 		super();
 		this.memberId = memberId;
 		this.email = email;
@@ -32,13 +43,13 @@ public class Member {
 		this.deletedAt = deletedAt;
 		this.countryId = countryId;
 	}
-	
+  
 	public Member(String email, String password) {
 		super();
 		this.email = email;
 		this.password = password;
 	}
-	
+
 	public int getMemberId() {
 		return memberId;
 	}
@@ -70,7 +81,7 @@ public class Member {
 	public void setRole(String role) {
 		this.role = role;
 	}
-
+  
 	public String getNickname() {
 		return nickname;
 	}
@@ -117,6 +128,14 @@ public class Member {
 
 	public void setCountryId(int countryId) {
 		this.countryId = countryId;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Member [memberId=" + memberId + ", email=" + email + ", passwrod=" + password + ", role=" + role
+				+ ", nickname=" + nickname + ", birthday=" + birthday + ", phone=" + phone + ", createdAt=" + createdAt
+				+ ", deletedAt=" + deletedAt + ", countryId=" + countryId + "]";
 	}
 	
 }

@@ -6,7 +6,7 @@
 	<!-- 
 		프로젝트의 resources 폴더 내에 있는 environment.properties를 참조한다.
 	-->
-    <properties resource="driver.properties" />
+    <properties resource="environment.properties" />
     
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL" />
@@ -15,6 +15,7 @@
 	<typeAliases>
 		<!-- 별칭 목록 -->
 		<typeAlias alias="Product" type="kr.co.khedu.product.model.vo.Product" />
+		<typeAlias alias="Member" type="kr.co.khedu.member.model.vo.Member" />
 	</typeAliases>
 
 	<environments default="develop">
