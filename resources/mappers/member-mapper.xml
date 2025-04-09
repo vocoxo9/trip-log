@@ -36,4 +36,13 @@
 		WHERE MEMBER_ID = 2
 	</select>
 	-->
+	<select id="socialLoginMember" resultMap="memberResultMap" parameterType="Member">
+		SELECT *
+		FROM TB_MEMBER
+		WHERE EMAIL = #{email} AND DELETED_AT IS NULL
+	</select>
+	<insert id="insertSocialMember" parameterType="Member">
+		INSERT INTO TB_MEMBER(MEMBER_ID, EMAIL, PASSWORD)
+		VALUES (SEQ_MEM_ID.NEXTVAL , #{email}, #{password})
+	</insert>
 </mapper>

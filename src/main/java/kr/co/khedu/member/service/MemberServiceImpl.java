@@ -41,4 +41,28 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public Member socialMember(Member m) {
+		SqlSession sqlSession = Template.getSqlSession();
+		
+        Member socialMember = mDAO.selectMemberBySocialEmail(sqlSession, m);
+        
+        sqlSession.close();
+        
+        return socialMember;
+	}
+
+	@Override
+	public int insertSocialMember(Member member) {
+		SqlSession sqlSession = Template.getSqlSession();
+		
+		int result = mDAO.insertSocialMember(sqlSession, member);
+		
+		if(result > 0) {
+			sqlSession.commit();
+		}
+		sqlSession.close();
+		return result;
+	}
 }

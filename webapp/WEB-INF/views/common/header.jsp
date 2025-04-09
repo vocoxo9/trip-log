@@ -4,7 +4,8 @@
 <% 
 	String rootPath = request.getContextPath();
 	Member loginMember = (Member) session.getAttribute("loginMember");
-%>    
+	System.out.println(loginMember);
+%>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -24,7 +25,7 @@
             <% if (loginMember == null) { %>
         		<button type="button" onclick="location.href='<%= rootPath %>/members/sign-in'" class="btn btn-sm user-btn">로그인</button>
     		<% } else { %>
-        		<button type="button" onclick="location.href='<%= rootPath %>/members/logout'" class="btn btn-sm user-btn">로그아웃</button>
+        		<button type="button" id="logout-btn" onclick="location.href='<%= rootPath %>/members/logout'" class="btn btn-sm user-btn">로그아웃</button>
     		<% } %>
         </div>
         <div class="header-top">

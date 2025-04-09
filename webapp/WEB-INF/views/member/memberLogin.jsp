@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-String rootPath = request.getContextPath();
-String kakaoApiKey = "959ef6d54b0b5fdcc19392ec224bed96";
-String kakaoRedirectUri = "https://localhost:8080/trip-log/kakao-login";
+	String rootPath = request.getContextPath();
+	String kakaoApiKey = "";
+	String kakaoRedirectUri = "http://localhost:8080/trip-log/kakao-login";
 %>
 <!DOCTYPE html>
 <html>
@@ -64,12 +64,13 @@ String kakaoRedirectUri = "https://localhost:8080/trip-log/kakao-login";
 	<script>
 	Kakao.init('<%=kakaoApiKey%>');
 
-    function signKakaoLogin() {
-        Kakao.Auth.authorize({
-            redirectUri: '<%=kakaoRedirectUri%>'
-			});
-		}
-    
+	function signKakaoLogin() {
+	    Kakao.Auth.authorize({
+	        redirectUri:'<%=kakaoRedirectUri%>',
+	        scope: 'account_email', 
+	        prompt: 'select_account'
+	    });
+	}
 	</script>
 
 	<%--<script src="assets/js/member/socialLogin.js"></script>--%>
