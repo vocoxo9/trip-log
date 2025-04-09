@@ -10,16 +10,16 @@ public class Member {
 	private String nickname;
 	private Date birthday;
 	private String phone;
-	private String createdAt;
-	private String deletedAt;
-	private String countryId;
+	private Date createdAt;
+	private Date deletedAt;
+	private int countryId;
 	
 	public Member() {
 		super();
 	}
   
 	// 회원가입용 생성자
-	public Member(String email, String password, String nickname, Date birthday, String phone, String countryId) {
+	public Member(String email, String password, String nickname, Date birthday, String phone, int countryId) {
 		super();
 		this.email = email;
 		this.password = password;
@@ -30,7 +30,7 @@ public class Member {
 	}
 
 	public Member(int memberId, String email, String password, String role, String nickname, Date birthday,
-			String phone, String createdAt, String deletedAt, String countryId) {
+			String phone, Date createdAt, Date deletedAt, int countryId) {
 		super();
 		this.memberId = memberId;
 		this.email = email;
@@ -106,27 +106,27 @@ public class Member {
 		this.phone = phone;
 	}
 
-	public String getCreatedAt() {
+	public Date getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(String createdAt) {
+	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public String getDeletedAt() {
+	public Date getDeletedAt() {
 		return deletedAt;
 	}
 
-	public void setDeletedAt(String deletedAt) {
+	public void setDeletedAt(Date deletedAt) {
 		this.deletedAt = deletedAt;
 	}
 
-	public String getCountryId() {
+	public int getCountryId() {
 		return countryId;
 	}
 
-	public void setCountryId(String countryId) {
+	public void setCountryId(int countryId) {
 		this.countryId = countryId;
 	}
 

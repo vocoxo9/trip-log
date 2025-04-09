@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.khedu.board.service.BoardDetailService;
+import kr.co.khedu.board.service.BoardDetailServiceImpl;
+
 /**
  * Servlet implementation class TravleVoteController
  */
@@ -26,7 +29,17 @@ public class TravleVoteController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("WEB-INF/views/vote/travelVote.jsp").forward(request, response);
+//		request.getRequestDispatcher("WEB-INF/views/vote/travelVote.jsp").forward(request, response);
+		// => travelVote 페이지로 이동
+		
+		int num = 1;
+		
+		// Service 객체에 전달받은 게시글번호의 게시글 정보(게시글 번호, 제목, 내용,  좋아요) 조회
+		BoardDetailService bService = new BoardDetailServiceImpl();
+		BoardDetail boardDetail = bService.selectBoardDetail(num);
+		
+		
+		request.getRequestDispatcher("WEB-INF/views/board/boardDetail.jsp").forward(request, response);
 	}
 
 	/**

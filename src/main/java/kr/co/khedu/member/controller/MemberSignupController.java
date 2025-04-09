@@ -36,14 +36,14 @@ public class MemberSignupController extends HttpServlet {
 		String phone = request.getParameter("phone");
 		String nickname = request.getParameter("nickname");
 		String birthdayStr = request.getParameter("birthday");
-		String country = request.getParameter("country");
+		int countryId = Integer.parseInt(request.getParameter("country"));
 		
 		Date birthday = null;
 		if(birthdayStr != null && !birthdayStr.isEmpty()) {
 			birthday = Date.valueOf(birthdayStr);
 		}
 		
-		Member member = new Member(email, password, nickname, birthday, phone, country);
+		Member member = new Member(email, password, nickname, birthday, phone, countryId);
 		
 		int result = new MemberServiceImpl().insertMember(member);
 		
