@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardDetailMapper">
+	<resultMap id="boardDetailResultMap" type="BoardDetail">
+		<result column="POST_ID" property="postId"/>
+		<result column="TITLE" property="title"/>
+		<result column="CONTENT" property="content"/>
+	</resultMap>
+	
+	<select id="searchBoardDetail" resultMap="boardDetailResultMap" parameterType="BoardDetail">
+		SELECT POST_ID, TITLE, CONTENT
+		FROM TB_POST
+		WHERE POST_ID = #{ num }
+	</select>
+</mapper>

@@ -52,7 +52,7 @@ String rootPath = request.getContextPath();
 							<div
 								class="card-img-overlay d-flex align-items-center justify-content-center"
 								style="background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(5px);">
-								<h1 class="card-title">제목 텍스트</h1>
+								<h1 class="card-title">${ boardDetail.title }</h1>
 							</div>
 						</div>
 					</div>
@@ -60,6 +60,7 @@ String rootPath = request.getContextPath();
 				<div class="board-detail-body">
 					<div class="content">
 						<textarea id="content" name="content" cols rows="100" readonly>
+                            <%--
                             안녕하세요, 고객님
                             
                             스페인/북유럽팀입니다.
@@ -157,6 +158,8 @@ String rootPath = request.getContextPath();
                             말 그대로 ' 참좋은 여행 ' 을 다시 선물해드릴 수 있도록 최선을 다하겠습니다.
                             
                             감사합니다.
+                            --%>
+                            ${ boardDetail.content }
                             
                         </textarea>
 						<div class="nav-btn">
