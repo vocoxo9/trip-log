@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.co.khedu.common.PageInfo;
+import kr.co.khedu.product.model.dto.ProductSearchDTO;
 import kr.co.khedu.product.model.vo.Product;
 import kr.co.khedu.product.service.ProductServiceImpl;
 
@@ -32,11 +33,15 @@ public class ProductListPageController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String keyword = request.getParameter("keyword");
-		System.out.println("keyword : " + keyword);
+		request.setCharacterEncoding("UTF-8");
+		String keyword = request.getParameter("keyword") != null ? request.getParameter("keyword") : "";
+		String sort = request.getParameter("sort") != null ? request.getParameter("sort") : "";
+//		System.out.println("keyword : " + keyword);
+//		System.out.println("sort : " + sort);
+		ProductSearchDTO productSearchDTO = new ProductSearchDTO(keyword, sort);
 		
-		int listCount = new ProductServiceImpl().selectByProductNameCount(keyword);
-		System.out.println(listCount);
+		int listCount = new ProductServiceImpl().selectByProductNameCount(productSearchDTO);
+//		System.out.println(listCount);
 		
 		// 최대 아이템 수와 페이지 수
 		int itemLimit = 12;
@@ -49,12 +54,16 @@ public class ProductListPageController extends HttpServlet {
 		
 		// 상품 조회 후 List Collection에 저장
 //		List<Product> pList = new ProductServiceImpl().selectProductList();
-		List<Product> pList = new ProductServiceImpl().selectByProductName(keyword, pageInfo);
+		List<Product> pList = new ProductServiceImpl().selectByProductName(productSearchDTO, pageInfo);
 		
 //		for(Product p : pList) System.out.println(p);
 		
+//		System.out.println(productSearchDTO.getKeyword());
+//		System.out.println(productSearchDTO.getSort());
+		
 		request.setAttribute("pageInfo", pageInfo);
-		request.setAttribute("keyword", keyword);
+		request.setAttribute("sort", productSearchDTO.getSort());
+		request.setAttribute("keyword", productSearchDTO.getKeyword());
 		request.setAttribute("pList", pList);
 		request.getRequestDispatcher("WEB-INF/views/product/productList.jsp").forward(request, response);
 	}

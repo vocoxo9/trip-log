@@ -6,7 +6,8 @@
 <%
 	String rootPath = request.getContextPath();
 	PageInfo pageInfo = (PageInfo) request.getAttribute("pageInfo");
-	String keyword = (String) request.getAttribute("keyword");
+	String keyword = (String) request.getAttribute("keyword") == null ? "" : (String) request.getAttribute("keyword");
+	String sortCondition = (String) request.getAttribute("sortCondition") == null ? "" : (String) request.getAttribute("sortCondition");
 %>
 <!DOCTYPE html>
 <html>
@@ -20,18 +21,27 @@
 		<jsp:include page="../common/header.jsp"></jsp:include>
 		<div class="container">
 			<div class="product-list-area">
+				<div class="product-search-bar-area">
+					<form action="/trip-log/products" method="get" id="productSearchForm">
+						<div class="product-search-bar">
+							<input type="search" name="keyword" value="<%= keyword %>" class="form-control me-3" id="exampleFormControlInput1" placeholder="찾으시는 상품이 있을까요?">
+
+							<div class="order-select">
+								<select class="sort-select form-select" name="sort">
+									<option value="recent">최신순</option>
+									<option value="review">평점순</option>
+									<option value="favorite">찜순</option>
+								</select>
+							</div>
+							<button class="search-btn">검색</button>
+						</div>						
+					</form>
+				</div>
 				<div class="product-menu-area">
 					<div class="product-insert-btn-area">
 						<a class="product-insert-btn"> 
 							<i class="fa-solid fa-cart-plus"></i> <!-- 상품등록 -->
 						</a>
-					</div>
-					<div class="order-select">
-						<select class="form-select" aria-label="Default select example">
-							<option value="1" selected>최신순</option>
-							<option value="2">평점순</option>
-							<option value="3">찜순</option>
-						</select>
 					</div>
 				</div>
 
@@ -89,22 +99,22 @@
 						<c:when test="<%= currentPageNo == 1 %>">
 							<%-- 현재 페이지 번호가 1일 경우 --%>
 							<li class="page-item disabled">
-								<a href="" class="page-link icon-paging">
+								<a class="page-link icon-paging">
 									<i class="fa-solid fa-less-than"></i>
 								</a>
 							</li>
 						</c:when>
 						<c:otherwise>
 							<li class="page-item">
-								<a href="" class="page-link icon-paging">
+								<a data-current="<%= currentPageNo - 1 %>" class="page-link icon-paging">
 									<i class="fa-solid fa-less-than"></i>
 								</a>
 							</li>
 						</c:otherwise>
 					</c:choose>
-					<% for(int p = startPageNo; p <= endPageNo; p++) { %>
-						<li class="page-item <% if (currentPageNo == p) { %>active<% } %>">
-                           	<a class="page-link" data-current="<%= p %>"><%= p %></a>
+					<% for (int pageNo = startPageNo; pageNo <= endPageNo; pageNo++) { %>
+						<li class="page-item <% if (currentPageNo == pageNo) { %>active<% } %>">
+                           	<a class="page-link" data-current="<%= pageNo %>"><%= pageNo %></a>
                         </li>
 					<% } %>
 					<c:choose>
@@ -117,7 +127,7 @@
 						</c:when>
 						<c:otherwise>
 							<li class="page-item">
-								<a href="" class="page-link icon-paging">
+								<a data-current="<%= currentPageNo + 1 %>" class="page-link icon-paging">
 									<i class="fa-solid fa-greater-than"></i>
 								</a>
 							</li>

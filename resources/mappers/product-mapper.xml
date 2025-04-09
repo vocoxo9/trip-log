@@ -41,19 +41,36 @@
 	<select id="selectByProductNameCount" resultType="_int">
 		SELECT COUNT(*) FROM TB_PRODUCT
 		WHERE 1=1
-			<if test="keyword != null">
-				AND NAME LIKE '%' || #{keyword} || '%'
+			<if test="sort == 'recent'">
+				AND NAME LIKE '%${keyword}%'
+			</if>
+			<if test="sort == 'review'">
+				AND NAME LIKE '%${keyword}%'
+			</if>
+			<if test="sort == 'favorite'">
+				AND NAME LIKE '%${keyword}%'
 			</if>
 	</select>
 	
 	<!-- 상품의 전체 데이터 조회(키워드가 있을 검색 포함) -->
-	<select id="findByProductNameLike" resultType="Product">
+	<resultMap type="Product" id="productListKeywordResultMap">
+		<result column="PRODUCT_ID" property="productId" />
+	</resultMap>
+	<select id="findByProductNameLike" resultMap="productListKeywordResultMap">
 		SELECT PRODUCT_ID, NAME, PRICE, CREATED_AT
 		FROM TB_PRODUCT
 		WHERE 1 = 1
-			<if test="keyword != null">
-				AND NAME '%' || #{keyword} || '%'
+			<if test="sort == 'recent'">
+				AND NAME LIKE '%${keyword}%'
+				ORDER BY CREATED_AT DESC
 			</if>
-		ORDER BY PRODUCT_ID DESC
+			<if test="sort == 'review'">
+				AND NAME LIKE '%${keyword}%'
+				ORDER BY PRODUCT_ID DESC
+			</if>
+			<if test="sort == 'favorite'">
+				AND NAME LIKE '%${keyword}%'
+				ORDER BY PRODUCT_ID DESC
+			</if>
 	</select>
 </mapper>

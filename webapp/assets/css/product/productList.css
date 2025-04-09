@@ -19,6 +19,35 @@
     margin-bottom: 3rem;
 }
 
+.product-search-bar-area {
+	width: 100%;
+	padding: 0.3rem 1.3rem;
+	margin-bottom: 1.3rem;
+}
+
+.product-search-bar {
+	display: flex;
+	align-items: center;
+}
+
+.sort-select {
+	width: 100%;
+}
+
+.search-btn {
+	width: 10%;
+	background-color: var(--strong-color);
+	padding: 0.7rem;
+	border-radius: 1rem;
+	border: none;
+	color: var(--bg-color);
+	transition: 0.3s ease-in-out;
+}
+
+.search-btn:hover {
+	background-color: var(--sub-strong-color);
+}
+
 .product-insert-btn-area {
     font-size: 1.3rem;
     margin-right: 3rem;
@@ -39,8 +68,8 @@
 }
 
 .order-select {
-    width: 10%;
-    margin-right: 3rem;
+    width: 15%;
+    margin-right: 1.3rem;
 }
 
 .product-list {
