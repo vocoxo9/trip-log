@@ -6,6 +6,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
 import kr.co.khedu.common.PageInfo;
+import kr.co.khedu.product.model.dto.ProductListDTO;
 import kr.co.khedu.product.model.dto.ProductSearchDTO;
 import kr.co.khedu.product.model.vo.Product;
 
@@ -35,7 +36,7 @@ public class ProductDAO {
 	 * @param pageInfo
 	 * @return
 	 */
-	public List<Product> findByProductNameLike(SqlSession sqlSession, ProductSearchDTO productSearchDTO, PageInfo pageInfo) {
+	public List<ProductListDTO> findByProductNameLike(SqlSession sqlSession, ProductSearchDTO productSearchDTO, PageInfo pageInfo) {
 		int offset = (pageInfo.getCurrentPageNo() - 1) * pageInfo.getItemLimit();
 		RowBounds rowBounds = new RowBounds(offset, pageInfo.getItemLimit());
 		

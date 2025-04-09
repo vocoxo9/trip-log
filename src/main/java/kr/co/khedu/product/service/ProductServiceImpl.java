@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import kr.co.khedu.common.PageInfo;
 import kr.co.khedu.product.model.dao.ProductDAO;
+import kr.co.khedu.product.model.dto.ProductListDTO;
 import kr.co.khedu.product.model.dto.ProductSearchDTO;
 import kr.co.khedu.product.model.vo.Product;
 import kr.co.khedu.template.Template;
@@ -38,6 +39,7 @@ public class ProductServiceImpl implements ProductService {
 	 * @param productSearchDTO
 	 * @return
 	 */
+	@Override
 	public int selectByProductNameCount(ProductSearchDTO productSearchDTO) {
 		SqlSession sqlSession = Template.getSqlSession();
 		
@@ -54,10 +56,11 @@ public class ProductServiceImpl implements ProductService {
 	 * @param pageInfo
 	 * @return
 	 */
-	public List<Product> selectByProductName(ProductSearchDTO productSearchDTO, PageInfo pageInfo) {
+	@Override
+	public List<ProductListDTO> selectByProductName(ProductSearchDTO productSearchDTO, PageInfo pageInfo) {
 		SqlSession sqlSession = Template.getSqlSession();
 		
-		List<Product> productList = new ProductDAO().findByProductNameLike(sqlSession, productSearchDTO, pageInfo);
+		List<ProductListDTO> productList = new ProductDAO().findByProductNameLike(sqlSession, productSearchDTO, pageInfo);
 		
 		sqlSession.close();
 		

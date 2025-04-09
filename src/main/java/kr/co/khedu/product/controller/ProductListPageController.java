@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.co.khedu.common.PageInfo;
+import kr.co.khedu.product.model.dto.ProductListDTO;
 import kr.co.khedu.product.model.dto.ProductSearchDTO;
-import kr.co.khedu.product.model.vo.Product;
 import kr.co.khedu.product.service.ProductServiceImpl;
 
 /**
@@ -54,9 +54,10 @@ public class ProductListPageController extends HttpServlet {
 		
 		// 상품 조회 후 List Collection에 저장
 //		List<Product> pList = new ProductServiceImpl().selectProductList();
-		List<Product> pList = new ProductServiceImpl().selectByProductName(productSearchDTO, pageInfo);
+//		List<Product> pList = new ProductServiceImpl().selectByProductName(productSearchDTO, pageInfo);
+		List<ProductListDTO> pList = new ProductServiceImpl().selectByProductName(productSearchDTO, pageInfo);
 		
-//		for(Product p : pList) System.out.println(p);
+		for(ProductListDTO p : pList) System.out.println(p);
 		
 //		System.out.println(productSearchDTO.getKeyword());
 //		System.out.println(productSearchDTO.getSort());

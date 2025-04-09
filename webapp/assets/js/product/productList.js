@@ -65,10 +65,10 @@ const pagingFun = function(sortValue) {
         let keyword = document.querySelector("input[name=keyword]").value;
         
         // let requestUrl = "/notice/list?cpage=" + ele.innerText;
-        let requestUrl = "products?cpage=" + pa.getAttribute("data-current");
+        let requestUrl = "products?cpage=" + pa.getAttribute("data-current") + "&sort=" + sortValue;
         
         if(keyword !== "") {
-            requestUrl += "&keyword=" + keyword + "&sort=" + sortValue;
+            requestUrl += "&keyword=" + keyword;
         }
 
         // console.log(requestUrl);

@@ -28,9 +28,9 @@
 
 							<div class="order-select">
 								<select class="sort-select form-select" name="sort">
-									<option value="recent">최신순</option>
-									<option value="review">평점순</option>
-									<option value="favorite">찜순</option>
+									<option value="recentValue">최신순</option>
+									<option value="reviewValue">평점순</option>
+									<option value="priceValue">가격순</option>
 								</select>
 							</div>
 							<button class="search-btn">검색</button>
@@ -61,9 +61,7 @@
 											<span><fmt:formatNumber value="${p.price}" type="number" groupingUsed="true" />원</span>
 											<span>
 												<!-- 평점 값으로 별 색상 채우기 -->
-												<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
-												<i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
-												<i class="fa-solid fa-star"></i>
+												<i class="fa-solid fa-star"></i> ${ p.score }
 											</span>
 										</span>
 									</a>
