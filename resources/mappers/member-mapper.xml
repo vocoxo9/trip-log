@@ -34,4 +34,17 @@
 		SELECT COUNT(*) FROM TB_MEMBER WHERE EMAIL = #{email} AND DELETED_AT IS NULL
 	</select>
 
+	<update id="updateMember" parameterType="Member">
+		UPDATE TB_MEMBER
+		SET PHONE = #{ phone },
+		    NICKNAME = #{ nickname },
+		    COUNTRY_ID = #{ countryId }
+		WHERE EMAIL = #{ email } AND PASSWORD = #{ password } AND DELETED_AT IS NULL
+	</update>
+	
+	<update id="deleteMember" >
+		UPDATE TB_MEMBER
+		SET DELETED_AT = SYSDATE
+		WHERE MEMBER_ID = #{memNo}
+	</update>
 </mapper>

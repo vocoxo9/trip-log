@@ -22,7 +22,7 @@ public class MemberSignupController extends HttpServlet {
 	private final MemberService mService = new MemberServiceImpl();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("WEB-INF/views/member/signUp.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/member/signUp.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,14 +33,14 @@ public class MemberSignupController extends HttpServlet {
 		String phone = request.getParameter("phone");
 		String nickname = request.getParameter("nickname");
 		String birthdayStr = request.getParameter("birthday");
-		int country = Integer.parseInt(request.getParameter("country"));
+		int countryId = Integer.parseInt(request.getParameter("countryId"));
 		
 		Date birthday = null;
 		if(birthdayStr != null && !birthdayStr.isEmpty()) {
 			birthday = Date.valueOf(birthdayStr);
 		}
 		
-		Member member = new Member(email, password, nickname, birthday, phone, country);
+		Member member = new Member(email, password, nickname, birthday, phone, countryId);
 		
 		int result = new MemberServiceImpl().insertMember(member);
 		

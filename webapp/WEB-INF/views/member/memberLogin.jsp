@@ -49,7 +49,7 @@
 				</button>
 
 				<div class="signup">
-					아직 회원이 아니신가요? <a href="<%=rootPath%>/signupForm">회원가입</a>
+					아직 회원이 아니신가요? <a href="<%=rootPath%>/members/sign-up">회원가입</a>
 				</div>
 			</div>
 		</div>

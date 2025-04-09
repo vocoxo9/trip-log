@@ -44,14 +44,30 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Override
 	public int updateMember(Member member) {
-		// TODO Auto-generated method stub
-		return 0;
+		SqlSession sqlSession = Template.getSqlSession();
+		
+		int result = mDAO.updateMember(sqlSession, member);
+
+		if(result > 0) {
+			sqlSession.commit();
+		}
+		sqlSession.close();
+		
+		return result;
 	}
 
 	@Override
 	public int deleteMember(int memNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		SqlSession sqlSession = Template.getSqlSession();
+		
+		int result = mDAO.deleteMember(sqlSession, memNo);
+		
+		if(result > 0) {
+			sqlSession.commit();
+		}
+		sqlSession.commit();
+		
+		return result;
 	}
 
 }

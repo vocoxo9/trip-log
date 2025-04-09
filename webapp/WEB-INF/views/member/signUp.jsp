@@ -4,7 +4,7 @@
 	String rootPath = request.getContextPath();
 %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
@@ -68,9 +68,9 @@
                                         <input type="date" name="birthday" id="birthday">
                                     </td>
                                     <td>
-                                        <label for="country">국적</label> <br>
+                                        <label for="countryId">국적</label> <br>
                                         <div class="form-floating">
-                                            <select name="country" id="country">
+                                            <select name="countryId" id="countryId">
                                               <option value="1">대한민국</option>
                                               <option value="2">일본</option>
                                               <option value="3">중국</option>
@@ -90,7 +90,7 @@
                                               <option value="17">칠레</option>
                                               <option value="18">이집트</option>
                                               <option value="19">남아프리카공화국</option>
-                                              <option value="20">나이지라</option>
+                                              <option value="20">나이지리아</option>
                                               <option value="21">모로코</option>
                                               <option value="22">호주</option>
                                               <option value="23">뉴질랜드</option>
@@ -112,16 +112,16 @@
             </div>
         </div>
         <jsp:include page="../common/footer.jsp" />
+		<script src="<%= rootPath %>/assets/js/member/signUp.js"></script>
     </div>
-	
-	<script>
+<%-- 	<script>
 	
 	// 이메일 체크
 	function emailCheck(){
 		const $email = $(".signup-box #email").val();
 		
 		$.ajax({
-			url : 'members/email-check',
+			url : '<%= rootPath %>/members/email-check',
 			data : {
 				email : $email
 				},
@@ -170,6 +170,7 @@
 	}
 	
 	</script>
+--%> 
 </body>
 
 </html>
