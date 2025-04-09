@@ -65,11 +65,23 @@
                             	<% if (loginMember.getBirthday() == null) {%>
                                    정보 없음    
                                 <% } else {%>
-                                       <%= loginMember.getBirthday() %>
+                                   <%= loginMember.getBirthday() %>
                                 <% } %>
                             </td>
-                            <td><%= loginMember.getPhone() %></td>
-                            <td><%= loginMember.getCountryId() %></td>
+                            <td>
+                                <% if (loginMember.getPhone() == null) {%>
+                                   정보 없음    
+                                <% } else {%>
+                                   <%= loginMember.getPhone() %>
+                                <% } %>
+                            </td>
+                            <td>
+                            	<% if (loginMember.getCountryId() == 0) {%>
+                                   정보 없음    
+                                <% } else {%>
+                                   <%= loginMember.getCountryId() %>
+                                <% } %>
+                            </td>
                         </tr>
                     </table>
                 </div>

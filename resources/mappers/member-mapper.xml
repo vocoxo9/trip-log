@@ -4,6 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="memberMapper">
 
+
 	<resultMap id="memberResultMap" type="kr.co.khedu.member.model.vo.Member">
 		<result column="MEMBER_ID" property="memberId"/>
 		<result column="EMAIL" property="email"/>
@@ -17,6 +18,7 @@
 		<result column="COUNTRY_ID" property="countryId"/>
 	</resultMap>
 	
+
 	<select id="loginMember" resultMap="memberResultMap" parameterType="kr.co.khedu.member.model.vo.Member"> 
 		SELECT * 
 		FROM TB_MEMBER 

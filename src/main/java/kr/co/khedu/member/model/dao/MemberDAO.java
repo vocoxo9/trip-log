@@ -6,6 +6,7 @@ import kr.co.khedu.member.model.vo.Member;
 
 public class MemberDAO {
 	
+	// 로그인
 	public Member selectMember(SqlSession sqlSession, Member m) {
 		return sqlSession.selectOne("memberMapper.loginMember", m);
 	}
@@ -15,7 +16,7 @@ public class MemberDAO {
 		return sqlSession.insert("memberMapper.insertMember", member);
 	}
 
-	// 로그인
+	// ??
 	public Member selectMember(SqlSession sqlSession) {
 		return sqlSession.selectOne("memberMapper.selectMember");
 	}
