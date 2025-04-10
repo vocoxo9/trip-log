@@ -26,13 +26,27 @@
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="<%= rootPath %>/assets/css/reset.css" rel="stylesheet">
-    <style>
-        .sort-area {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 2rem;
-        }
-    </style>
+    <script>
+        $(() => {
+            $('.page-item').click(function(event) {
+                event.preventDefault()
+
+                const number = $(this).text().trim()
+                if (!number) {
+                    return
+                }
+
+                let url = window.location.href
+                if (url.indexOf('?') > -1) {
+                    url = url.replace(/([?&])page=\d+/, '?page=' + number)
+                } else {
+                    url += `?page=${number}`
+                }
+
+                window.location.href = url
+            })
+        })
+    </script>
     <style>
         .post-container {
             max-width: 1200px;
@@ -193,13 +207,6 @@
 <div id="root">
     <jsp:include page="../common/header.jsp" />
     <div class="post-container">
-        <div class="sort-area">
-            <select aria-label="정렬 기준">
-                <option value="views">조회 수</option>
-                <option value="likes">좋아요 수</option>
-                <option value="comments">댓글 수</option>
-            </select>
-        </div>
         <section class="post-grid">
             <%
                 for (PostSummaryDTO post : posts) {
@@ -266,47 +273,7 @@
                 }
             %>
         </section>
-        <div id="paging-area">
-            <ul class="pagination">
-                <li class="page-item">
-                    <a href="" class="page-link icon-paging">
-                        <i class="fa-solid fa-less-than"></i>
-                    </a>
-                </li>
-                <li class="page-item">
-                    <a href="" class="page-link">1</a>
-                </li>
-                <li class="page-item">
-                    <a href="" class="page-link">2</a>
-                </li>
-                <li class="page-item">
-                    <a href="" class="page-link">3</a>
-                </li>
-                <li class="page-item">
-                    <a href="" class="page-link">4</a>
-                </li>
-                <li class="page-item">
-                    <a href="" class="page-link">5</a>
-                </li>
-                <li class="page-item">
-                    <a href="" class="page-link">6</a>
-                </li>
-                <li class="page-item">
-                    <a href="" class="page-link">7</a>
-                </li>
-                <li class="page-item">
-                    <a href="" class="page-link">8</a>
-                </li>
-                <li class="page-item">
-                    <a href="" class="page-link">9</a>
-                </li>
-                <li class="page-item">
-                    <a href="" class="page-link icon-paging">
-                        <i class="fa-solid fa-greater-than"></i>
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <jsp:include page="../common/pageNation.jsp" />
         <a href="${pageContext.request.contextPath}/post/write" class="add-post-button">
             <i class="fas fa-plus"></i>
         </a>
