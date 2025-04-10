@@ -22,7 +22,14 @@
 	        <!-- 상품 이미지 영역 -->
 	        <div class="product-image-area">
 	            <div class="product-image">
-					<img src="<%= rootPath %>${productInfo.changeFileName}" class="product-image" />
+					<c:choose>
+						<c:when test="${productInfo.changeFileName == null}">
+							<img src="${pageContext.request.contextPath}/${defaultPath}" alt="Product Image" class="product-image" />
+						</c:when>
+						<c:otherwise>
+							<img src="${pageContext.request.contextPath}/${productInfo.changeFileName}" alt="Product Image" class="product-image" />
+						</c:otherwise>
+					</c:choose>
 	            </div>
 	        </div>
 	        <!-- 상품 상단 영역 -->
@@ -30,11 +37,15 @@
 	            <!-- 상품 상단 제목 영역 -->
 	            <div class="product-detail-header-title">
 	                <p class="title">${productInfo.name }</p>
-	                <span class="heart-icon"><i class="fa-solid fa-heart"></i></span>
-	                <!--
-	                    아이콘 클릭 시 아래로 변경
-	                    <i class="fa-solid fa-heart"></i>
-	                -->
+	                
+					<div class="product-icon-area">
+						<span class="heart-icon">
+		                	<i class="fa-solid fa-heart"></i>
+		                </span>
+		                <span class="product-trash-icon">
+		                	<i class="fa-solid fa-trash-can"></i>
+		                </span>
+					</div>
 	            </div>
 	
 	            <!-- 상품 상단 기타 영역(가격 정보, 여행 후기 링크) -->

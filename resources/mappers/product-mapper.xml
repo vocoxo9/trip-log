@@ -63,7 +63,7 @@
 		    PRODUCT_ID,
 		    NAME,
 		    PRICE,
-		    NVL2(CHANGE_FILE_NAME, CHANGE_FILE_NAME, '/assets/images/product/sample-img.jpg') AS CHANGE_FILE_NAME,
+		    NVL2(CHANGE_FILE_NAME, CHANGE_FILE_NAME, 'assets/images/product/sample-img.jpg') AS CHANGE_FILE_NAME,
 		    CREATED_AT,
 		    ROUND(NVL(AVG(SCORE), 0), 1) AS SCORE
 		FROM TB_PRODUCT

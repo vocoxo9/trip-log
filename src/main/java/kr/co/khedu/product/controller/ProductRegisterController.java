@@ -75,7 +75,7 @@ public class ProductRegisterController extends HttpServlet {
 			        break;
 			    case "uploadFile":
 			    	if(!p.getSubmittedFileName().equals("")) {
-				    	changeFileName = TripFileUtils.saveFile(p, request.getSession(), "/assets/images/upload/");
+				    	changeFileName = TripFileUtils.saveFile(p, request.getSession(), "/resources/upload/");
 
 				    	originFileName = p.getSubmittedFileName();
 			    	}

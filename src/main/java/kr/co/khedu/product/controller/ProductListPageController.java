@@ -66,6 +66,7 @@ public class ProductListPageController extends HttpServlet {
 		request.setAttribute("sort", productSearchDTO.getSort());
 		request.setAttribute("keyword", productSearchDTO.getKeyword());
 		request.setAttribute("pList", pList);
+		request.setAttribute("defaultPath", "assets/images/product/sample-img.jpg");
 		request.getRequestDispatcher("WEB-INF/views/product/productList.jsp").forward(request, response);
 	}
 

@@ -70,6 +70,7 @@ public class ProductDetailPageController extends HttpServlet {
 		System.out.println(product);
 		
 		request.setAttribute("productInfo", product);
+		request.setAttribute("defaultPath", "assets/images/product/sample-img.jpg");
 		
 		request.getRequestDispatcher("/WEB-INF/views/product/productDetail.jsp").forward(request, response);
 	}

@@ -44,6 +44,15 @@
 	margin-right: 0.5rem;
 }
 
+.product-icon-area {
+	display:flex;
+	align-items: center;
+}
+
+.product-icon-area span:nth-child(1) {
+	margin-right: 1.5rem;
+}
+
 .product-detail-header-etc {
 	display: flex;
 	flex-direction: column;
@@ -76,12 +85,14 @@
 	color: var(--icon-strong-color);
 }
 
-.heart-icon {
+.heart-icon,
+.product-trash-icon {
 	cursor: pointer;
 	transition: all .15s ease-in-out;
 }
 
-.heart-icon:hover {
+.heart-icon:hover,
+.product-trash-icon:hover {
 	color: var(--heart-color);
 }
 
