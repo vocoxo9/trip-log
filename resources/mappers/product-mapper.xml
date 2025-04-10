@@ -37,6 +37,57 @@
 		WHERE PRODUCT_ID = #{productId}
 	</select>
 	
+	<!-- 상품의 전체 갯수 조회 -->
+	<!-- 
+	<select id="selectByProductNameCount" resultType="_int">
+		SELECT COUNT(*) FROM TB_PRODUCT
+		WHERE 1=1
+			<if test="sort == 'recentValue'">
+				AND NAME LIKE '%${keyword}%'
+			</if>
+			<if test="sort == 'reviewValue'">
+				AND NAME LIKE '%${keyword}%'
+			</if>
+			<if test="sort == 'priceValue'">
+				AND NAME LIKE '%${keyword}%'
+			</if>
+	</select>
+	 -->
+	<select id="selectByProductNameCount" resultType="_int">
+		SELECT COUNT(*) FROM TB_PRODUCT
+		WHERE 1=1
+		<if test="sort == 'recentValue' or sort == 'reviewValue' or sort == 'priceValue'">
+			AND NAME LIKE '%${keyword}%'
+		</if>
+	</select>
+		
+	
+	<!-- 상품의 전체 데이터 조회(키워드가 있을 검색 포함) -->
+	<resultMap type="kr.co.khedu.product.model.dto.ProductListDTO" id="productListKeywordResultMap">
+		<result column="PRODUCT_ID" property="productId" />
+	</resultMap>
+	<select id="findByProductNameLike" resultMap="productListKeywordResultMap">
+		SELECT 
+		    PRODUCT_ID,
+		    NAME,
+		    PRICE,
+		    CREATED_AT,
+		    ROUND(NVL(AVG(SCORE), 0), 1) AS SCORE
+		FROM TB_PRODUCT
+			LEFT JOIN TB_PRODUCT_REVIEW USING(PRODUCT_ID)
+		WHERE 1 = 1 AND NAME LIKE '%${keyword}%'
+		GROUP BY PRODUCT_ID, NAME, PRICE, CREATED_AT
+		<if test="sort == 'recentValue'">
+			ORDER BY CREATED_AT DESC
+		</if>
+		<if test="sort == 'reviewValue'">
+			ORDER BY SCORE DESC, CREATED_AT DESC
+		</if>
+		<if test="sort == 'priceValue'">
+			ORDER BY PRICE DESC, CREATED_AT DESC
+		</if>
+	</select>
+  
 	<insert id="insertProduct" parameterType="Product">
 		INSERT INTO TB_PRODUCT VALUES (SEQ_PRODUCT_ID.NEXTVAL, #{name}, #{price}, #{stock}, #{description}, DEFAULT, 1, 25)
 	</insert>

@@ -22,8 +22,25 @@ public class Member {
 	private Date deletedAt;
 	private int countryId;
 	
+	public Member() {
+		super();
+	}
+  
+	// 회원가입용 생성자
 	public Member(String email, String password, String nickname, Date birthday, String phone, int countryId) {
-		
+		super();
+		this.email = email;
+		this.password = password;
+		this.nickname = nickname;
+		this.birthday = birthday;
+		this.phone = phone;
+		this.countryId = countryId;
+	}
+
+	public Member(int memberId, String email, String password, String role, String nickname, Date birthday,
+			String phone, Date createdAt, Date deletedAt, int countryId) {
+		super();
+		this.memberId = memberId;
 		this.email = email;
 		this.password = password;
 		this.nickname = nickname;
