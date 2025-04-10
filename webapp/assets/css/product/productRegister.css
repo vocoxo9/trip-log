@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+
+ .product-register-label {
+     font-weight: 900;
+     font-size: 1.3rem;
+     padding-bottom: 1rem;
+ }
+     
+
+ .product-register-input {
+     font-size: 1.1rem;
+     border: solid 0.3rem var(--main-color) !important;
+     border-radius: 1rem;
+     padding:1rem;
+ }
+
+ .button {
+     font-weight: 900;
+     font-size: 1.7rem;
+     padding: 0.5rem 1.3rem;
+     color: var(--bg-color);
+     background-color: var(--strong-color);
+     border-radius: 0.3rem;
+     border: 0.3rem solid var(--strong-color);
+     transition: 0.3s ease-in-out;
+ }
+
+ .button:hover {
+     color: var(--strong-color);
+     background-color:var(--bg-color);
+ }
+
+ .product-register-btn-group {
+     width:100%;
+     display: flex;
+     align-items: center;
+     justify-content: space-around;
+ }

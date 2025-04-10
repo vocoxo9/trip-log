@@ -15,7 +15,7 @@
 !/docs/**
 
 # DB 연결 정보 파일 예외
-/resources/driver.properties
+/resources/environment.properties
 
 # 기타 파일 예외
 /webapp/META-INF/
