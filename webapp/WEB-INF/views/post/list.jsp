@@ -214,9 +214,9 @@
                             <div class="post-content">
                                 <p>
                                     ${
-                                            post.content.length() > 200 ?
-                                                post.content.substring(0, 200).concat('...') :
-                                                post.content
+                                        post.content.length() > 200 ?
+                                            post.content.substring(0, 200).concat('...') :
+                                            post.content
                                     }
                                 </p>
                             </div>
