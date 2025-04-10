@@ -1,23 +1,26 @@
 package kr.co.khedu.board.model.vo;
 
-public class BoardDetail {
+public class BoardDetailDto {
 
 	private int postId;
 	private String title;
 	private String content;
+	private int likeCount;
 	
 	// -------------------------
 	
-	public BoardDetail() {
+	public BoardDetailDto() {
 		super();
 	}
-	public BoardDetail(int postId, String title, String content) {
+	public BoardDetailDto(int postId, String title, String content, int likeCount) {
 		super();
 		this.postId = postId;
 		this.title = title;
 		this.content = content;
+		this.likeCount = likeCount;
 	}
-	
+
+
 	// -------------------------
 	
 	public int getPostId() {
@@ -38,13 +41,22 @@ public class BoardDetail {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	public int getLikeCount() {
+		return likeCount;
+	}
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
+
 	
 	// ------------------------
 	
 	@Override
 	public String toString() {
-		return "BoardDetail [postId=" + postId + ", title=" + title + ", content=" + content + "]";
+		return "BoardDetailDto [postId=" + postId + ", title=" + title + ", content=" + content + ", likeCount="
+				+ likeCount + "]";
 	}
+
 	
 	
 	

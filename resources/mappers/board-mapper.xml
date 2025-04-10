@@ -8,16 +8,29 @@
 		<result column="TITLE" property="title"/>
 		<result column="CONTENT" property="content"/>
 	</resultMap>
+	<resultMap type="CommentDto" id="boardCommentResultMap">
+		<result column="POST_ID" property="postId"/>
+		<result column="COMMENT_ID" property="commentId"/>
+		<result column="EMAIL" property="memberId"/>
+		<result column="REGIST_DATE" property="registDate"/>
+		<result column="CONTENT" property="content"/>
+		<result column="LIKE_COUNT" property="likeCount"/>
+	</resultMap>
 	
 	<select id="searchBoardDetail" resultMap="boardDetailResultMap" parameterType="BoardDetail">
-		SELECT POST_ID, TITLE, CONTENT
-		FROM TB_POST
+		SELECT 
+			P.POST_ID, 
+			P.TITLE, 
+			TO_CHAR(P.CONTENT) AS CONTENT,
+			COUNT(PL.POST_LIKE_ID) AS LIKE_COUNT
+		FROM TB_POST P
+			LEFT JOIN TB_POST_LIKE PL ON P.POST_ID = PL.POST_ID
 		WHERE POST_ID = #{ num }
+		GROUP BY P.POST_ID, P.TITLE, TO_CHAR(P.CONTENT)
 	</select>
 	
-	<select id="selectCommentList" resultMap="boardDetailResultMap">
+	<select id="selectCommentList" resultMap="boardCommentResultMap" parameterType="CommentDto">
 		SELECT
-		댓글번호, 사용자명, 작성일, 댓글 내용, 댓글 좋아요 수, 게시글 번호
 			C.POST_ID, C.COMMENT_ID, M.EMAIL,
 			FLOOR(SYSDATE - C.CREATED_AT) AS REGIST_DATE,
 			C.CONTENT,

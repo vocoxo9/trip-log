@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="kr.co.khedu.board.model.vo.CommentDto,
+				java.util.ArrayList" %>
 <%
 String rootPath = request.getContextPath();
 %>
@@ -189,15 +191,20 @@ String rootPath = request.getContextPath();
 									<textarea id="comment"></textarea>
 									<i class="fa-regular fa-paper-plane"></i>
 								</div>
+						<%
+							ArrayList<CommentDto> comments = (ArrayList<CommentDto>)request.getAttribute("comments");
+						%>
+						<% if (comments != null) { %>
+							<% for (CommentDto c : comments) { %>
 								<div class="comment-views">
 									<div class="comment-user-profile">
 										<i class="fa-solid fa-user"></i>
 									</div>
 									<div class="comment-view">
 										<div class="comment-view-header">
-											<div class="comment-user-name" id="userName">김일현</div>
+											<div class="comment-user-name" id="userName"><%= c.getMemberId() %></div>
 											<div class="date-update-delete">
-												<div class="comment-date" id="registDate">한달전</div>
+												<div class="comment-date" id="registDate"><%= c.getRegistDate() %>일 전</div>
 												<div class="update-delete-menu active">
 													<i class="fa-solid fa-ellipsis"></i>
 												</div>
@@ -208,9 +215,7 @@ String rootPath = request.getContextPath();
 											</div>
 										</div>
 										<div class="comment-view-body">
-											<textarea id="commentView" name="comment" readonly>     좋은 정보 감사합니다.
-     잘 보고 갑니다~ㅎㅎ
-                                    </textarea>
+											<textarea id="commentView" name="comment" readonly><%= c.getContent() %></textarea>
 										</div>
 										<div class="comment-view-footer">
 											<div class="reply-btn active" data-target="첫번째">
@@ -222,11 +227,13 @@ String rootPath = request.getContextPath();
 													id="replyCloser">댓글 닫기</span>
 											</div>
 											<div class="comment-like">
-												<i class="fa-regular fa-heart"></i> <span class="like-count">0</span>
+												<i class="fa-regular fa-heart"></i> <span class="like-count"><%= c.getLikeCount() %></span>
 											</div>
 										</div>
 									</div>
 								</div>
+							<% } %>
+						<% } %>
 							</div>
 							<div class="reply" id="첫번째">
 								<div class="reply-input">

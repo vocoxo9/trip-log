@@ -81,7 +81,7 @@
                     </a>
                 </div>
                 <div class="nav-list-item">
-                    <a href="products">
+                    <a href="/trip-log/products">
                         <i class="fa-solid fa-cart-shopping"></i>
                         <span>여행상품</span>
                     </a>

@@ -36,7 +36,9 @@ public class MemberSignupController extends HttpServlet {
 		String phone = request.getParameter("phone");
 		String nickname = request.getParameter("nickname");
 		String birthdayStr = request.getParameter("birthday");
-		int countryId = Integer.parseInt(request.getParameter("country"));
+
+		int countryId = Integer.parseInt(request.getParameter("countryId"));
+
 		
 		Date birthday = null;
 		if(birthdayStr != null && !birthdayStr.isEmpty()) {

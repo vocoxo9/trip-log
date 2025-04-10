@@ -17,6 +17,7 @@
 		<typeAlias alias="Product" type="kr.co.khedu.product.model.vo.Product" />
 		<typeAlias alias="Member" type="kr.co.khedu.member.model.vo.Member" />
 		<typeAlias alias="BoardDetail" type="kr.co.khedu.board.model.vo.BoardDetail" />
+		<typeAlias alias="CommentDto" type="kr.co.khedu.board.model.vo.CommentDto" />
 	</typeAliases>
 
 	<environments default="develop">
