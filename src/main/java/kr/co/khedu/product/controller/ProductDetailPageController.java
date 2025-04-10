@@ -14,7 +14,7 @@ import kr.co.khedu.product.service.ProductServiceImpl;
 /**
  * Servlet implementation class ProductDetailPageController
  */
-@WebServlet("/products/*")
+@WebServlet("/products/detail/*")
 public class ProductDetailPageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -52,7 +52,7 @@ public class ProductDetailPageController extends HttpServlet {
 		} else {
 			// TODO: 에러 페이지 이동
 			System.out.println("오류입니다.");
-			request.getRequestDispatcher("WEB-INF/views/product/productList.jsp").forward(request, response);
+			response.sendRedirect(request.getContextPath());
 		}
 		
 		System.out.println(productId);
@@ -63,7 +63,7 @@ public class ProductDetailPageController extends HttpServlet {
 		if(product == null) {
 			// TODO: 에러 페이지로 이동
 			System.out.println("오류입니다.");
-			request.getRequestDispatcher("WEB-INF/views/product/productList.jsp").forward(request, response);
+			response.sendRedirect(request.getContextPath());
 			return;
 		}
 		

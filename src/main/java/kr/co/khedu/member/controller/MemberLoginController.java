@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import kr.co.khedu.key.KeyManager;
 import kr.co.khedu.member.model.vo.Member;
 import kr.co.khedu.member.service.MemberService;
 import kr.co.khedu.member.service.MemberServiceImpl;
@@ -21,6 +22,12 @@ public class MemberLoginController extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 카카오 api 관련 키값
+		request.setAttribute("kakaoScriptKey", KeyManager.get("kakao.scriptKey"));
+		request.setAttribute("kakaoRestKey", KeyManager.get("kakao.restkKey"));
+		request.setAttribute("kakaoClientSecret", KeyManager.get("kakao.clientSecret"));
+		request.setAttribute("kakaoRedirectUrl", KeyManager.get("kakao.redirectUrl"));
+		
 		request.getRequestDispatcher("/WEB-INF/views/member/memberLogin.jsp").forward(request, response);
 	}
 
@@ -30,7 +37,7 @@ public class MemberLoginController extends HttpServlet{
 		
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		
+
 		Member m = new Member();
 		m.setEmail(email);
         m.setPassword(password);

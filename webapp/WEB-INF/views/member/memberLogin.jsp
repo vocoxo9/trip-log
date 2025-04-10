@@ -2,8 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%
 	String rootPath = request.getContextPath();
-	String kakaoApiKey = "";
-	String kakaoRedirectUri = "http://localhost:8080/trip-log/kakao-login";
 %>
 <!DOCTYPE html>
 <html>
@@ -25,8 +23,8 @@
 <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js"
 	integrity="sha384-DKYJZ8NLiK8MN4/C5P2dtSmLQ4KwPaoqAfyA/DfmEc1VDxu4yyC7wy6K1Hs90nka"
 	crossorigin="anonymous">
-	
 </script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <title>Trip-log</title>
 </head>
 <body>
@@ -50,7 +48,7 @@
 						alt="Kakao Logo" /> 카카오로 시작하기
 				</button>
 
-				<button class="social-btn google">
+				<button class="social-btn google" onclick="signGoogleLogin();">
 					<img
 						src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
 						alt="Google Logo" /> Google로 시작하기
@@ -62,17 +60,17 @@
 		</div>
 	</div>
 	<script>
-	Kakao.init('<%=kakaoApiKey%>');
+	Kakao.init('${kakaoScriptKey}');
 
 	function signKakaoLogin() {
 	    Kakao.Auth.authorize({
-	        redirectUri:'<%=kakaoRedirectUri%>',
+	        redirectUri:'${kakaoRedirectUrl}',
 	        scope: 'account_email', 
 	        prompt: 'select_account'
 	    });
 	}
 	</script>
-
+	
 	<%--<script src="assets/js/member/socialLogin.js"></script>--%>
 </body>
 </html>

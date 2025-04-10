@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import kr.co.khedu.key.KeyManager;
 import kr.co.khedu.member.model.vo.Member;
 import kr.co.khedu.member.service.MemberService;
 import kr.co.khedu.member.service.MemberServiceImpl;
@@ -27,9 +28,9 @@ import kr.co.khedu.member.service.MemberServiceImpl;
 public class MemberKakaoLoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
-	private final String clientId = ""; 
-    private final String clientSecret = ""; 
-    private final String redirectUri = "http://localhost:8080/trip-log/kakao-login";
+	private final String clientId = KeyManager.get("kakao.restKey"); 
+    private final String clientSecret = KeyManager.get("kakao.clientSecret"); 
+    private final String redirectUri = KeyManager.get("kakao.redirectUrl");
     /**
      * @see HttpServlet#HttpServlet()
      */
