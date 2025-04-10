@@ -6,4 +6,5 @@ import lombok.Data;
 public final class PostFormDTO {
     private final String title;
     private final String content;
+    private final int countryId;
 }

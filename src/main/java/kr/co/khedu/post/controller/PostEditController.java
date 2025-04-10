@@ -18,7 +18,8 @@ public final class PostEditController extends HttpServlet {
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
                         "Cras est leo, elementum mollis lectus eu, porta vehicula libero. " +
                         "In faucibus gravida enim, a ornare ante faucibus quis. " +
-                        "Proin ac risus accumsan augue rutrum vulputate quis at dui. "
+                        "Proin ac risus accumsan augue rutrum vulputate quis at dui. ",
+                1
         );
 
         request.setAttribute("form", form);
