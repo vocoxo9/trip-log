@@ -1,0 +1,119 @@
+
+hr {
+    margin-bottom: 1rem;
+}
+
+/* ---------------------------- 좌측 설정 ---------------------------- */
+.mypost-left {
+	float : left;
+    width: 25%;
+    height : 25rem;
+    padding: 2rem;
+    padding-top : 3rem;
+    margin : 7rem 1rem 10rem 0;
+    border: 0.3rem solid var(--main-color);
+    border-radius: 25px;
+    font-size: 1.1rem;
+}
+
+.mypost-left a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.mypost-left a:hover {
+    font-weight: bold;
+}
+
+.mypost-left img {
+    float: right;
+}
+
+
+/* ---------------------------- 우측 설정 ---------------------------- */
+.mypost-right {
+	float: right;
+    width: 70%;
+    height: 35rem;
+    margin : 3rem 1rem 10rem 2rem;
+}
+
+.mypost-right-title {
+    display: flex;
+}
+.mypost-right-title #title {
+    font-size: 1.9rem;
+    font-weight: bold;
+    margin-left: 0.5rem;
+}
+
+.mypost-right table {
+    border-spacing: 20px;
+    margin: 3rem;
+    text-align: center;
+}
+.mypost-right table th{
+    font-weight: bold;
+}
+.mypost-right table tr{
+    cursor : pointer;
+}
+/* 제목 너비 넓게 설정 */
+.mypost-right table thead tr :nth-child(2){
+    width : 40%;
+}
+.mypost-right table td {
+    padding : 0.9rem;
+    border-bottom : 1px solid var(--bg-sub-color);
+    vertical-align: middle !important;
+}
+
+.mypost-right table a {
+    width : 80%;
+    height : 2rem;
+    border-radius: 25px;
+    display : inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 아이콘... */
+.mypost-right-detail i {
+    color : var(--main-color);
+}
+.mypost-right-detail i:hover{
+    color : var(--strong-color);
+}
+/* ---------------------------- pagination ---------------------------- */ 
+#pagingArea ul{
+    margin-left : 6rem;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.4rem;
+}
+
+.pagination li {
+    list-style: none;
+}
+.pagination i {
+    color : white;
+}
+.pagination a {
+    color: var(--text-color);
+    padding: 0.4rem 0.9rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+}
+.pagination a:hover {
+    color: var(--bg-color);
+    background-color: var(--strong-color);
+}
+.icon-paging {
+    background-color: var(--main-color);
+    padding: 0.3rem;
+}

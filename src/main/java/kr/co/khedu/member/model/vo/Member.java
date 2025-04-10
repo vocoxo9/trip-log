@@ -35,15 +35,4 @@ public class Member {
 		this.countryId = countryId;
 	}
 
-
-	// 회원정보 수정 생성자
-	public Member(int memberId, String password, String nickname, String phone, int countryId) {
-		super();
-		this.memberId = memberId;
-		this.password = password;
-		this.nickname = nickname;
-		this.phone = phone;
-		this.countryId = countryId;
-	}
-
 }

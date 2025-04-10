@@ -11,17 +11,6 @@ import lombok.NoArgsConstructor;
 public class MemberDTO extends Member{
 
 	private String countryName;
-	
-	// 회원가입용 생성자
-	public MemberDTO(String email, String password, String nickname, Date birthday, String phone, int countryId) {
-		super();
-		super.setEmail(email);
-		super.setPassword(password);
-		super.setNickname(nickname);
-		super.setBirthday(birthday);
-		super.setPhone(phone);
-		super.setCountryId(countryId);
-	}
 
 
 	 // 회원정보 수정 생성자

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.khedu.member.model.dto.MemberDTO;
 import kr.co.khedu.member.model.vo.Member;
 import kr.co.khedu.member.service.MemberService;
 import kr.co.khedu.member.service.MemberServiceImpl;
@@ -23,7 +24,7 @@ public class MemberDeleteController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		
-		Member loginMember = (Member)request.getSession().getAttribute("loginMember");
+		MemberDTO loginMember = (MemberDTO)request.getSession().getAttribute("loginMember");
 		int memberId = loginMember.getMemberId();
 
 		int result = mService.deleteMember(memberId);

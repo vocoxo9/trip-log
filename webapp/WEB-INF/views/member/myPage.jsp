@@ -23,7 +23,7 @@
             <div class="mypage-left">
                 <a href="<%=rootPath%>/members/mypage">내 정보 관리</a> <img src="<%= rootPath %>/assets/images/member/mypage-arrow.png" alt=">"><br>
                 <hr>
-                <a href="#">내 글 정보 관리</a> <img src="<%= rootPath %>/assets/images/member/mypage-arrow.png" alt=">"><br>
+                <a href="<%=rootPath%>/members/posts">내 글 정보 관리</a> <img src="<%= rootPath %>/assets/images/member/mypage-arrow.png" alt=">"><br>
                 <hr>
                 <a href="#">내 댓글 정보 관리</a> <img src="<%= rootPath %>/assets/images/member/mypage-arrow.png" alt=">"><br>
                 <hr>
@@ -141,6 +141,7 @@
 										                                   value="<%= loginMember.getBirthday() %>"
 										                                <% } %>
                                                         			 disabled readonly>
+                                                        <input type="hidden" name="memberId" id="memberId" value="<%= loginMember.getMemberId() %>" />
                                                     </td>
                                                     <td>
                                                         <label for="countryId">국적</label> <br>

@@ -12,27 +12,31 @@ import kr.co.khedu.member.model.dto.MemberDTO;
 import kr.co.khedu.member.service.MemberService;
 import kr.co.khedu.member.service.MemberServiceImpl;
 
-@WebServlet("/members/mypage")
-public class MemberMypageController extends HttpServlet {
-
+/**
+ * Servlet implementation class MemberMypostController
+ */
+@WebServlet("/members/posts")
+public class MemberMypostController extends HttpServlet {
+	// private final PostService pService = new PostServiceImpl();
+	
 	private final MemberService mService = new MemberServiceImpl();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		MemberDTO loginMember = (MemberDTO)request.getSession().getAttribute("loginMember");
-		
-		if(loginMember == null) {
-			request.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(request, response);
-		} else {
-			request.getRequestDispatcher("/WEB-INF/views/member/myPage.jsp").forward(request, response);			
-		}
-	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		MemberDTO loginMember = (MemberDTO)request.getSession().getAttribute("loginMember");
+		if(loginMember == null) {
+			response.sendRedirect(request.getContextPath());
+		}
+		int memberId = loginMember.getMemberId();
+		
+		/* 
+			List<Post> postList = pService.selectPostsByMemberId(memberId);
+			request.setAttribute("postList", postList);
+			request.getRequestDispatcher("/WEB-INF/views/member/myPostList.jsp").forward(request, response); 
+		*/
+		request.getRequestDispatcher("/WEB-INF/views/member/myPostList.jsp").forward(request, response);
+		
+		// 
 	}
 
 }

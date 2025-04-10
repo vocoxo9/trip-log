@@ -45,7 +45,7 @@
 		AND DELETED_AT IS NULL 
 	</select>
  -->
- 	<select id="selectMember" resultType="MemberDTO">
+ 	<select id="selectMember" resultMap="memberDTOResultMap" resultType="MemberDTO">
         SELECT *
  		FROM TB_MEMBER
  		LEFT JOIN TR_COUNTRY USING(COUNTRY_ID)

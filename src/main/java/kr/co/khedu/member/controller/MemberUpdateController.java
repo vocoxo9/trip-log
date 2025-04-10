@@ -32,11 +32,11 @@ public class MemberUpdateController extends HttpServlet {
 		MemberDTO member = new MemberDTO(memberId, password, nickname, phone, countryId);
 		int result = mService.updateMember(member);
 		
-		System.out.println(memberId);
-		System.out.println(password);
-		System.out.println(phone);
-		System.out.println(nickname);
-		System.out.println(countryId);
+		System.out.println("memberId : " + memberId);
+		System.out.println("password : " + password);
+		System.out.println("phone : " + phone);
+		System.out.println("nickname : " + nickname);
+		System.out.println("countryId : " + countryId);
 		
 		if(result > 0) {
 			MemberDTO updateMember = mService.selectMember(memberId);

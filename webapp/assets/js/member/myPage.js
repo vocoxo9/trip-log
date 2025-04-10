@@ -46,7 +46,7 @@
 			const pwd = $(".mypage-update #password").val();
 			const pwdCheck = $(".mypage-update #passwordCheck").val();
 			
-			const memberId = $(".mypage-delete #memberId").val();
+			const memberId = $(".mypage-update #memberId").val();
 			const phone = $(".mypage-update #phone").val(); 
 			const nickname = $(".mypage-update #nickname").val();
 			const countryId = $(".mypage-update #countryId").val();
