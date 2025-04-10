@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="kr.co.khedu.post.model.dto.PostFormDTO" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="ko">
 
@@ -121,9 +120,12 @@
 <body>
 <div id="root">
     <jsp:include page="../common/header.jsp" />
-    <form class="post-container" method="post">
+    <form class="post-container" action='${pageContext.request.contextPath}/post/writeAction' method="post">
+        <div class="id-area">
+            <input type="hidden" name="postId" value='${form.postId}'>
+        </div>
         <div class="country-area">
-            <select aria-label="국가">
+            <select name="countryId" aria-label="국가">
                 <c:forEach var="country" items="${countries}">
                     <option value="${country.countryId}"
                             ${form.countryId eq country.countryId ? 'selected' : ''}>
@@ -144,7 +146,7 @@
         </div>
         <div class="button-area">
             <button type="submit">
-                ${empty form ? '수정' : '작성'}
+                ${empty form ? '작성' : '수정'}
             </button>
             <button>취소</button>
         </div>

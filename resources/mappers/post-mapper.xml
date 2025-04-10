@@ -10,6 +10,13 @@
         <result column="LIKES" property="likes"/>
         <result column="COMMENTS" property="comments"/>
     </resultMap>
+    <resultMap type="kr.co.khedu.post.model.dto.PostEditDTO" id="postEditForm">
+        <result column="POST_ID" property="postId"/>
+        <result column="TITLE" property="title"/>
+        <result column="CONTENT" property="content"/>
+        <result column="COUNTRY_ID" property="countryId"/>
+        <result column="MEMBER_ID" property="memberId"/>
+    </resultMap>
     <select id="getPostSummaries" resultMap="postSummaries">
         SELECT
             P.TITLE,
@@ -27,5 +34,50 @@
             ) AS COMMENTS
         FROM
             TB_POST P
+        ORDER BY
+            P.CREATED_AT DESC
     </select>
+    <select id="searchFormById" parameterType="int" resultMap="postEditForm">
+        SELECT
+            POST_ID,
+            TITLE,
+            CONTENT,
+            COUNTRY_ID,
+            MEMBER_ID
+        FROM TB_POST
+        WHERE POST_ID = #{postId}
+    </select>
+    <select id="isPostOwner" resultType="_int">
+        SELECT COUNT(*)
+        FROM TB_POST
+        WHERE POST_ID = #{postId}
+        AND MEMBER_ID = #{memberId}
+    </select>
+    <insert id="insertPost" parameterType="kr.co.khedu.post.model.dto.PostWriteDTO">
+        INSERT INTO TB_POST (
+            POST_ID,
+            TITLE,
+            CONTENT,
+            VIEWS,
+            MEMBER_ID,
+            COUNTRY_ID
+        )
+        VALUES (
+            SEQ_POST_ID.NEXTVAL,
+            #{title},
+            #{content},
+            0,
+            #{memberId},
+            #{countryId}
+        )
+    </insert>
+    <update id="updatePost" parameterType="kr.co.khedu.post.model.dto.PostEditDTO">
+        UPDATE TB_POST
+        SET
+            TITLE = #{title},
+            CONTENT = #{content},
+            COUNTRY_ID = #{countryId}
+        WHERE
+            POST_ID = #{postId}
+    </update>
 </mapper>
