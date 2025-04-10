@@ -87,4 +87,8 @@
 			ORDER BY PRICE DESC, CREATED_AT DESC
 		</if>
 	</select>
+  
+	<insert id="insertProduct" parameterType="Product">
+		INSERT INTO TB_PRODUCT VALUES (SEQ_PRODUCT_ID.NEXTVAL, #{name}, #{price}, #{stock}, #{description}, DEFAULT, 1, 25)
+	</insert>
 </mapper>

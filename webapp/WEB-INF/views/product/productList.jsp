@@ -39,7 +39,7 @@
 				</div>
 				<div class="product-menu-area">
 					<div class="product-insert-btn-area">
-						<a class="product-insert-btn"> 
+						<a href="register" class="product-insert-btn"> 
 							<i class="fa-solid fa-cart-plus"></i> <!-- 상품등록 -->
 						</a>
 					</div>

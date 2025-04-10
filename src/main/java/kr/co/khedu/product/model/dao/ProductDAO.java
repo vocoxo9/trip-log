@@ -43,4 +43,7 @@ public class ProductDAO {
 		return sqlSession.selectList("productMapper.findByProductNameLike", productSearchDTO, rowBounds);
 	}
 
+	public int insertProduct(SqlSession sqlSession, Product product) {
+		return sqlSession.insert("productMapper.insertProduct", product);
+	}
 }

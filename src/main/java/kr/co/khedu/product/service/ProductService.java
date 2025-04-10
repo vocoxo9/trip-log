@@ -27,4 +27,7 @@ public interface ProductService {
 	 * @return
 	 */
 	List<ProductListDTO> selectByProductName(ProductSearchDTO productSearchDTO, PageInfo pageInfo);
+	
+	// 상품 등록 
+	int insertProduct(Product product);
 }
