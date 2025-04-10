@@ -1,12 +1,10 @@
-package kr.co.khedu.post.dto;
+package kr.co.khedu.post.model.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 
 import java.sql.Date;
 
-@AllArgsConstructor
-@Getter
+@Data
 public final class PostSummaryDTO {
     private final String title;
     private final String content;

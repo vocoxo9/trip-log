@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <%@ page import="java.sql.Date" %>
-<%@ page import="kr.co.khedu.post.dto.PostSummaryDTO" %>
+<%@ page import="kr.co.khedu.post.model.dto.PostSummaryDTO" %>
 <%
     String rootPath = request.getContextPath();
 
