@@ -54,7 +54,8 @@
 										<span class="product-list-card-header">
 											<span class="heart-icon"><i class="fa-solid fa-heart"></i></span>
 										</span>
-										<img src="<%= rootPath %>/assets/images/product/sample-img.jpg"
+										<%= rootPath %>${p.changeFileName}
+										<img src="<%= rootPath %>${p.changeFileName}"
 											class="product-image" />
 										<span class="product-list-card-body">
 											<span class="product-item-title">${ p.name }</span>

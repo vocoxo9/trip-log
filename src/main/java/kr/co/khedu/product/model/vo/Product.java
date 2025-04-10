@@ -12,16 +12,20 @@ public class Product {
 	private int price;
 	private int stock;
 	private String description;
+	private String originFileName;
+	private String changeFileName;
 	private Date createdAt;
 	private int memberId;
 	private int countryId;
 	
-	public Product(String name, int price, int stock, String description) {
+	public Product(String name, int price, int stock, String description, String originFileName, String changeFileName) {
 		super();
 		this.name = name;
 		this.price = price;
 		this.stock = stock;
 		this.description = description;
+		this.originFileName = originFileName;
+		this.changeFileName = changeFileName;
 	}
 	
 

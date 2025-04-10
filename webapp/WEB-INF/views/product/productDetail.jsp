@@ -22,7 +22,7 @@
 	        <!-- 상품 이미지 영역 -->
 	        <div class="product-image-area">
 	            <div class="product-image">
-					<img src="<%= rootPath %>/assets/images/product/sample-img.jpg" class="product-image" />
+					<img src="<%= rootPath %>${productInfo.changeFileName}" class="product-image" />
 	            </div>
 	        </div>
 	        <!-- 상품 상단 영역 -->
