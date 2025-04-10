@@ -2,8 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ page import="kr.co.khedu.member.model.dto.MemberDTO,
 					java.util.List,
-					kr.co.khedu.common.PageInfo,
-					kr.co.khedu.post.model.vo.Post" %>
+					kr.co.khedu.common.PageInfo" %>
+				<%-- ,
+					kr.co.khedu.post.model.vo.Post"  --%>	 
 <% 
 	String rootPath = request.getContextPath();
 	MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
@@ -55,20 +56,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                        	<% 
+                        	<%-- 
                         		List<Post> postList = (List<Post>)request.getAttribute("postList");
-                        	%>
-                        	<% for ( Post p : postList ){ %>
+                        	--%>
+                        	<%-- for ( Post p : postList ){ --%>
                             <tr>
-                                <td><%= p.getPostId() %></td>
-                                <td><%= p.getTitle() %></td>
-                                <td><%= p.getMemberId() %></td>
-                                <td><%= p.getCreatedAt() %></td>
-                                <td><%= p.getViews() %></td>
+                                <td><%--= p.getPostId() --%></td>
+                                <td><%--= p.getTitle() --%></td>
+                                <td><%--= p.getMemberId() --%></td>
+                                <td><%--= p.getCreatedAt() --%></td>
+                                <td><%--= p.getViews() --%></td>
                                 <td><a href="" id="edit"><i class="fa-solid fa-pen-to-square fa-lg"></i></a></td>
                                 <td><a href="" id="edit"><i class="fa-solid fa-trash-can fa-lg"></i></a></td>
                             </tr>
-                            <% } %>
+                            <%-- } --%>
                             <tr>
                                 <td>1</td>
                                 <td>글 제목입니다.</td>
