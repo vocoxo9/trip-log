@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import kr.co.khedu.key.KeyManager;
+import kr.co.khedu.keys.KeyManager;
 import kr.co.khedu.member.model.vo.Member;
 import kr.co.khedu.member.service.MemberService;
 import kr.co.khedu.member.service.MemberServiceImpl;

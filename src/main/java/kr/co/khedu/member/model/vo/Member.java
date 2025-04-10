@@ -37,9 +37,5 @@ public class Member {
 		this.email = email;
 		this.password = password;
 	}
-	
-	public Member(String email) {
-		this.email=email;
-	}
 
 }
