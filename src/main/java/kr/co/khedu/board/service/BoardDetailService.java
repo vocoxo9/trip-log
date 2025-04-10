@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import kr.co.khedu.board.model.vo.BoardDetailDto;
 import kr.co.khedu.board.model.vo.CommentDto;
+import kr.co.khedu.board.model.vo.ReplyDto;
 
 public interface BoardDetailService {
 
@@ -12,5 +13,8 @@ public interface BoardDetailService {
 
 	/* 댓글 리스트 조회 */
 	ArrayList<CommentDto> selectCommentList(int pNum);
+
+	/* 대댓글 리스트 조회 (비동기식) */
+	ArrayList<ReplyDto> selectReplyList(int parentNum, int postNum);
 	
 }

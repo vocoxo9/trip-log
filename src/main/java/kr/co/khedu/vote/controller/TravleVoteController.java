@@ -57,6 +57,7 @@ public class TravleVoteController extends HttpServlet {
 		ArrayList<CommentDto> comments = bdService.selectCommentList(pNum);
 		System.out.println("comments controller에서 반환받음 : " + comments);
 		
+		
 		if (comments != null) {
 			request.setAttribute("comments", comments);
 		}

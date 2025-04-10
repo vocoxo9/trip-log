@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="kr.co.khedu.board.model.vo.CommentDto,
-				java.util.ArrayList" %>
+<%@ page
+	import="kr.co.khedu.board.model.vo.CommentDto,
+				java.util.ArrayList"%>
 <%
 String rootPath = request.getContextPath();
 %>
@@ -175,11 +176,13 @@ String rootPath = request.getContextPath();
 					<div class="content-update-delete">
 						<div class="buttons">
 							<div class="update-delete-btn">
-								<i class="fa-solid fa-pen-to-square"></i> <i
+								<input type="hidden" name="postId"
+									value="${ boardDetail.postId }" /> <i
+									class="fa-solid fa-pen-to-square"></i> <i
 									class="fa-solid fa-trash-can"></i>
 							</div>
 							<div class="board-like-count">
-								<i class="fa-regular fa-heart"></i> <span class="like-count">0</span>
+								<i class="fa-regular fa-heart"></i> <span class="like-count">${ boardDetail.likeCount }</span>
 							</div>
 						</div>
 					</div>
@@ -191,20 +194,26 @@ String rootPath = request.getContextPath();
 									<textarea id="comment"></textarea>
 									<i class="fa-regular fa-paper-plane"></i>
 								</div>
-						<%
-							ArrayList<CommentDto> comments = (ArrayList<CommentDto>)request.getAttribute("comments");
-						%>
-						<% if (comments != null) { %>
-							<% for (CommentDto c : comments) { %>
+								<%
+								ArrayList<CommentDto> comments = (ArrayList<CommentDto>) request.getAttribute("comments");
+								%>
+								<%
+								if (comments != null) {
+								%>
+								<%
+								for (CommentDto c : comments) {
+								%>
 								<div class="comment-views">
 									<div class="comment-user-profile">
 										<i class="fa-solid fa-user"></i>
 									</div>
 									<div class="comment-view">
 										<div class="comment-view-header">
-											<div class="comment-user-name" id="userName"><%= c.getMemberId() %></div>
+											<div class="comment-user-name" id="userName"><%=c.getMemberId()%></div>
 											<div class="date-update-delete">
-												<div class="comment-date" id="registDate"><%= c.getRegistDate() %>일 전</div>
+												<div class="comment-date" id="registDate"><%=c.getRegistDate()%>일
+													전
+												</div>
 												<div class="update-delete-menu active">
 													<i class="fa-solid fa-ellipsis"></i>
 												</div>
@@ -215,180 +224,46 @@ String rootPath = request.getContextPath();
 											</div>
 										</div>
 										<div class="comment-view-body">
-											<textarea id="commentView" name="comment" readonly><%= c.getContent() %></textarea>
+											<textarea id="commentView" name="comment" readonly><%=c.getContent()%></textarea>
 										</div>
 										<div class="comment-view-footer">
-											<div class="reply-btn active" data-target="첫번째">
+											<div class="reply-btn active"
+												data-target="<%=c.getCommentId()%>">
 												<i class="fa-solid fa-square-caret-down"></i> <span
 													id="replyWriter">댓글 달기</span>
 											</div>
-											<div class="reply-close-btn" data-target="첫번째">
+											<div class="reply-close-btn"
+												data-target="<%=c.getCommentId()%>">
 												<i class="fa-solid fa-square-caret-up"></i> <span
 													id="replyCloser">댓글 닫기</span>
 											</div>
 											<div class="comment-like">
-												<i class="fa-regular fa-heart"></i> <span class="like-count"><%= c.getLikeCount() %></span>
+												<i class="fa-regular fa-heart"></i> <span class="like-count"><%=c.getLikeCount()%></span>
 											</div>
 										</div>
 									</div>
 								</div>
-							<% } %>
-						<% } %>
-							</div>
-							<div class="reply" id="첫번째">
-								<div class="reply-input">
-									<!-- <input type="text" id="reply"> -->
-									<textarea id="reply"></textarea>
-									<i class="fa-regular fa-paper-plane"></i>
-								</div>
-								<div class="reply-views">
-									<div class="reply-user-profile">
-										<i class="fa-solid fa-user"></i>
+
+								<div class="reply" id="<%=c.getCommentId()%>">
+									<div class="reply-input">
+										<!-- <input type="text" id="reply"> -->
+										<textarea id="reply"></textarea>
+										<i class="fa-regular fa-paper-plane"></i>
 									</div>
-									<div class="reply-view">
-										<div class="reply-view-header">
-											<div class="reply-user-name">사용자 이름</div>
-											<div class="date-update-delete">
-												<div class="reply-date">작성날짜</div>
-												<div class="update-delete-menu active">
-													<i class="fa-solid fa-ellipsis"></i>
-												</div>
-												<div class="reply-update-delete">
-													<i class="fa-solid fa-pen-to-square"></i> <i
-														class="fa-solid fa-trash-can"></i>
-												</div>
-											</div>
-										</div>
-										<div class="reply-view-body">
-											<textarea id="replyView" name="reply" readonly>
-    감사합니다.^*
-                                    </textarea>
-										</div>
-										<div class="reply-view-footer">
-											<div>
-												<i class="fa-regular fa-heart"></i> <span class="like-count">0</span>
-											</div>
-										</div>
-									</div>
+									
 								</div>
+								<%
+								}
+								%>
+								<%
+								}
+								%>
 							</div>
 						</div>
 					</div>
 
 					<script>
-				    const commentRegistBtn = document.querySelector(".comment-input i");
-			    	commentRegistBtn.addEventListener("click", () => {
-			    		const viewArea = document.getElementById("pageComment");
-			    		// viewArea.
-			    		$.ajax({
-			    			url: 'comment/regist',
-			    			type: 'post',
-			    			data: {
-			    				name: $("#userName").val(),
-			    				registDate: $("#registDate").val(),
-			    				commentView: $("#commentView").val()
-			    			},
-			    			success: function(result) {
-			    				console.log("** Ajax 통신 성공 **");
-			    				console.log(result);
-			    				
-			    				console.log("댓글 사용자명" + result.name);
-			    				console.log("댓글 작성일" + result.registDate);
-			    				console.log("댓글 내용" + result.commentView);
-			    				// console.log("댓글 좋아요 수" + );
-			    				
-			    				// console.log("대댓글 사용자명" + );
-			    				// console.log("대댓글 작성일" + );
-			    				// console.log("대댓글 내용" + );
-			    				// console.log("대댓글 좋아요 수" + );
-			    				
-			    				const element = // "<ul>"
-			    							 // + "<li>" + result.name + "</li>"
-			    							 // + "<li>" + result.registDate + "</li>"
-			    							 // + "<li>" + result.commentView + "</li>"
-			    							 // + "</ul>"
-			    							  + "<div class='comment'>"
-			    							  + 	"<div class='comment-views'>"
-			    							  + 		"<div class='comment-user-profile'>"
-			    							  + 			"<i class='fa-solid fa-user'>" + "</i>"
-			    							  + 		"</div>"
-			    							  + 		"<div class='comment-view'>"
-			    							  + 			"<div class='comment-view-header'>"
-			    							  + 				"<div class='comment-user-name'>" + result.name + "</div>"
-			    							  + 				"<div class='date-update-delete'>"
-			    							  + 					"<div class='comment-date'>" + result.registDate + "</div>"
-			    							  + 					"<div class='update-delete-menu active'>"
-			    							  + 						"<i class='fa-solid fa-ellipsis'>" + "</i>"
-			    							  + 					"</div>"
-			    							  + 					"<div class='comment-update-delete'>"
-			    							  + 						"<i class='fa-solid fa-pen-to-square'>" + "</i>" + "<i class='fa-solid fa-trash-can'>" + "</i>"
-			    							  + 					"</div>"
-			    							  + 				"</div>"
-			    							  + 			"</div>"
-			    							  + 			"<div class='comment-view-body'>"
-			    							  + 				"<textarea id='commentView' name='comment' readonly>     " + result.commentView + "</textarea>"
-			    							  + 			"</div>"
-			    							  + 			"<div class='comment-view-footer'>"
-			    							  + 				"<div class='reply-btn active' data-target='첫번째'>"
-			    							  + 					"<i class='fa-solid fa-square-caret-down'>" + "</i>" + "<span id='replyWriter'>댓글 달기</span>"
-			    							  + 				"</div>"
-			    							  + 				"<div class='reply-close-btn' data-target='첫번째'>"
-			    							  + 					"<i class='fa-solid fa-square-caret-up'>" + "</i>" + "<span id='replyCloser'>댓글 닫기</span>"
-			    							  + 				"</div>"
-			    							  + 				"<div class='comment-like'>"
-			    							  + 					"<i class='fa-regular fa-heart'>" + "</i>" + "<span class='like-count'>0</span>"
-			    							  + 				"</div>"
-			    							  + 			"</div>"
-			    							  + 		"</div>"
-			    							  + 	"</div>"
-			    							  + "</div>"
-			    							  + "<div class='reply' id='첫번째'>"
-			    							  + 	"<div class='reply-input'>"
-			    							  + 		"<!-- " + "<input type='text' id='reply'>" + " -->"
-			    							  + 		"<textarea id='reply'>" + "</textarea>"
-			    							  + 		"<i class='fa-regular fa-paper-plane'>" + "</i>"
-			    							  + 	"</div>"
-			    							  + 	"<div class='reply-views'>"
-			    							  + 		"<div class='reply-user-profile'>"
-			    							  + 			"<i class='fa-solid fa-user'>" + "</i>"
-			    							  + 		"</div>"
-			    							  + 		"<div class='reply-view'>"
-			    							  + 			"<div class='reply-view-header'>"
-			    							  + 				"<div class='reply-user-name'>사용자 이름</div>"
-			    							  + 				"<div class='date-update-delete'>"
-			    							  + 					"<div class='reply-date'>작성날짜</div>"
-			    							  + 					"<div class='update-delete-menu active'>"
-			    							  + 						"<i class='fa-solid fa-ellipsis'>" + "</i>"
-			    							  + 					"</div>"
-			    							  + 					"<div class='reply-update-delete'>"
-			    							  + 						"<i class='fa-solid fa-pen-to-square'>" + "</i>" + "<i class='fa-solid fa-trash-can'>" + "</i>"
-			    							  + 					"</div>"
-			    							  + 				"</div>"
-			    							  + 			"</div>"
-			    							  + 			"<div class='reply-view-body'>"
-			    							  + 				"<textarea id='replyView' name='reply' readonly>		감사합니다.^*</textarea>"
-			    							  + 			"</div>"
-			    							  + 			"<div class='reply-view-footer'>"
-			    							  + 				"<div>"
-			    							  + 					"<i class='fa-regular fa-heart'>" + "</i>" + "<span class='like-count'>0</span>"
-			    							  + 				"</div>"
-			    							  + 			"</div>"
-			    							  + 		"</div>"
-			    							  + 	"</div>"
-			    							  + "</div>"
-			    				$(".views .comment-views").before(element);
-			    			},
-			    			error: function(err) {
-			    				console.log("** Ajax 통신 실패 ㅠㅜ **");
-			    				console.log(err);
-			    			},
-			    			complete: function() {
-			    				console.log("** Ajax 통신 완료!! **");
-			    			}
-			    		});
-			    		console.log("요청은 들어옴");
-			    		
-			    	});
+						
 					</script>
 					<div class="down-btn">
 						<i class="fa-solid fa-circle-arrow-down"></i>
@@ -408,74 +283,7 @@ String rootPath = request.getContextPath();
 			</div>
 		</div>
 	</div>
-	<script>
-
-
-
-
-        // 댓글 달기 누르면 대댓글 작성란과 대댓글 나타내기
-        const replyBtns = document.querySelectorAll(".reply-btn");
-        const reply = document.querySelectorAll(".reply");
-        const replyCloseBtns = document.querySelectorAll(".reply-close-btn");
-
-        replyBtns.forEach(replyBtn => {
-            replyBtn.addEventListener("click", () => {
-
-                // + 클릭된 본인을 숨기고, 동시에 reply-close-btn 나타나게 하고
-                // 그리고 추가로 reply-close-btn이 클릭되었을 때에 함수 해당 함수와 반대로
-                // 모든 reply 숨기기
-                reply.forEach(re => re.classList.remove("active"));
-                replyCloseBtns.forEach(reC => reC.classList.add("active"));
-
-                // 클릭한 replyBtn에 해당하는 reply 보이기
-                const targetId = replyBtn.getAttribute("data-target");
-                document.getElementById(targetId).classList.add("active");
-                console.log(targetId);
-                replyBtn.classList.remove("active");
-
-                replyCloseBtns.forEach(closeBtn => {
-                    closeBtn.addEventListener("click", () => {
-                        const targetId = closeBtn.getAttribute("data-target");
-                        document.getElementById(targetId).classList.remove("active");
-                        const replyCloseBtn = document.querySelector(`[data-target = "${targetId}"]`);
-                        closeBtn.classList.remove("active");
-                        replyBtn.classList.add("active");
-                    });
-                });
-            });
-        });
-
-        replyCloseBtns.forEach(closeBtn => {
-            closeBtn.addEventListener("click", () => {
-                const targetId = closeBtn.getAttribute("data-target");
-                document.getElementById(targetId).classList.remove("active");
-                const replyCloseBtn = document.querySelector(`[data-target = "${targetId}"]`);
-                closeBtn.classList.remove("active");
-            });
-        });
-
-        const commentEtcBtns = document.querySelectorAll(".comment-view .update-delete-menu");
-        const commentUDBtn = document.querySelector(".comment-view .comment-update-delete");
-        commentEtcBtns.forEach(etcBtn => {
-            etcBtn.addEventListener("click", () => {
-                etcBtn.classList.remove("active");
-                commentUDBtn.classList.add("active");
-            });
-        });
-        const replyEtcBtns = document.querySelectorAll(".reply-view .update-delete-menu");
-        const replyUDBtn = document.querySelector(".reply-view .reply-update-delete");
-        replyEtcBtns.forEach(etcBtn => {
-            etcBtn.addEventListener("click", () => {
-                etcBtn.classList.remove("active");
-                replyUDBtn.classList.add("active");
-            });
-        });
-
-        
-        
-
-    
-    </script>
+	<script src="<%=rootPath%>/assets/js/post/boardDetail.js"></script>
 
 
 

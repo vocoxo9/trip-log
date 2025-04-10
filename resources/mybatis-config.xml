@@ -17,8 +17,9 @@
         <typeAlias alias="Country" type="kr.co.khedu.country.model.vo.Country" />
 		<typeAlias alias="Product" type="kr.co.khedu.product.model.vo.Product" />
 		<typeAlias alias="Member" type="kr.co.khedu.member.model.vo.Member" />
-		<typeAlias alias="BoardDetail" type="kr.co.khedu.board.model.vo.BoardDetail" />
+		<typeAlias alias="BoardDetailDto" type="kr.co.khedu.board.model.vo.BoardDetailDto" />
 		<typeAlias alias="CommentDto" type="kr.co.khedu.board.model.vo.CommentDto" />
+		<typeAlias alias="ReplyDto" type="kr.co.khedu.board.model.vo.ReplyDto" />
 	</typeAliases>
 
 	<environments default="develop">

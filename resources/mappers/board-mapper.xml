@@ -3,10 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="boardDetailMapper">
-	<resultMap id="boardDetailResultMap" type="BoardDetail">
+	<resultMap id="boardDetailResultMap" type="BoardDetailDto">
 		<result column="POST_ID" property="postId"/>
 		<result column="TITLE" property="title"/>
 		<result column="CONTENT" property="content"/>
+		<result column="LIKE_COUNT" property="likeCount"/>
 	</resultMap>
 	<resultMap type="CommentDto" id="boardCommentResultMap">
 		<result column="POST_ID" property="postId"/>
@@ -16,34 +17,68 @@
 		<result column="CONTENT" property="content"/>
 		<result column="LIKE_COUNT" property="likeCount"/>
 	</resultMap>
+		<resultMap type="ReplyDto" id="boardReplyResultMap">
+		<result column="POST_ID" property="postId"/>
+		<result column="COMMENT_ID" property="commentId"/>
+		<result column="EMAIL" property="userName"/>
+		<result column="REGIST_DATE" property="registDate"/>
+		<result column="CONTENT" property="content"/>
+		<result column="LIKE_COUNT" property="likeCount"/>
+		<result column="PARENT_ID" property="parentId"/>
+	</resultMap>
 	
-	<select id="searchBoardDetail" resultMap="boardDetailResultMap" parameterType="BoardDetail">
+	
+	<select id="searchBoardDetail" resultMap="boardDetailResultMap" parameterType="BoardDetailDto">
 		SELECT 
 			P.POST_ID, 
 			P.TITLE, 
 			TO_CHAR(P.CONTENT) AS CONTENT,
 			COUNT(PL.POST_LIKE_ID) AS LIKE_COUNT
 		FROM TB_POST P
-			LEFT JOIN TB_POST_LIKE PL ON P.POST_ID = PL.POST_ID
-		WHERE POST_ID = #{ num }
+		LEFT JOIN TB_POST_LIKE PL ON P.POST_ID = PL.POST_ID
+		WHERE P.POST_ID = #{ num }
 		GROUP BY P.POST_ID, P.TITLE, TO_CHAR(P.CONTENT)
 	</select>
 	
 	<select id="selectCommentList" resultMap="boardCommentResultMap" parameterType="CommentDto">
 		SELECT
-			C.POST_ID, C.COMMENT_ID, M.EMAIL,
+			C.POST_ID, C.COMMENT_ID, 
+			SUBSTR(M.EMAIL, 1, INSTR(M.EMAIL, '@')-1) AS EMAIL,
 			FLOOR(SYSDATE - C.CREATED_AT) AS REGIST_DATE,
 			C.CONTENT,
 			COUNT(CL.COMMENT_LIKE_ID) AS LIKE_COUNT
 		FROM TB_COMMENT C
 			LEFT JOIN TB_MEMBER M ON C.MEMBER_ID = M.MEMBER_ID
 			LEFT JOIN TB_COMMENT_LIKE CL ON C.COMMENT_ID = CL.COMMENT_ID
-		WHERE C.POST_ID = #{pNum}
+		WHERE PARENT_ID IS NULL AND C.POST_ID = #{pNum}
 		GROUP BY
 			C.POST_ID,
 			C.COMMENT_ID,
 			M.EMAIL,
 			(SYSDATE - C.CREATED_AT),
 			C.CONTENT
+		ORDER BY COMMENT_ID DESC
 	</select>
+	
+	<select id="selectReplyList" resultMap="boardReplyResultMap" parameterType="ReplyDto">
+				SELECT
+			C.POST_ID, C.COMMENT_ID, 
+			SUBSTR(M.EMAIL, 1, INSTR(M.EMAIL, '@')-1) AS EMAIL,
+			FLOOR(SYSDATE - C.CREATED_AT) AS REGIST_DATE,
+			C.CONTENT,
+			COUNT(CL.COMMENT_LIKE_ID) AS LIKE_COUNT
+		FROM TB_COMMENT C
+			LEFT JOIN TB_MEMBER M ON C.MEMBER_ID = M.MEMBER_ID
+			LEFT JOIN TB_COMMENT_LIKE CL ON C.COMMENT_ID = CL.COMMENT_ID
+		WHERE PARENT_ID = #{parentNum} AND C.POST_ID = #{postNum}
+		GROUP BY
+			C.POST_ID,
+			C.COMMENT_ID,
+			M.EMAIL,
+			(SYSDATE - C.CREATED_AT),
+			C.CONTENT
+		ORDER BY COMMENT_ID ASC
+	</select>
+	
+	
 </mapper>
