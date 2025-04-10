@@ -15,18 +15,22 @@
 	<jsp:include page="../common/header.jsp"></jsp:include>
         <div class="container">
             <div class="productEnrollForm">
-                <form action="products/auth/register" method="post">
+                <form action="products/auth/register" enctype="multipart/form-data" method="post">
                     <div class="mb-5">
                         <label for="productName" class="product-register-label">상품명을 작성하세요.</label>
-                        <input class="form-control product-register-input" id="productName" name="name" rows="3"></input>
+                        <input type="text" class="form-control product-register-input" id="productName" name="name" />
+                    </div>
+                    <div class="mb-5">
+                        <label for="uploadFile" class="product-register-label">상품 이미지를 넣어주세요</label>
+                        <input type="file" class="form-control product-register-input" id="uploadFile" name="uploadFile" />
                     </div>
                     <div class="mb-5">
                         <label for="productStock" class="product-register-label">재고를 작성하세요.</label>
-                        <input class="form-control product-register-input" id="productStock" name="stock" rows="3"></input>
+                        <input type="number" class="form-control product-register-input" id="productStock" name="stock" />
                     </div>
                     <div class="mb-5">
                         <label for="productPrice" class="product-register-label">가격을 작성하세요.</label>
-                        <input class="form-control product-register-input" id="productPrice" name="price" rows="3"></input>
+                        <input type="number" class="form-control product-register-input" id="productPrice" name="price" />
                     </div>
                     <div class="mb-5">
                         <label for="productDescription" class="product-register-label">상품설명을 작성하세요.</label>

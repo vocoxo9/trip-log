@@ -40,14 +40,29 @@ public class ProductRegisterController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// System.out.println("test");
 		request.setCharacterEncoding("UTF-8");
-		String name = request.getParameter("name");
-		int stock = Integer.parseInt(request.getParameter("stock"));
-		int price = Integer.parseInt(request.getParameter("price"));
-		String description = request.getParameter("description");
+//		String name = request.getParameter("name");
+//		String uploadFile = request.getParameter("uploadFile");
+//		int stock = Integer.parseInt(request.getParameter("stock"));
+//		int price = Integer.parseInt(request.getParameter("price"));
+//		String description = request.getParameter("description");
+		
+		String name = "";
+		String uploadFile = "/assets/upload/images/"; 
+		int stock = 0;
+		int price = 0;
+		String description = "";
+		
+		try {
+			
+		} catch(Exception e) {
+			
+		}
+		
 		System.out.println(name);
 		System.out.println(stock);
 		System.out.println(price);
 		System.out.println(description);
+		System.out.println("파일 : "  + uploadFile);
 		
 		Product product = new Product(name, price, stock, description);
 		System.out.println(product);
