@@ -16,5 +16,11 @@ public interface BoardDetailService {
 
 	/* 대댓글 리스트 조회 (비동기식) */
 	ArrayList<ReplyDto> selectReplyList(int parentNum, int postNum);
+
+	/* 댓글 등록 */
+	int insertComment(String name, String commentView, String postId);
+
+	/* 댓글 작성 시 해당 댓글 조회 (비동기식) */
+	CommentDto selectLastComment(String postId);
 	
 }

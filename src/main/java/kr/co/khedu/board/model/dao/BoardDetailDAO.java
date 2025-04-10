@@ -26,7 +26,6 @@ public class BoardDetailDAO {
 
 		ArrayList<CommentDto> comments = (ArrayList)sqlSession.selectList("boardDetailMapper.selectCommentList", pNum);
 		
-		System.out.println("@@DAO에서 요청 후 DB처리까지는 됨");
 		return comments;
 	}
 
@@ -40,6 +39,34 @@ public class BoardDetailDAO {
 		
 		
 		return replys;
+	}
+
+	public int insertComment(SqlSession sqlSession, String name, String commentView, String postId) {
+		
+		HashMap hashMap = new HashMap();
+		hashMap.put("name", name);
+		hashMap.put("commentView", commentView);
+		hashMap.put("postId", postId);
+		
+		int result = sqlSession.insert("boardDetailMapper.insertComment", hashMap);
+		
+		System.out.println("@@DAO에서 요청 후 서비스에서 반환받긴함");
+		
+		if (result > 0) {
+			sqlSession.commit();
+		} else {
+			sqlSession.rollback();
+		}
+		
+		return result;
+	}
+
+	public CommentDto selectLastComment(SqlSession sqlSession, String postId) {
+		
+		CommentDto lastComment = sqlSession.selectOne("boardDetailMapper.selectLastComment", postId);
+		System.out.println("DAO에서 DB처리 후 ");
+		
+		return lastComment;
 	}
 
 }

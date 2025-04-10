@@ -165,6 +165,7 @@ String rootPath = request.getContextPath();
                             ${ boardDetail.content }
                             
                         </textarea>
+                        <input type="hidden" id="memberId" value="${ boardDetail.memberId }"/> <%--  나중에 연결하면 loginUser의 memberId로 바꾸기!! --%>
 						<div class="nav-btn">
 							<nav>
 								<a href="#pageUp"><i class="fa-solid fa-circle-up"></i></a> <a

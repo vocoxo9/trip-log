@@ -59,6 +59,38 @@ public class BoardDetailServiceImpl implements BoardDetailService {
 		return replys;
 	}
 
+
+	@Override
+	public int insertComment(String name, String commentView, String postId) {
+
+		SqlSession sqlSession = Template.getSqlSession();
+		
+		int result = bdDao.insertComment(sqlSession, name, commentView, postId);
+		
+		sqlSession.close();
+		
+		return result;
+		
+	}
+
+
+	@Override
+	public CommentDto selectLastComment(String postId) {
+		SqlSession sqlSession = Template.getSqlSession();
+		
+		System.out.println("Service요청 들어왔구여");
+
+		CommentDto lastComment = bdDao.selectLastComment(sqlSession, postId);
+		
+		System.out.println("반환받았구여");
+		
+		sqlSession.close();
+		
+		return lastComment;
+	}
+	
+	
+
 	
 	
 	

@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 
-import com.google.gson.JsonObject;
+import kr.co.khedu.board.model.vo.CommentDto;
+import kr.co.khedu.board.service.BoardDetailService;
+import kr.co.khedu.board.service.BoardDetailServiceImpl;
 
 /**
  * Servlet implementation class CommentRegistController
@@ -41,20 +43,33 @@ public class CommentRegistController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 데이터 추출
 		String name = request.getParameter("name");
-		String registDate = request.getParameter("registDate");
 		String commentView = request.getParameter("commentView");
+		String postId = request.getParameter("postId");
+		
+		System.out.println("name : " + name);
+		System.out.println("commentView : " + commentView);
+		System.out.println("postId : " + postId);
+		
+		// Service 객체에 전달받은 값들을 전달 - DB에 저장(insert)
+		BoardDetailService bdService = new BoardDetailServiceImpl();
+		int result = bdService.insertComment(name, commentView, postId);
 		
 		// 결과 데이터 추출
-		String result = "사용자명: [ " + name + " ], 작성일자: [ " + registDate + " ], 댓글 내용: [ " + commentView + " ] ";
+		CommentDto lastComment = bdService.selectLastComment(postId);
+		
+		System.out.println("Controller에서 lastComment : " + lastComment);
+		System.out.println("lastComment의 타입 : " + lastComment.getClass().getName());
 		
 		// 일반 객체 (JSONObject)에 담아 응답
 		JSONObject jsonObj = new JSONObject();
-		jsonObj.put("name", name);
-		jsonObj.put("registDate", registDate);
-		jsonObj.put("commentView", commentView);
+		jsonObj.put("lastComment", lastComment);
+		
+		System.out.println(jsonObj.get("lastComment"));
 		
 		response.setContentType("application/json; charset=UTF-8");
 		response.getWriter().print(jsonObj);
+		
+		// => ajax 응답이 실패됨 여쭤보기
 		
 		
 	}

@@ -5,6 +5,7 @@ public class BoardDetailDto {
 	private int postId;
 	private String title;
 	private String content;
+	private int memberId;
 	private int likeCount;
 	
 	// -------------------------
@@ -12,17 +13,20 @@ public class BoardDetailDto {
 	public BoardDetailDto() {
 		super();
 	}
-	public BoardDetailDto(int postId, String title, String content, int likeCount) {
+	public BoardDetailDto(int postId, String title, String content, int memberId, int likeCount) {
 		super();
 		this.postId = postId;
 		this.title = title;
 		this.content = content;
+		this.memberId = memberId;
 		this.likeCount = likeCount;
 	}
 
 
 	// -------------------------
 	
+
+
 	public int getPostId() {
 		return postId;
 	}
@@ -40,6 +44,12 @@ public class BoardDetailDto {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}	
+	public int getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(int memberId) {
+		this.memberId = memberId;
 	}
 	public int getLikeCount() {
 		return likeCount;
@@ -50,13 +60,12 @@ public class BoardDetailDto {
 
 	
 	// ------------------------
-	
+
 	@Override
 	public String toString() {
-		return "BoardDetailDto [postId=" + postId + ", title=" + title + ", content=" + content + ", likeCount="
-				+ likeCount + "]";
+		return "BoardDetailDto [postId=" + postId + ", title=" + title + ", content=" + content + ", memberId="
+				+ memberId + ", likeCount=" + likeCount + "]";
 	}
-
 	
 	
 	

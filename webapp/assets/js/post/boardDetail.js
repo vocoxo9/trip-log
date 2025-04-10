@@ -25,61 +25,61 @@ replyBtns.forEach(replyBtn => {
 		// 비동기 통신으로 대댓글 리스트 가져오기
 		const dataTarget = document.querySelector(`[data-target="${targetId}"].reply-close-btn`).getAttribute('data-target');
 		const postId = document.querySelector("input[name=postId]").value;
-		$.ajax	({
+		$.ajax({
 			url: "replyList/select",
 			type: 'post',
 			data: {
 				parentNum: dataTarget,
 				postNum: postId
 			},
-			
+
 			success: function(result) {
 				console.log("** Ajax 통신 성공!! **")
 				let element = "";
 				for (let i of result) {
 					console.log(i);
-					 element  +=	'<div class="reply-views">'
-							  +		'<div class="reply-user-profile">'
-							  +			'<i class="fa-solid fa-user">' + '</i>'
-							  +		'</div>'
-							  +		'<div class="reply-view">'
-							  +			'<div class="reply-view-header">'
-							  +				'<div class="reply-user-name">' + i.userName + '</div>'
-							  +				'<div class="date-update-delete">'
-							  +					'<div class="reply-date">' + i.registDate + '일 전 </div>'
-							  +					'<div class="update-delete-menu active">'
-							  +						'<i class="fa-solid fa-ellipsis">' + '</i>'
-							  +					'</div>'
-							  +					'<div class="reply-update-delete">'
-							  +						'<i class="fa-solid fa-pen-to-square">' + '</i>'
-							  +						'<i class="fa-solid fa-trash-can">' + '</i>'
-							  +					'</div>'
-							  +				'</div>'
-							  +			'</div>'
-							  +			'<div class="reply-view-body">'
-							  +				'<textarea id="replyView" name="reply" readonly>		' + i.content + '</textarea>'
-							  +			'</div>'
-							  +			'<div class="reply-view-footer">'
-							  +				'<div>'
-							  +					'<i class="fa-regular fa-heart">' + '</i>' + ' <span class="like-count">' + i.likeCount + '</span>'
-							  +				'</div>'
-							  +			'</div>'
-							  +		'</div>'
-							  +	'</div>'
-							  }
-					$(".reply#"+dataTarget).append(element);
+					element += '<div class="reply-views">'
+						+ '<div class="reply-user-profile">'
+						+ '<i class="fa-solid fa-user">' + '</i>'
+						+ '</div>'
+						+ '<div class="reply-view">'
+						+ '<div class="reply-view-header">'
+						+ '<div class="reply-user-name">' + i.userName + '</div>'
+						+ '<div class="date-update-delete">'
+						+ '<div class="reply-date">' + i.registDate + '일 전 </div>'
+						+ '<div class="update-delete-menu active">'
+						+ '<i class="fa-solid fa-ellipsis">' + '</i>'
+						+ '</div>'
+						+ '<div class="reply-update-delete">'
+						+ '<i class="fa-solid fa-pen-to-square">' + '</i>'
+						+ '<i class="fa-solid fa-trash-can">' + '</i>'
+						+ '</div>'
+						+ '</div>'
+						+ '</div>'
+						+ '<div class="reply-view-body">'
+						+ '<textarea id="replyView" name="reply" readonly>		' + i.content + '</textarea>'
+						+ '</div>'
+						+ '<div class="reply-view-footer">'
+						+ '<div>'
+						+ '<i class="fa-regular fa-heart">' + '</i>' + ' <span class="like-count">' + i.likeCount + '</span>'
+						+ '</div>'
+						+ '</div>'
+						+ '</div>'
+						+ '</div>'
+				}
+				$(".reply#" + dataTarget).append(element);
 			},
-			
+
 			error: function(err) {
 				console.log("** Ajax 통신 실패 ㅠㅜ **")
 				console.log(err);
 			},
-			
+
 			complete: function() {
 				console.log("** Ajax 통신 완료 **")
-				
+
 			}
-			
+
 		});
 	});
 });
@@ -125,118 +125,115 @@ replyEtcBtns.forEach(etcBtn => {
 });
 
 
+window.onload = function() {
+	const commentRegistBtn = document.querySelector(".comment-input i");
+	commentRegistBtn.addEventListener("click", () => {
+		const viewArea = document.getElementById("pageComment");
+		const postId = document.querySelector("input[name=postId]").value;
+		$.ajax({
+			url: 'comment/regist',
+			type: 'post',
+			data: {
+				name: $("#memberId").val(),	// => 나중에 연결하면 loginUser의 memberId로 바꾸기
+				postId: postId,
+				commentView: $("#commentView").val()
+			},
+			success: function(result) {
+				console.log("** Ajax 통신 성공 **");
+				console.log(result);
 
-const commentRegistBtn = document.querySelector(".comment-input i");
-commentRegistBtn.addEventListener("click", () => {
-	const viewArea = document.getElementById("pageComment");
-	// viewArea.
-	$.ajax({
-		url: 'comment/regist',
-		type: 'post',
-		data: {
-			name: $("#userName").val(),
-			registDate: $("#registDate").val(),
-			commentView: $("#commentView").val()
-		},
-		success: function(result) {
-			console.log("** Ajax 통신 성공 **");
-			console.log(result);
+				console.log("댓글 사용자명 : " + result.name);
+				console.log("댓글 작성일 : " + result.registDate);
+				console.log("댓글 내용 : " + result.commentView);
+				// console.log("댓글 좋아요 수" + );
 
-			console.log("댓글 사용자명" + result.name);
-			console.log("댓글 작성일" + result.registDate);
-			console.log("댓글 내용" + result.commentView);
-			// console.log("댓글 좋아요 수" + );
+				// console.log("대댓글 사용자명" + );
+				// console.log("대댓글 작성일" + );
+				// console.log("대댓글 내용" + );
+				// console.log("대댓글 좋아요 수" + );
 
-			// console.log("대댓글 사용자명" + );
-			// console.log("대댓글 작성일" + );
-			// console.log("대댓글 내용" + );
-			// console.log("대댓글 좋아요 수" + );
+				const element =
+					  "<div class='comment'>"
+					+ "<div class='comment-views'>"
+					+ "<div class='comment-user-profile'>"
+					+ "<i class='fa-solid fa-user'>" + "</i>"
+					+ "</div>"
+					+ "<div class='comment-view'>"
+					+ "<div class='comment-view-header'>"
+					+ "<div class='comment-user-name'>" + result.memberId + "</div>"
+					+ "<div class='date-update-delete'>"
+					+ "<div class='comment-date'>" + result.registDate + "</div>"
+					+ "<div class='update-delete-menu active'>"
+					+ "<i class='fa-solid fa-ellipsis'>" + "</i>"
+					+ "</div>"
+					+ "<div class='comment-update-delete'>"
+					+ "<i class='fa-solid fa-pen-to-square'>" + "</i>" + "<i class='fa-solid fa-trash-can'>" + "</i>"
+					+ "</div>"
+					+ "</div>"
+					+ "</div>"
+					+ "<div class='comment-view-body'>"
+					+ "<textarea id='commentView' name='comment' readonly>     " + result.content + "</textarea>"
+					+ "</div>"
+					+ "<div class='comment-view-footer'>"
+					+ "<div class='reply-btn active' data-target='data-target'>"
+					+ "<i class='fa-solid fa-square-caret-down'>" + "</i>" + "<span id='replyWriter'>댓글 달기</span>"
+					+ "</div>"
+					+ "<div class='reply-close-btn' data-target='data-target'>"
+					+ "<i class='fa-solid fa-square-caret-up'>" + "</i>" + "<span id='replyCloser'>댓글 닫기</span>"
+					+ "</div>"
+					+ "<div class='comment-like'>"
+					+ "<i class='fa-regular fa-heart'>" + "</i>" + "<span class='like-count'>" + result.likeCount + "</span>"
+					+ "</div>"
+					+ "</div>"
+					+ "</div>"
+					+ "</div>"
+					+ "</div>"
+					+ "<div class='reply' id='data-target'>"
+					+ "<div class='reply-input'>"
+					+ "<!-- " + "<input type='text' id='reply'>" + " -->"
+					+ "<textarea id='reply'>" + "</textarea>"
+					+ "<i class='fa-regular fa-paper-plane'>" + "</i>"
+					+ "</div>"
+					+ "<div class='reply-views'>"
+					+ "<div class='reply-user-profile'>"
+					+ "<i class='fa-solid fa-user'>" + "</i>"
+					+ "</div>"
+					+ "<div class='reply-view'>"
+					+ "<div class='reply-view-header'>"
+					+ "<div class='reply-user-name'>사용자 이름</div>"
+					+ "<div class='date-update-delete'>"
+					+ "<div class='reply-date'>작성날짜</div>"
+					+ "<div class='update-delete-menu active'>"
+					+ "<i class='fa-solid fa-ellipsis'>" + "</i>"
+					+ "</div>"
+					+ "<div class='reply-update-delete'>"
+					+ "<i class='fa-solid fa-pen-to-square'>" + "</i>" + "<i class='fa-solid fa-trash-can'>" + "</i>"
+					+ "</div>"
+					+ "</div>"
+					+ "</div>"
+					+ "<div class='reply-view-body'>"
+					+ "<textarea id='replyView' name='reply' readonly>		감사합니다.^*</textarea>"
+					+ "</div>"
+					+ "<div class='reply-view-footer'>"
+					+ "<div>"
+					+ "<i class='fa-regular fa-heart'>" + "</i>" + "<span class='like-count'>0</span>"
+					+ "</div>"
+					+ "</div>"
+					+ "</div>"
+					+ "</div>"
+					+ "</div>"
+				$(".comment-input").after(element);
+			},
+			error: function(err) {
+				console.log("** Ajax 통신 실패 ㅠㅜ **");
+				console.log(err);
+			},
+			complete: function() {
+				console.log("** Ajax 통신 완료!! **");
+			}
+		});
+		console.log("요청은 들어옴");
 
-			const element = // "<ul>"
-				// + "<li>" + result.name + "</li>"
-				// + "<li>" + result.registDate + "</li>"
-				// + "<li>" + result.commentView + "</li>"
-				// + "</ul>"
-				+ "<div class='comment'>"
-				+ "<div class='comment-views'>"
-				+ "<div class='comment-user-profile'>"
-				+ "<i class='fa-solid fa-user'>" + "</i>"
-				+ "</div>"
-				+ "<div class='comment-view'>"
-				+ "<div class='comment-view-header'>"
-				+ "<div class='comment-user-name'>" + result.name + "</div>"
-				+ "<div class='date-update-delete'>"
-				+ "<div class='comment-date'>" + result.registDate + "</div>"
-				+ "<div class='update-delete-menu active'>"
-				+ "<i class='fa-solid fa-ellipsis'>" + "</i>"
-				+ "</div>"
-				+ "<div class='comment-update-delete'>"
-				+ "<i class='fa-solid fa-pen-to-square'>" + "</i>" + "<i class='fa-solid fa-trash-can'>" + "</i>"
-				+ "</div>"
-				+ "</div>"
-				+ "</div>"
-				+ "<div class='comment-view-body'>"
-				+ "<textarea id='commentView' name='comment' readonly>     " + result.commentView + "</textarea>"
-				+ "</div>"
-				+ "<div class='comment-view-footer'>"
-				+ "<div class='reply-btn active' data-target='첫번째'>"
-				+ "<i class='fa-solid fa-square-caret-down'>" + "</i>" + "<span id='replyWriter'>댓글 달기</span>"
-				+ "</div>"
-				+ "<div class='reply-close-btn' data-target='첫번째'>"
-				+ "<i class='fa-solid fa-square-caret-up'>" + "</i>" + "<span id='replyCloser'>댓글 닫기</span>"
-				+ "</div>"
-				+ "<div class='comment-like'>"
-				+ "<i class='fa-regular fa-heart'>" + "</i>" + "<span class='like-count'>0</span>"
-				+ "</div>"
-				+ "</div>"
-				+ "</div>"
-				+ "</div>"
-				+ "</div>"
-				+ "<div class='reply' id='첫번째'>"
-				+ "<div class='reply-input'>"
-				+ "<!-- " + "<input type='text' id='reply'>" + " -->"
-				+ "<textarea id='reply'>" + "</textarea>"
-				+ "<i class='fa-regular fa-paper-plane'>" + "</i>"
-				+ "</div>"
-				+ "<div class='reply-views'>"
-				+ "<div class='reply-user-profile'>"
-				+ "<i class='fa-solid fa-user'>" + "</i>"
-				+ "</div>"
-				+ "<div class='reply-view'>"
-				+ "<div class='reply-view-header'>"
-				+ "<div class='reply-user-name'>사용자 이름</div>"
-				+ "<div class='date-update-delete'>"
-				+ "<div class='reply-date'>작성날짜</div>"
-				+ "<div class='update-delete-menu active'>"
-				+ "<i class='fa-solid fa-ellipsis'>" + "</i>"
-				+ "</div>"
-				+ "<div class='reply-update-delete'>"
-				+ "<i class='fa-solid fa-pen-to-square'>" + "</i>" + "<i class='fa-solid fa-trash-can'>" + "</i>"
-				+ "</div>"
-				+ "</div>"
-				+ "</div>"
-				+ "<div class='reply-view-body'>"
-				+ "<textarea id='replyView' name='reply' readonly>		감사합니다.^*</textarea>"
-				+ "</div>"
-				+ "<div class='reply-view-footer'>"
-				+ "<div>"
-				+ "<i class='fa-regular fa-heart'>" + "</i>" + "<span class='like-count'>0</span>"
-				+ "</div>"
-				+ "</div>"
-				+ "</div>"
-				+ "</div>"
-				+ "</div>"
-			$(".views .comment-views").before(element);
-		},
-		error: function(err) {
-			console.log("** Ajax 통신 실패 ㅠㅜ **");
-			console.log(err);
-		},
-		complete: function() {
-			console.log("** Ajax 통신 완료!! **");
-		}
 	});
-	console.log("요청은 들어옴");
-
-});
+};
 
