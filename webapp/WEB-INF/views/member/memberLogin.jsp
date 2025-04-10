@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page isELIgnored="false" %>
 <%
 	String rootPath = request.getContextPath();
 %>
@@ -7,6 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="google-signin-client_id" content="656177775181-k2rlucfj6kjrb8ka3j0g7218rmlktm2h.apps.googleusercontent.com">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -54,7 +56,7 @@
 						alt="Google Logo" /> Google로 시작하기
 				</button>
 				<div class="signup">
-					아직 회원이 아니신가요? <a href="#">회원가입</a>
+					아직 회원이 아니신가요? <a href="<%=rootPath%>/members/sign-up">회원가입</a>
 				</div>
 			</div>
 		</div>
@@ -64,10 +66,18 @@
 
 	function signKakaoLogin() {
 	    Kakao.Auth.authorize({
-	        redirectUri:'${kakaoRedirectUrl}',
+	        redirectUri:'${kakaoRedirectUri}',
 	        scope: 'account_email', 
 	        prompt: 'select_account'
 	    });
+	}
+	
+	function signGoogleLogin(){
+		const prompt = 'consent select_account';
+		const authUrl = `https://accounts.google.com/o/oauth2/auth?client_id=656177775181-k2rlucfj6kjrb8ka3j0g7218rmlktm2h.apps.googleusercontent.com&redirect_uri=http://localhost:8080/trip-log/google-login/callback&response_type=code&prompt=select_account%20consent&scope=email`;
+		
+		window.location.href = authUrl;
+		console.log(authUrl);
 	}
 	</script>
 	

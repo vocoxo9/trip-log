@@ -11,22 +11,26 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import kr.co.khedu.keys.KeyManager;
+import kr.co.khedu.member.model.vo.Member;
+import kr.co.khedu.member.service.MemberService;
+import kr.co.khedu.member.service.MemberServiceImpl;
 
 /**
  * Servlet implementation class MemberGoogleLoginController
  */
-@WebServlet("/google-login")
+@WebServlet("/google-login/callback")
 public class MemberGoogleLoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
-	private final String clientId = KeyManager.get("google.clientId"); 
+
+    private final String clientId = KeyManager.get("google.clientId"); 
     private final String clientSecret = KeyManager.get("google.clientSecret"); 
-    private final String redirectUri = KeyManager.get("google.redirectUrl");
+    private final String redirectUri = KeyManager.get("google.redirectUri");
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -88,14 +92,51 @@ public class MemberGoogleLoginController extends HttpServlet {
         return json.get("access_token").getAsString();
 	}
 	
-	private String getGoogleEmail(String token) {
-		
-		return null;
+	private String getGoogleEmail(String token) throws IOException {
+		String apiUrl = "https://www.googleapis.com/oauth2/v3/userinfo"; 
+	    URL url = new URL(apiUrl);
+	    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+	    conn.setRequestMethod("GET");
+	    conn.setRequestProperty("Authorization", "Bearer " + token);
+
+	    BufferedReader br = null;
+	    StringBuilder sb = new StringBuilder();
+	    String line;
+	    String email = null;
+
+	    try {
+	        br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	        while ((line = br.readLine()) != null) {
+	            sb.append(line);
+	        }
+	       
+	        JsonObject json = JsonParser.parseString(sb.toString()).getAsJsonObject();
+	        if (json.has("email")) {
+	            email = json.get("email").getAsString();
+	        } 
+
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	    return email;
 	}
 	
-	private void processSocialLogin(String email, HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-		
-	}
+	private void processSocialLogin(String email, HttpServletRequest request, HttpServletResponse response) throws IOException {
+		MemberService mService = new MemberServiceImpl();
+		Member m = new Member();
+		m.setEmail(email);
 
+		Member loginMember = mService.socialMember(m);
+
+		if (loginMember == null) {
+		String tempPassword = "social_" + System.currentTimeMillis();
+		m.setPassword(tempPassword);
+		mService.insertSocialMember(m);
+		loginMember = mService.loginMember(m);
+		}
+
+		HttpSession session = request.getSession();
+		session.setAttribute("loginMember", loginMember);
+		response.sendRedirect(request.getContextPath());
+		}
 }

@@ -66,12 +66,12 @@ public class MemberKakaoLoginController extends HttpServlet {
 		doGet(request, response);
 	}
 	private String getAccessToken(String code) throws IOException {
-        String params = "grant_type=authorization_code"
+        String params ="grant_type=authorization_code"
                 + "&client_id="+ clientId
                 + "&redirect_uri="+redirectUri
                 + "&code=" + code
-
                 + "&client_secret=" + clientSecret;
+        
         System.out.println("params:"+params);
         URL url = new URL("https://kauth.kakao.com/oauth/token");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();

@@ -26,7 +26,11 @@ public class MemberLoginController extends HttpServlet{
 		request.setAttribute("kakaoScriptKey", KeyManager.get("kakao.scriptKey"));
 		request.setAttribute("kakaoRestKey", KeyManager.get("kakao.restkKey"));
 		request.setAttribute("kakaoClientSecret", KeyManager.get("kakao.clientSecret"));
-		request.setAttribute("kakaoRedirectUrl", KeyManager.get("kakao.redirectUrl"));
+		request.setAttribute("kakaoRedirectUri", KeyManager.get("kakao.redirectUri"));
+		// 구글 로그인 api 관련 키값
+		request.setAttribute("googleClientId", KeyManager.get("google.clientId"));
+		request.setAttribute("googleClientSecret", KeyManager.get("google.clientSecret"));
+		request.setAttribute("googleRedirectUri", KeyManager.get("google.redirectUri"));
 		
 		request.getRequestDispatcher("/WEB-INF/views/member/memberLogin.jsp").forward(request, response);
 	}
