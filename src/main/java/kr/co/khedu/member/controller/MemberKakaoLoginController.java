@@ -13,10 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.exceptions.PersistenceException;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import kr.co.khedu.keys.KeyManager;
+import kr.co.khedu.member.model.dto.MemberDTO;
 import kr.co.khedu.member.model.vo.Member;
 import kr.co.khedu.member.service.MemberService;
 import kr.co.khedu.member.service.MemberServiceImpl;
@@ -30,7 +33,7 @@ public class MemberKakaoLoginController extends HttpServlet {
     
 	private final String clientId = KeyManager.get("kakao.restKey"); 
     private final String clientSecret = KeyManager.get("kakao.clientSecret"); 
-    private final String redirectUri = KeyManager.get("kakao.redirectUrl");
+    private final String redirectUri = KeyManager.get("kakao.redirectUri");
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -49,7 +52,7 @@ public class MemberKakaoLoginController extends HttpServlet {
             String accessToken = getAccessToken(code);
             if (accessToken != null && !accessToken.isEmpty()) {
                 String email = getKakaoEmail(accessToken);
-                processSocialLogin(email, request, response);
+                processSocialLogin(email,request, response);
             } else {
                 response.getWriter().println("카카오 로그인 토큰 발급 실패");
             }
@@ -108,20 +111,26 @@ public class MemberKakaoLoginController extends HttpServlet {
         return json.getAsJsonObject("kakao_account").get("email").getAsString();
     }
 
-    private void processSocialLogin(String email, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        MemberService mService = new MemberServiceImpl();
-
-        Member m = new Member();
-        m.setEmail(email);
-
-        Member loginMember = mService.socialMember(m);
+    private void processSocialLogin(String email,HttpServletRequest request, HttpServletResponse response) throws IOException {
+		MemberService memberService = new MemberServiceImpl();
+		MemberDTO mDTO = new MemberDTO(email);
+		
+		MemberDTO loginMember = memberService.loginMember(mDTO);
 
         if (loginMember == null) {
             String tempPassword = "social_" + System.currentTimeMillis(); // 예시: "social_" + 현재 시간, 임의의 비밀번호값 지정용
-            m.setPassword(tempPassword);
-            mService.insertSocialMember(m);
-            loginMember = mService.loginMember(m);
+            mDTO.setPassword(tempPassword);
+            try {
+            	memberService.insertSocialMember(mDTO);
+                loginMember = memberService.loginMember(mDTO);
+            }catch(PersistenceException e) {
+            	e.printStackTrace();
+            	return;
+            }
+        }else {
+        	
         }
+        
         HttpSession session = request.getSession();
         session.setAttribute("loginMember", loginMember);
         System.out.println(loginMember);

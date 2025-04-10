@@ -1,0 +1,100 @@
+
+.mypage-left {
+    width: 25%;
+    height: 25rem;
+    border: 3px solid var(--main-color);
+    border-radius: 25px;
+    padding: 2rem;
+    padding-top: 3rem;
+    margin-right: 1rem;
+}
+
+.mypage-left a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+
+.mypage-left a.active {
+    font-weight: bold;
+}
+
+.mypage-left img {
+    float: right;
+}
+
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    height: 100%;
+}
+
+.mypage-left a:hover {
+    font-weight: bold;
+}
+
+.mypage-right table {
+    border-spacing: 20px;
+    margin: 3rem;
+    text-align: center;
+}
+.mypage-right table th{
+    font-weight: bold;
+}
+.mypage-right table thead tr :nth-child(2){
+    width : 40%;
+}
+.mypage-right table td {
+    padding : 1.3rem;
+    border-bottom: 1px solid var(--bg-sub-color);
+    vertical-align: middle !important;
+}
+
+.mypage-right {
+    width: 75%;
+    padding-left: 3rem;
+}
+
+.mypage-right-title {
+    display: flex;
+    align-items: center;
+
+}
+
+.mypage-right-title .title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-left: 0.8rem;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    gap: 0.4rem;
+}
+
+.pagination li {
+    list-style: none;
+}
+
+.pagination a {
+    color: var(--text-color);
+    padding: 0.4rem 0.9rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+   
+}
+.pagination a:hover {
+    color: var(--bg-color);
+    background-color: var(--strong-color);
+}
+
+.icon-paging {
+    background-color: var(--main-color);
+    padding: 0.3rem;
+}

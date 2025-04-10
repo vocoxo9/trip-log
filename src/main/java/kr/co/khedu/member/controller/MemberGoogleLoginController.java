@@ -17,6 +17,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import kr.co.khedu.keys.KeyManager;
+import kr.co.khedu.member.model.dto.MemberDTO;
 import kr.co.khedu.member.model.vo.Member;
 import kr.co.khedu.member.service.MemberService;
 import kr.co.khedu.member.service.MemberServiceImpl;
@@ -122,17 +123,16 @@ public class MemberGoogleLoginController extends HttpServlet {
 	}
 	
 	private void processSocialLogin(String email, HttpServletRequest request, HttpServletResponse response) throws IOException {
-		MemberService mService = new MemberServiceImpl();
-		Member m = new Member();
-		m.setEmail(email);
-
-		Member loginMember = mService.socialMember(m);
+		MemberService memberService = new MemberServiceImpl();
+		MemberDTO m = new MemberDTO(email);
+		
+		MemberDTO loginMember = memberService.loginMember(m);
 
 		if (loginMember == null) {
 		String tempPassword = "social_" + System.currentTimeMillis();
 		m.setPassword(tempPassword);
-		mService.insertSocialMember(m);
-		loginMember = mService.loginMember(m);
+		memberService.insertSocialMember(m);
+		loginMember = memberService.loginMember(m);
 		}
 
 		HttpSession session = request.getSession();
