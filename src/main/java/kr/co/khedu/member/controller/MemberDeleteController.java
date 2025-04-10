@@ -21,16 +21,18 @@ public class MemberDeleteController extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 		
 		Member loginMember = (Member)request.getSession().getAttribute("loginMember");
-		
 		int memberId = loginMember.getMemberId();
 
 		int result = mService.deleteMember(memberId);
+		
 		if( result > 0) {	
-			response.sendRedirect(request.getContextPath());		
+			request.getSession().invalidate();
+			response.getWriter().write("deleted");
 		} else {
-			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);			
+			response.getWriter().write("fail");		
 		}
 		
 	}

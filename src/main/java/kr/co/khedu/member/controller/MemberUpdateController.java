@@ -33,15 +33,12 @@ public class MemberUpdateController extends HttpServlet {
 		Member member = new Member(memberId, password, nickname, phone, countryId);
 		int result = mService.updateMember(member);
 		
+		
 		if(result > 0) {
-			HttpSession session = request.getSession();
-			Member beforeUpdateMem = (Member)session.getAttribute("loginMember");
-			Member afterUpdateMem = mService.loginMember(beforeUpdateMem);
-			
-			session.setAttribute("loginMember", afterUpdateMem);
-			response.sendRedirect(request.getContextPath() + "/members/mypage");
+			request.getSession().setAttribute("loginMember", loginMember);
+			response.getWriter().write("updated");
 		} else {
-			request.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(request, response);
+			response.getWriter().write("fail");
 		}
 	}
 
