@@ -1,8 +1,11 @@
 package kr.co.khedu.board.model.dao;
 
+import java.util.ArrayList;
+
 import org.apache.ibatis.session.SqlSession;
 
 import kr.co.khedu.board.model.vo.BoardDetail;
+import kr.co.khedu.board.model.vo.CommentDto;
 
 public class BoardDetailDAO {
 
@@ -16,6 +19,13 @@ public class BoardDetailDAO {
 		
 		return boardDetail;
 		
+	}
+
+	public ArrayList<CommentDto> selectCommentList(SqlSession sqlSession, int pNum) {
+
+		ArrayList<CommentDto> comments = (ArrayList)sqlSession.selectList("boardDetailMapper.selectCommentList", pNum);
+		
+		return comments;
 	}
 
 }

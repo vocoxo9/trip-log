@@ -1,9 +1,12 @@
 package kr.co.khedu.board.service;
 
+import java.util.ArrayList;
+
 import org.apache.ibatis.session.SqlSession;
 
 import kr.co.khedu.board.model.dao.BoardDetailDAO;
 import kr.co.khedu.board.model.vo.BoardDetail;
+import kr.co.khedu.board.model.vo.CommentDto;
 import kr.co.khedu.template.Template;
 
 public class BoardDetailServiceImpl implements BoardDetailService {
@@ -29,4 +32,17 @@ public class BoardDetailServiceImpl implements BoardDetailService {
 		return boardDetail;
 	}
 
+	@Override
+	public ArrayList<CommentDto> selectCommentList(int pNum) {
+		
+		SqlSession sqlSession = Template.getSqlSession();
+
+		ArrayList<CommentDto> comments = bdDao.selectCommentList(sqlSession, pNum);
+		
+		return null;
+	}
+
+	
+	
+	
 }

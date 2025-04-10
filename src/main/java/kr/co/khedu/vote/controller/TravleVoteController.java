@@ -1,6 +1,7 @@
 package kr.co.khedu.vote.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.co.khedu.board.model.vo.BoardDetail;
+import kr.co.khedu.board.model.vo.CommentDto;
 import kr.co.khedu.board.service.BoardDetailService;
 import kr.co.khedu.board.service.BoardDetailServiceImpl;
 
@@ -35,13 +37,16 @@ public class TravleVoteController extends HttpServlet {
 		System.out.println("Controller에 요청은 들어옴");
 		
 		// 게시글의 임의의 번호
-		int num = 1;
+		int pNum = 1;
 		
 		// Service 객체에 전달받은 게시글번호의 게시글 정보(게시글 번호, 제목, 내용,  좋아요) 조회
 		BoardDetailService bdService = new BoardDetailServiceImpl();
-		BoardDetail boardDetail = bdService.selectBoardDetail(num);
+		BoardDetail boardDetail = bdService.selectBoardDetail(pNum);
 		// => 조회된 결과가 있을 경우 BoardDetail 객체 전달
 		// 				없을 경우 null이 전달
+		
+		// Service 객체에 전달받은 게시글 번호의 댓글 리스트 조회(댓글번호, 사용자명, 작성일, 댓글 내용, 댓글 좋아요 수, 게시글 번호)
+		ArrayList<CommentDto> comments = bdService.selectCommentList(pNum);
 		
 		if (boardDetail != null) {
 			System.out.println("Controller 에서 서비스에게 반환받은 boardDetail : " + boardDetail);

@@ -14,4 +14,23 @@
 		FROM TB_POST
 		WHERE POST_ID = #{ num }
 	</select>
+	
+	<select id="selectCommentList" resultMap="boardDetailResultMap">
+		SELECT
+		댓글번호, 사용자명, 작성일, 댓글 내용, 댓글 좋아요 수, 게시글 번호
+			C.POST_ID, C.COMMENT_ID, M.EMAIL,
+			FLOOR(SYSDATE - C.CREATED_AT) AS REGIST_DATE,
+			C.CONTENT,
+			COUNT(CL.COMMENT_LIKE_ID) AS LIKE_COUNT
+		FROM TB_COMMENT C
+			LEFT JOIN TB_MEMBER M ON C.MEMBER_ID = M.MEMBER_ID
+			LEFT JOIN TB_COMMENT_LIKE CL ON C.COMMENT_ID = CL.COMMENT_ID
+		WHERE C.POST_ID = #{pNum}
+		GROUP BY
+			C.POST_ID,
+			C.COMMENT_ID,
+			M.EMAIL,
+			(SYSDATE - C.CREATED_AT),
+			C.CONTENT
+	</select>
 </mapper>
