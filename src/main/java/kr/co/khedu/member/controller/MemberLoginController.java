@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import kr.co.khedu.member.model.vo.Member;
+import kr.co.khedu.member.model.dto.MemberDTO;
 import kr.co.khedu.member.service.MemberService;
 import kr.co.khedu.member.service.MemberServiceImpl;
 
@@ -31,11 +31,17 @@ public class MemberLoginController extends HttpServlet{
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		Member m = new Member();
-		m.setEmail(email);
-        m.setPassword(password);
+		System.out.println(email);
+		System.out.println(password);
 		
-        Member loginMember = memberService.loginMember(m);
+		MemberDTO mDTO = new MemberDTO(email, password);
+		//Member m = new Member();
+		//m.setEmail(email);
+        // m.setPassword(password);
+		
+		MemberDTO loginMember = memberService.loginMember(mDTO);
+		
+        //Member loginMember = memberService.loginMember(m);
         
         if(loginMember != null) {
         	HttpSession session = request.getSession();

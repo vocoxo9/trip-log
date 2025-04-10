@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="kr.co.khedu.member.model.vo.Member" %>
+<%@ page import="kr.co.khedu.member.model.dto.MemberDTO" %>
 <% 
 	String rootPath = request.getContextPath();
-	Member loginMember = (Member) session.getAttribute("loginMember");
+	MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -76,10 +76,10 @@
                                 <% } %>
                             </td>
                             <td>
-                            	<% if (loginMember.getCountryId() == 0) {%>
+                            	<% if (loginMember.getCountryName() == null) {%>
                                    정보 없음    
                                 <% } else {%>
-                                   <%= loginMember.getCountryId() %>
+                                   <%= loginMember.getCountryName() %>
                                 <% } %>
                             </td>
                         </tr>
@@ -222,9 +222,7 @@
 					    </div>
 					  </div>
 					</div> 
-                </div>
-                
-                
+                </div>          
         </div>
        </div>
         <jsp:include page="../common/footer.jsp" />

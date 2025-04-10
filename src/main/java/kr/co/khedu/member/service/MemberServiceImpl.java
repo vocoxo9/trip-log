@@ -3,17 +3,18 @@ package kr.co.khedu.member.service;
 import org.apache.ibatis.session.SqlSession;
 
 import kr.co.khedu.member.model.dao.MemberDAO;
+import kr.co.khedu.member.model.dto.MemberDTO;
 import kr.co.khedu.member.model.vo.Member;
 import kr.co.khedu.template.Template;
 
 public class MemberServiceImpl implements MemberService{
-	
+
 	private MemberDAO mDAO = new MemberDAO();
 	
-	public Member loginMember(Member m) {
+	public MemberDTO loginMember(MemberDTO m) {
 		SqlSession sqlSession = Template.getSqlSession();
 		
-		Member loginMember = mDAO.selectMember(sqlSession, m);
+		MemberDTO loginMember = mDAO.loginMember(sqlSession, m);
 		
 	    sqlSession.close();
 	    
@@ -43,7 +44,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public int updateMember(Member member) {
+	public int updateMember(MemberDTO member) {
 		SqlSession sqlSession = Template.getSqlSession();
 		
 		int result = mDAO.updateMember(sqlSession, member);
@@ -69,5 +70,29 @@ public class MemberServiceImpl implements MemberService{
 		
 		return result;
 	}
+
+	@Override
+	public MemberDTO selectMember(int memNo) {
+		SqlSession sqlSession = Template.getSqlSession();
+		
+		MemberDTO mDTO = mDAO.selectMember(sqlSession, memNo);
+		
+		sqlSession.close();
+		
+		return mDTO;
+	}
+
+	
+	// DTO test
+//	@Override
+//	public MemberDTO dtoTest(MemberDTO m) {
+//		SqlSession sqlSession = Template.getSqlSession();
+//		
+//		MemberDTO mDTO = mDAO.dtoTest(sqlSession, m);
+//		
+//		sqlSession.close();
+//		
+//		return mDTO;
+//	}
 
 }

@@ -34,13 +34,16 @@ public class MemberSignupController extends HttpServlet {
 		String nickname = request.getParameter("nickname");
 		String birthdayStr = request.getParameter("birthday");
 		int countryId = Integer.parseInt(request.getParameter("countryId"));
+
 		
 		Date birthday = null;
 		if(birthdayStr != null && !birthdayStr.isEmpty()) {
 			birthday = Date.valueOf(birthdayStr);
 		}
 		
-		Member member = new Member(email, password, nickname, birthday, phone, countryId);
+		if(mService.countMemberByEmail(email) == 0) {
+			Member member = new Member(email, password, nickname, birthday, phone, countryId);			
+		
 		
 		int result = new MemberServiceImpl().insertMember(member);
 		
@@ -50,6 +53,7 @@ public class MemberSignupController extends HttpServlet {
         	request.setAttribute("errorMsg", "회원가입에 실패하였습니다.");
 			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
         }
+		}
 	}
 
 }
