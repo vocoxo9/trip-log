@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="kr.co.khedu.post.dto.PostFormDTO" %>
-<%
-    String rootPath = request.getContextPath();
-
-    // 게시글 정보
-    PostFormDTO form = (PostFormDTO) request.getAttribute("form");
-%>
+<%@ page import="kr.co.khedu.post.model.dto.PostFormDTO" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="ko">
 
 <head>
@@ -23,7 +18,7 @@
           integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link href="<%= rootPath %>/assets/css/reset.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/assets/css/reset.css" rel="stylesheet">
 
     <style>
         .CodeMirror,
@@ -127,23 +122,29 @@
 <div id="root">
     <jsp:include page="../common/header.jsp" />
     <form class="post-container" method="post">
+        <div class="country-area">
+            <select aria-label="국가">
+                <c:forEach var="country" items="${countries}">
+                    <option value="${country.countryId}"
+                            ${form.countryId eq country.countryId ? 'selected' : ''}>
+                        ${country.name}
+                    </option>
+                </c:forEach>
+            </select>
+        </div>
         <div class="title-area">
             <input type="text"
                    name="title"
                    id="title"
                    aria-label="제목 입력"
-                   value='<%=form == null ? "" : form.getTitle()%>'>
+                   value="${empty form ? '' : form.title}">
         </div>
         <div class="content-area">
-            <textarea name="content" aria-label="내용 입력"><%=
-                form == null ? "" : form.getContent()
-            %></textarea>
+            <textarea name="content" aria-label="내용 입력">${empty form ? '' : form.content}</textarea>
         </div>
         <div class="button-area">
             <button type="submit">
-                <%=
-                    form == null ? "수정" : "작성"
-                %>
+                ${empty form ? '수정' : '작성'}
             </button>
             <button>취소</button>
         </div>

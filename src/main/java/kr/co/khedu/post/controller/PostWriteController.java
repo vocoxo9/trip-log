@@ -1,5 +1,7 @@
 package kr.co.khedu.post.controller;
 
+import kr.co.khedu.country.service.CountryServiceImpl;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +15,7 @@ public final class PostWriteController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("form", null);
+        request.setAttribute("countries", new CountryServiceImpl().selectCountryList());
         request.getRequestDispatcher("/WEB-INF/views/post/write.jsp").forward(request, response);
     }
 }
