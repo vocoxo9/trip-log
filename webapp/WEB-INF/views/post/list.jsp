@@ -27,6 +27,12 @@
             line-height: 1.5;
         }
 
+        .post-empty {
+            padding: 5rem;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
         .post-grid {
             display: grid;
             gap: 2rem;
@@ -179,68 +185,77 @@
 <div id="root">
     <jsp:include page="../common/header.jsp" />
     <div class="post-container">
-        <section class="post-grid">
-            <c:forEach var="post" items="${posts}">
-                <article class="post-card">
-                    <figure class="post-thumbnail">
-                        <img src="https://via.placeholder.com/400x300" alt="게시물 이미지">
-                    </figure>
+        <c:choose>
+            <c:when test="${empty posts}">
+                <div class="post-empty">
+                    <h3>포스트가 없습니다.</h3>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <section class="post-grid">
+                    <c:forEach var="post" items="${posts}">
+                        <article class="post-card">
+                            <figure class="post-thumbnail">
+                                <img src="https://via.placeholder.com/400x300" alt="게시물 이미지">
+                            </figure>
 
-                    <header class="post-header">
-                        <h2 class="post-title">
-                            <a href="#">
-                                ${
-                                    post.title.length() > 25 ?
-                                        post.title.substring(0, 25).concat('...') :
-                                        post.title
-                                }
-                            </a>
-                        </h2>
-                    </header>
+                            <header class="post-header">
+                                <h2 class="post-title">
+                                    <a href="#">
+                                        ${
+                                            post.title.length() > 25 ?
+                                                post.title.substring(0, 25).concat('...') :
+                                                post.title
+                                        }
+                                    </a>
+                                </h2>
+                            </header>
 
-                    <div class="post-content">
-                        <p>
-                            ${
-                                    post.content.length() > 200 ?
-                                        post.content.substring(0, 200).concat('...') :
-                                        post.content
-                            }
-                        </p>
-                    </div>
-
-                    <footer class="post-footer">
-                        <div class="post-date">
-                            ${post.createdAt}
-                        </div>
-
-                        <div class="post-meta">
-                            <div class="meta-item">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                     width="16"
-                                     height="16"
-                                     fill="currentColor"
-                                     class="bi bi-heart"
-                                     viewBox="0 0 16 16">
-                                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-                                </svg>
-                                ${post.likes}
+                            <div class="post-content">
+                                <p>
+                                    ${
+                                            post.content.length() > 200 ?
+                                                post.content.substring(0, 200).concat('...') :
+                                                post.content
+                                    }
+                                </p>
                             </div>
-                            <div class="meta-item">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                     width="16"
-                                     height="16"
-                                     fill="currentColor"
-                                     class="bi bi-chat-left"
-                                     viewBox="0 0 16 16">
-                                    <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                </svg>
-                                ${post.comments}
-                            </div>
-                        </div>
-                    </footer>
-                </article>
-            </c:forEach>
-        </section>
+
+                            <footer class="post-footer">
+                                <div class="post-date">
+                                    ${post.createdAt}
+                                </div>
+
+                                <div class="post-meta">
+                                    <div class="meta-item">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                             width="16"
+                                             height="16"
+                                             fill="currentColor"
+                                             class="bi bi-heart"
+                                             viewBox="0 0 16 16">
+                                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                                        </svg>
+                                        ${post.likes}
+                                    </div>
+                                    <div class="meta-item">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                             width="16"
+                                             height="16"
+                                             fill="currentColor"
+                                             class="bi bi-chat-left"
+                                             viewBox="0 0 16 16">
+                                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                        </svg>
+                                        ${post.comments}
+                                    </div>
+                                </div>
+                            </footer>
+                        </article>
+                    </c:forEach>
+                </section>
+            </c:otherwise>
+        </c:choose>
         <jsp:include page="../common/pageNation.jsp" />
         <a href="${pageContext.request.contextPath}/post/write" class="add-post-button">
             <i class="fas fa-plus"></i>
