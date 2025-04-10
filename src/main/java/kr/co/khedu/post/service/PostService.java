@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface PostService {
     boolean isPostOwner(int postId, int memberId);
 
-    List<? extends PostSummaryDTO> getPostSummaries();
+    List<? extends PostSummaryDTO> getPostSummaries(int size);
 
     Optional<PostEditDTO> searchFormById(int postId);
 

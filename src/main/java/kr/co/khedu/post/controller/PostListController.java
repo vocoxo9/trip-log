@@ -11,20 +11,24 @@ import kr.co.khedu.post.service.PostServiceImpl;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @WebServlet("/post/list")
 public final class PostListController extends HttpServlet {
 
     /*
       TODO
-        1. 페이징 구현
-        2. 정렬 선택 구현
-        3. 국가 선택 구현
+        1. 정렬 선택 구현
+        2. 국가 카테고리 구현
     */
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<? extends PostSummaryDTO> posts = new PostServiceImpl().getPostSummaries();
+        int page = Optional.ofNullable(request.getParameter("page"))
+                .map(Integer::parseInt)
+                .orElse(1);
+
+        List<? extends PostSummaryDTO> posts = new PostServiceImpl().getPostSummaries(page);
 
         request.setAttribute("posts", posts);
         request.getRequestDispatcher("/WEB-INF/views/post/list.jsp").forward(request, response);

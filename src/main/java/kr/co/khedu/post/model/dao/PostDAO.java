@@ -20,8 +20,8 @@ public final class PostDAO {
         ) > 0;
     }
 
-    public List<? extends PostSummaryDTO> getPostSummaries(SqlSession session) {
-        return session.selectList("postMapper.getPostSummaries");
+    public List<? extends PostSummaryDTO> getPostSummaries(SqlSession session, int offset) {
+        return session.selectList("postMapper.getPostSummaries", offset);
     }
 
     public Optional<PostEditDTO> searchFormById(SqlSession session, int postId) {

@@ -35,7 +35,8 @@
         FROM
             TB_POST P
         ORDER BY
-            P.CREATED_AT DESC
+            P.POST_ID DESC
+        OFFSET #{offset} ROWS FETCH NEXT 6 ROWS ONLY
     </select>
     <select id="searchFormById" parameterType="int" resultMap="postEditForm">
         SELECT

@@ -22,9 +22,12 @@ public final class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<? extends PostSummaryDTO> getPostSummaries() {
+    public List<? extends PostSummaryDTO> getPostSummaries(int page) {
+        page = Math.max(page, 1);
+        int offset = (page - 1) * 6;
+
         SqlSession session = Template.getSqlSession();
-        List<? extends PostSummaryDTO> summaries = postDAO.getPostSummaries(session);
+        List<? extends PostSummaryDTO> summaries = postDAO.getPostSummaries(session, offset);
         session.close();
         return summaries;
     }
