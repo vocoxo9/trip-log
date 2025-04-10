@@ -15,15 +15,6 @@ import java.util.Optional;
 
 @WebServlet("/post/list")
 public final class PostListController extends HttpServlet {
-
-    /*
-      TODO
-        1. 정렬 선택 구현
-        2. 국가 카테고리 구현
-        3. 페이징 UI 수정
-        4. JSP 스크립트들 EL로 전환
-    */
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int page = Optional.ofNullable(request.getParameter("page"))
