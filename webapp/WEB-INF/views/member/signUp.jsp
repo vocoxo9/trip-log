@@ -54,7 +54,7 @@
                                 <tr>
                                     <td>
                                         <label for="phone">연락처</label> <br>
-                                        <input type="tel" name="phone" id="phone" placeholder="연락처">
+                                        <input type="tel" name="phone" id="phone" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" placeholder="연락처(- 포함)">
                                     </td>
                                     <td>
                                         <label for="nickname"> 닉네임</label> <br>

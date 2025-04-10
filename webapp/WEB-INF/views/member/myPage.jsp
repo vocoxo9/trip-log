@@ -98,7 +98,7 @@
                             	<div class="modal-header">
 					        		<h1 class="modal-title fs-5" id="title">회원정보 수정</h1>
 					      		</div>
-                             <form action="<%=rootPath%>/members/update" method="post">
+                             <!-- <form action="<%=rootPath%>/members/update" method="post"> -->
                                 <div class="modal-body">
                                         <div class="requiredItems">
                                             <h5 class="modal-title" id="title">필수항목</h5>
@@ -124,7 +124,7 @@
                                                 <tr>
                                                     <td>
                                                         <label for="phone">연락처</label> <br>
-                                                        <input type="tel" class="form-control" name="phone" id="phone" placeholder="연락처">
+                                                        <input type="tel" class="form-control" name="phone" id="phone" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" placeholder="연락처(- 포함)">
                                                     </td>
                                                     <td>
                                                         <label for="nickname"> 닉네임</label> <br>
@@ -186,7 +186,7 @@
                                     <button type="button" class="btn btn-light" id="cancelBtn" data-bs-dismiss="modal"
                                         aria-label="Close">취소</button>
                                 </div>
-                                </form>
+                                <!-- </form> -->
                             </div>
                         </div>
                     </div>
@@ -213,6 +213,7 @@
 					          <div class="mb-3">
 					            <label for="passwordCheck" class="col-form-label" id="title">비밀번호 확인</label>
 					            <input type="password" class="form-control" id="passwordCheck">
+					            <input type="hidden" id="memberId" value="<%= loginMember.getMemberId() %>" />
 					          </div>
 					      </div>
 					      <div class="modal-button">
@@ -231,7 +232,102 @@
         </div>
        </div>
         <jsp:include page="../common/footer.jsp" />
-    	<script src="<%= rootPath %>/assets/js/member/myPage.js"></script>
+    	<!-- <script src="<%= rootPath %>/assets/js/member/myPage.js"></script> -->
+    	<script>
+		// 탈퇴 모달 비밀번호 체크
+		function delPwdCheck(){
+			const pwd = $(".mypage-delete #password").val();
+			const pwdCheck = $(".mypage-delete #passwordCheck").val();
+			const memberId = $(".mypage-delete #memberId").val();
+				
+			if(pwd != pwdCheck){
+				Swal.fire({
+	                title: "비밀번호가 일치하지 않습니다.",
+	                text: "확인 후 다시 입력해 주세요.",
+	                icon: "warning"
+	            });
+				return false;
+			} else{
+				$.ajax({
+					url : '/trip-log/members/delete',
+					data : {
+						password : pwd,
+						memberId : memberId
+					},
+					type : 'post',
+					success : function(result){
+						if(result == "deleted"){
+							Swal.fire({
+								title: "회원탈퇴 성공",
+								text: "이용해주셔서 감사합니다.",
+								icon: "success"
+							}).then(() => location.href = '/trip-log')
+						} else {
+							Swal.fire({
+								title: "회원탈퇴 실패",
+								text: "다시 시도해주세요.",
+								icon: "warning"
+							});
+						}
+					},
+					error : function(){
+							
+					}
+				});
+				//return true;
+			}
+		}
+		
+		// 정보수정 모달 비밀번호 체크
+		function updatePwdCheck(){
+			const pwd = $(".mypage-update #password").val();
+			const pwdCheck = $(".mypage-update #passwordCheck").val();
+			
+			const memberId = $(".mypage-delete #memberId").val();
+			const phone = $(".mypage-update #phone").val(); 
+			const nickname = $(".mypage-update #nickname").val();
+			const countryId = $(".mypage-update #countryId").val();
+				
+			if(pwd != pwdCheck){
+				Swal.fire({
+	                title: "비밀번호가 일치하지 않습니다.",
+	                text: "확인 후 다시 입력해 주세요.",
+	                icon: "warning"
+	            });
+				return false;
+			} else{
+				$.ajax({
+					url : '/trip-log/members/update',
+					data : {
+						password : pwd,
+						memberId : memberId,
+						phone : phone,
+						nickname : nickname,
+						countryId : countryId
+					},
+					type : 'post',
+					success : function(result){
+						if(result == "updated"){
+							Swal.fire({
+				                title: "회원정보 수정 성공",
+				                text : "정보가 수정되었습니다.",
+				                icon: "success"
+				            }).then(() => location.reload(); )
+						} else {
+							Swal.fire({
+				                title: "회원정보 수정 실패",
+				                icon: "warning"
+				            });
+						}
+					},
+					error : function(){
+						Swal.fire('오류', '서버와의 통신 중 문제가 발생하였습니다.', 'error');
+					}
+				});
+				//return true;
+			}
+		}
+    	</script>
     </div> 
 </body>
 

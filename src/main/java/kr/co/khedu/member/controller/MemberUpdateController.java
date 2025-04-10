@@ -24,13 +24,13 @@ public class MemberUpdateController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		Member loginMember = (Member)request.getSession().getAttribute("loginMember");
-		String email = loginMember.getEmail();
+		int memberId = loginMember.getMemberId();
 		String password = request.getParameter("password");
 		String phone = request.getParameter("phone");
 		String nickname = request.getParameter("nickname");
 		int countryId = Integer.parseInt(request.getParameter("countryId"));
 		
-		Member member = new Member(email, password, nickname, phone, countryId);
+		Member member = new Member(memberId, password, nickname, phone, countryId);
 		int result = mService.updateMember(member);
 		
 		if(result > 0) {
@@ -46,3 +46,4 @@ public class MemberUpdateController extends HttpServlet {
 	}
 
 }
+

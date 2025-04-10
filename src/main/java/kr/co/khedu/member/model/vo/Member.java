@@ -31,9 +31,9 @@ public class Member {
 	}
 
 	// 회원정보 수정 생성자
-	public Member(String email, String password, String nickname, String phone, int countryId) {
+	public Member(int memberId, String password, String nickname, String phone, int countryId) {
 		super();
-		this.email = email;
+		this.memberId = memberId;
 		this.password = password;
 		this.nickname = nickname;
 		this.phone = phone;
