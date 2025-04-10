@@ -10,4 +10,7 @@ public interface ProductService {
 
 	// 상품 번호로 상품 조회
 	Product selectProductByProductId(int productId);
+	
+	// 상품 등록 
+	int insertProduct(Product product);
 }

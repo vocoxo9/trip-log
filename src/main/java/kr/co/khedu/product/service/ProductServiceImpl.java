@@ -32,4 +32,19 @@ public class ProductServiceImpl implements ProductService {
 		return product;
 	}
 
+	@Override
+	public int insertProduct(Product product) {
+		SqlSession sqlSession = Template.getSqlSession();
+		
+		int result = new ProductDAO().insertProduct(sqlSession, product);
+		
+		if(result > 0) {
+			sqlSession.commit();
+		}
+		
+		sqlSession.close();
+		
+		return result;
+	}
+
 }
