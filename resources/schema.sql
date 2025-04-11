@@ -253,7 +253,7 @@ DROP SEQUENCE SEQ_PAY_RECORD_ID;
 CREATE SEQUENCE SEQ_PAY_RECORD_ID;
 
 --------------------------------------------------------------------------
--- 상품 테이블 변경 사항
+-- 2025/04/10 상품 테이블 변경 사항
 
 -- 첨부파일 기능을 위한 컬럼 추가
 ALTER TABLE TB_PRODUCT ADD (ORIGIN_FILE_NAME VARCHAR2(100), CHANGE_FILE_NAME VARCHAR2(100));
@@ -263,3 +263,16 @@ COMMENT ON COLUMN TB_PRODUCT.CHANGE_FILE_NAME IS '첨부파일변경이름';
 -- 개발 중 상품 파일명 관련 컬럼 데이터 크기 변경 필요로 인해 크기 변경
 ALTER TABLE TB_PRODUCT MODIFY CHANGE_FILE_NAME VARCHAR2(255);
 --------------------------------------------------------------------------
+
+-- 2025/04/07 투표 테이블 추가
+DELETE FROM TB_VOTE;
+CREATE TABLE TB_VOTE (
+    VOTE_NO NUMBER PRIMARY KEY,
+    TRAVEL_DESTINATION VARCHAR2(9) NOT NULL CHECK(TRAVEL_DESTINATION IN ('가평', '강릉', '속초', '여수', '춘천', '전주', '부산', '제주도')),
+    USER_ID VARCHAR2(100) REFERENCES TB_MEMBER (EMAIL) NOT NULL,
+    VOTING_DATE DATE NOT NULL
+);
+
+-- 2025/04/11소셜로그인 role에 추가 및 이전 제약조건 제거
+ALTER TABLE TB_MEMBER MODIFY ROLE CHECK(ROLE IN('ADMIN','MEMBER','SOCIAL'));
+ALTER TABLE TB_MEMBER DROP CONSTRAINT SYS_C0012394;

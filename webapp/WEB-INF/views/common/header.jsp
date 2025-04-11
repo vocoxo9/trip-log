@@ -1,18 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="kr.co.khedu.member.model.vo.Member" %>
+<%@ page import="kr.co.khedu.member.model.dto.MemberDTO" %>
 <% 
 	String rootPath = request.getContextPath();
-	Member loginMember = (Member) session.getAttribute("loginMember");
+	MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
 %>    
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link href="<%= rootPath %>/assets/css/reset.css" rel="stylesheet">
 <link href="<%= rootPath %>/assets/css/common.css" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.all.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.min.css" rel="stylesheet">
+ -->
 <%-- 추가 정적 파일은 이 주석 아래에 추가!! --%>
 <body>
 	<%
@@ -56,7 +62,8 @@
                         ===> 결론으로 우리 프로젝트 특성상 커뮤니티가 메인이므로 로그인 여부가 중요!! 그래서 꼭 표시해줘야함
                     -->
                     <li>
-                    	<a href="" class="menu-list-item">
+                    	<a href="<%= rootPath %>/members/mypage" class="menu-list-item">
+                    	<a href="<%= rootPath %>/members/mypage" class="menu-list-item">
 	                        <i class="fa-solid fa-user"></i>
 	                        <span>My</span>
                     	</a>
@@ -87,13 +94,13 @@
                     </a>
                 </div>
                 <div class="nav-list-item">
-                    <a href="travelVote.do">
+                    <a href="/trip-log/travelVote.do">
                         <i class="fa-solid fa-check-to-slot"></i>
                         <span>여행지투표</span>
                     </a>
                 </div>
                 <div class="nav-list-item">
-                    <a href="tripCalculator.do">
+                    <a href="/trip-log/tripCalculator.do">
                         <i class="fa-solid fa-calculator"></i>
                         <span>여행경비계산기</span>
                     </a>

@@ -1,7 +1,8 @@
 package kr.co.khedu.member.model.vo;
 
 import java.sql.Date;
-
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,4 +33,5 @@ public class Member {
 		this.phone = phone;
 		this.countryId = countryId;
 	}
+
 }
