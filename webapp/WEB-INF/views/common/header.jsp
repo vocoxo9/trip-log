@@ -14,8 +14,10 @@
 <link href="<%= rootPath %>/assets/css/reset.css" rel="stylesheet">
 <link href="<%= rootPath %>/assets/css/common.css" rel="stylesheet">
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.all.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.min.css" rel="stylesheet">
+ -->
 <%-- 추가 정적 파일은 이 주석 아래에 추가!! --%>
 <body>
 	<%
