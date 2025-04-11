@@ -29,7 +29,7 @@
                 <hr>
                 <a href="#">상품 찜 목록</a> <img src="<%= rootPath %>/assets/images/member/mypage-arrow.png" alt=">"><br>
                 <hr>
-                <a href="#">결제 내역</a> <img src="<%= rootPath %>/assets/images/member/mypage-arrow.png" alt=">">
+                <a href="#">개발 중. . .</a> <img src="<%= rootPath %>/assets/images/member/mypage-arrow.png" alt=">">
                 <hr>
             </div>
             <div class="mypage-right">
@@ -106,15 +106,27 @@
                                                 <input type="email" class="form-control" name="email" id="email"
                                                     value="<%= loginMember.getEmail() %>" disabled readonly>
                                             </div>
-                                            <div class="">
-                                                <label for="password" class="col-form-label">비밀번호</label>
-                                                <input type="password" class="form-control" name="password"
-                                                    id="password">
-                                            </div>
-                                            <div class="">
+                                            <% if (loginMember.getRole().equals("SOCIAL")) { %>
+                                            	<div class="">
+	                                                <label for="password" class="col-form-label">비밀번호</label>
+	                                                <input type="password" class="form-control" name="password"
+	                                                    id="password" value="${ loginMember.password}" readonly disabled>
+	                                            </div>
+	                                            <div class="">
                                                 <label for="passwordCheck" class="col-form-label">비밀번호 확인</label>
-                                                <input type="password" class="form-control" id="passwordCheck">
+                                                <input type="password" class="form-control" id="passwordCheck" value="${ loginMember.password}" readonly disabled>
                                             </div>
+                                            <% } else {%>
+	                                            <div class="">
+	                                                <label for="password" class="col-form-label">비밀번호</label>
+	                                                <input type="password" class="form-control" name="password"
+	                                                    id="password">
+	                                            </div>
+	                                            <div class="">
+	                                                <label for="passwordCheck" class="col-form-label">비밀번호 확인</label>
+	                                                <input type="password" class="form-control" id="passwordCheck">
+	                                            </div>
+                                            <% } %>
                                         </div>
 
                                         <div class="optionalItems">
@@ -204,15 +216,27 @@
 					        <h1 class="modal-title fs-5" id="title">회원탈퇴</h1>
 					      </div>
 					      <div class="modal-body">
+					      <% if (loginMember.getRole().equals("SOCIAL")) { %>
 					          <div class="mb-3">
 					            <label for="password" class="col-form-label" id="title">비밀번호</label>
-					            <input type="password" class="form-control" name="password" id="password">
+					            <input type="password" class="form-control" name="password" id="password" readonly disabled value="${loginMember.password}">
+					          </div>
+					          <div class="mb-3">
+					            <label for="passwordCheck" class="col-form-label" id="title">비밀번호 확인</label>
+					            <input type="password" class="form-control" id="passwordCheck" readonly disabled value="${loginMember.password}" >
+					            <input type="hidden" name="memberId" id="memberId" value="<%= loginMember.getMemberId() %>" />
+					          </div>
+					      <% } else { %>
+					      		<div class="mb-3">
+					            <label for="password" class="col-form-label" id="title">비밀번호</label>
+					            <input type="password" class="form-control" name="password" id="password" value="${loginMember.password}" />
 					          </div>
 					          <div class="mb-3">
 					            <label for="passwordCheck" class="col-form-label" id="title">비밀번호 확인</label>
 					            <input type="password" class="form-control" id="passwordCheck">
 					            <input type="hidden" name="memberId" id="memberId" value="<%= loginMember.getMemberId() %>" />
 					          </div>
+					      <% } %>
 					      </div>
 					      <div class="modal-button">
 					        <button type="submit" class="btn btn-light" id="submitBtn"

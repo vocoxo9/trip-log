@@ -53,8 +53,8 @@
  	</select>
  	
     <insert id="insertMember" parameterType="Member">
-		INSERT INTO TB_MEMBER(MEMBER_ID, EMAIL, PASSWORD, NICKNAME, BIRTHDAY, PHONE, COUNTRY_ID) 
-		VALUES (SEQ_MEM_ID.NEXTVAL , #{email}, #{password}, #{nickname}, #{birthday}, #{phone}, #{countryId})
+		INSERT INTO TB_MEMBER(MEMBER_ID, EMAIL, PASSWORD, ROLE, NICKNAME, BIRTHDAY, PHONE, COUNTRY_ID) 
+		VALUES (SEQ_MEM_ID.NEXTVAL , #{email}, #{password}, 'MEMBER', #{nickname}, #{birthday}, #{phone}, #{countryId})
 	</insert>
 	
 	<select id="countMemberByEmail" resultType="_int">
