@@ -12,7 +12,7 @@ String rootPath = request.getContextPath();
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Board Detail</title>
+<title>Post Detail</title>
 
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -33,7 +33,7 @@ String rootPath = request.getContextPath();
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="<%=rootPath%>/assets/css/reset.css" />
 <link rel="stylesheet"
-	href="<%=rootPath%>/assets/css/board/boardDetail.css" />
+	href="<%=rootPath%>/assets/css/post/postDetail.css" />
 
 <style>
 </style>
@@ -50,12 +50,12 @@ String rootPath = request.getContextPath();
 					<div class="card bg-dark text-white">
 						<div class="position-relative">
 							<img
-								src="<%=rootPath%>/assets/images/board/boardDetail-title.png"
+								src="<%=rootPath%>/assets/images/post/postDetail-title.png"
 								class="card-img" alt="대표 이미지">
 							<div
 								class="card-img-overlay d-flex align-items-center justify-content-center"
 								style="background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(5px);">
-								<h1 class="card-title">${ boardDetail.title }</h1>
+								<h1 class="card-title">${ postDetail.title }</h1>
 							</div>
 						</div>
 					</div>
@@ -162,10 +162,10 @@ String rootPath = request.getContextPath();
                             
                             감사합니다.
                             --%>
-                            ${ boardDetail.content }
+                            ${ postDetail.content }
                             
                         </textarea>
-                        <input type="hidden" id="memberId" value="${ boardDetail.memberId }"/> <%--  나중에 연결하면 loginUser의 memberId로 바꾸기!! --%>
+                        <input type="hidden" id="memberId" value="${ postDetail.memberId }"/> <%--  나중에 연결하면 loginUser의 memberId로 바꾸기!! --%>
 						<div class="nav-btn">
 							<nav>
 								<a href="#pageUp"><i class="fa-solid fa-circle-up"></i></a> <a
@@ -178,12 +178,12 @@ String rootPath = request.getContextPath();
 						<div class="buttons">
 							<div class="update-delete-btn">
 								<input type="hidden" name="postId"
-									value="${ boardDetail.postId }" /> <i
+									value="${ postDetail.postId }" /> <i
 									class="fa-solid fa-pen-to-square"></i> <i
 									class="fa-solid fa-trash-can"></i>
 							</div>
 							<div class="board-like-count">
-								<i class="fa-regular fa-heart"></i> <span class="like-count">${ boardDetail.likeCount }</span>
+								<i class="fa-regular fa-heart"></i> <span class="like-count">${ postDetail.likeCount }</span>
 							</div>
 						</div>
 					</div>
@@ -283,7 +283,7 @@ String rootPath = request.getContextPath();
 			</div>
 		</div>
 	</div>
-	<script src="<%=rootPath%>/assets/js/post/boardDetail.js"></script>
+	<script src="<%=rootPath%>/assets/js/post/postDetail.js"></script>
 
 
 

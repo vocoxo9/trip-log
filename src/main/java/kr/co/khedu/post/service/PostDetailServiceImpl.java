@@ -15,7 +15,7 @@ public class PostDetailServiceImpl implements PostDetailService {
 	PostDetailDAO pdDao = new PostDetailDAO();
 	
 	@Override
-	public PostDetailDto selectBoardDetail(int num) {
+	public PostDetailDto selectPostDetail(int num) {
 		
 		
 		SqlSession sqlSession = Template.getSqlSession();

@@ -9,7 +9,7 @@ import kr.co.khedu.post.model.vo.ReplyDto;
 public interface PostDetailService {
 
 	/* 게시글 정보 조회 */
-	PostDetailDto selectBoardDetail(int num);
+	PostDetailDto selectPostDetail(int num);
 
 	/* 댓글 리스트 조회 */
 	ArrayList<CommentDto> selectCommentList(int pNum);
