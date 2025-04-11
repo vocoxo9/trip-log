@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%
-String rootPath = request.getContextPath();
+	String rootPath = request.getContextPath();
 %>
 <!DOCTYPE html>
 <html>
@@ -26,10 +26,9 @@ String rootPath = request.getContextPath();
 <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js"
 	integrity="sha384-DKYJZ8NLiK8MN4/C5P2dtSmLQ4KwPaoqAfyA/DfmEc1VDxu4yyC7wy6K1Hs90nka"
 	crossorigin="anonymous">
-	
 </script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
-<title>Trip-log</title>
+<title>Trip:log</title>
 </head>
 <body>
 	<div id="root">
@@ -62,7 +61,7 @@ String rootPath = request.getContextPath();
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> 
 	<script>
 		Kakao.init('${kakaoScriptKey}');
 

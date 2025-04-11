@@ -90,7 +90,7 @@
 	</select>
 	
 	<insert id="insertSocialMember" parameterType="MemberDTO">
-		INSERT INTO TB_MEMBER(MEMBER_ID, EMAIL, PASSWORD)
-		VALUES (SEQ_MEM_ID.NEXTVAL , #{email}, #{password})
+		INSERT INTO TB_MEMBER(MEMBER_ID, EMAIL, PASSWORD, ROLE)
+		VALUES (SEQ_MEM_ID.NEXTVAL , #{email}, #{password}, 'SOCIAL')
 	</insert>
 </mapper>

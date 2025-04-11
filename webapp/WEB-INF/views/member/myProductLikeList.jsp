@@ -29,8 +29,7 @@ MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
 	integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="<%=rootPath%>/assets/css/reset.css">
-<link rel="stylesheet"
-	href="<%=rootPath%>/assets/css/member/mypage2.css">
+<link rel="stylesheet" href="<%=rootPath%>/assets/css/member/mypage2.css">
 </head>
 <body>
 	<div id="root">
