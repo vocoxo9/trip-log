@@ -49,7 +49,7 @@
 				<a href="<%=rootPath%>/members/productLikes">상품 찜 목록</a> <img
 					src="<%=rootPath%>/assets/images/member/mypage-arrow.png" alt=">"><br>
 				<hr>
-				<a href="<%=rootPath%>/members/#">결제 내역</a> <img
+				<a href="<%=rootPath%>/members/#">개발중 . . .</a> <img
 					src="<%=rootPath%>/assets/images/member/mypage-arrow.png" alt=">">
 				<hr>
 			</div>

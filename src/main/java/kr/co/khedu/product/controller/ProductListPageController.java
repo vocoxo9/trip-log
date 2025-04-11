@@ -45,16 +45,16 @@ public class ProductListPageController extends HttpServlet {
 		int listCount = new ProductServiceImpl().selectByProductNameCount(productSearchDTO);
 //		System.out.println(listCount);
 		
-		// 理쒕� �븘�씠�뀥 �닔�� �럹�씠吏� �닔
+		// 최대 아이템 수와 페이지 수
 		int itemLimit = 12;
 		int pageLimit = 10;
 		
-		// �쁽�옱 �럹�씠吏� 踰덊샇
+		// 현재 페이지 번호
 		int currentPageNo = request.getParameter("cpage") != null ? Integer.parseInt(request.getParameter("cpage")) : 1;
 		
 		PageInfo pageInfo = new PageInfo(listCount, currentPageNo, pageLimit, itemLimit);
 		
-		// �긽�뭹 議고쉶 �썑 List Collection�뿉 ���옣
+		// 상품 조회 후 List Collection에 저장
 //		List<Product> pList = new ProductServiceImpl().selectProductList();
 //		List<Product> pList = new ProductServiceImpl().selectByProductName(productSearchDTO, pageInfo);
 		List<ProductListDTO> pList = new ProductServiceImpl().selectByProductName(productSearchDTO, pageInfo);

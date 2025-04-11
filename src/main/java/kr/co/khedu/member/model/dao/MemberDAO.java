@@ -6,27 +6,23 @@ import kr.co.khedu.member.model.dto.MemberDTO;
 import kr.co.khedu.member.model.vo.Member;
 
 public class MemberDAO {
-	// DTO ·Î±×ÀÎ Å×½ºÆ®
-//		public MemberDTO dtoTest(SqlSession sqlSession, MemberDTO m) {
-//			return sqlSession.selectOne("memberMapper.dtoTest", m);
-//		}
 
-	// ·Î±×ÀÎ
+	// ë¡œê·¸ì¸
 	public MemberDTO loginMember(SqlSession sqlSession, MemberDTO m) {
 		return sqlSession.selectOne("memberMapper.loginMember", m);
 	}
 	
-	// È¸¿ø°¡ÀÔ
+	// íšŒì›ê°€ì…
 	public int insertMember(SqlSession sqlSession, Member member) {
 		return sqlSession.insert("memberMapper.insertMember", member);
 	}
 
-	// ÀÌ¸ŞÀÏ Áßº¹È®ÀÎ
+	// ì´ë©”ì¼ ì¤‘ë³µ ì¡°íšŒ
 	public int countMemberByEmail(SqlSession sqlSession, String email) {
 		return sqlSession.selectOne("memberMapper.countMemberByEmail", email);
 	}
 
-	// È¸¿øÁ¤º¸ ¼öÁ¤
+	// íšŒì›ì •ë³´ ìˆ˜ì •
 	public int updateMember(SqlSession sqlSession, MemberDTO member) {
 		return sqlSession.update("memberMapper.updateMember", member);
 	}

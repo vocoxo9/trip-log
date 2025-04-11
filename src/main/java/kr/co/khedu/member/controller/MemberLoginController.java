@@ -24,12 +24,12 @@ public class MemberLoginController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// Ä«Ä«¿À api °ü·Ã Å°°ª
+		// Ä«Ä«ï¿½ï¿½ api ï¿½ï¿½ï¿½ï¿½ Å°ï¿½ï¿½
 		request.setAttribute("kakaoScriptKey", KeyManager.get("kakao.scriptKey"));
 		request.setAttribute("kakaoRestKey", KeyManager.get("kakao.restkKey"));
 		request.setAttribute("kakaoClientSecret", KeyManager.get("kakao.clientSecret"));
 		request.setAttribute("kakaoRedirectUri", KeyManager.get("kakao.redirectUri"));
-		// ±¸±Û ·Î±×ÀÎ api °ü·Ã Å°°ª
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ api ï¿½ï¿½ï¿½ï¿½ Å°ï¿½ï¿½
 		request.setAttribute("googleClientId", KeyManager.get("google.clientId"));
 		request.setAttribute("googleClientSecret", KeyManager.get("google.clientSecret"));
 		request.setAttribute("googleRedirectUri", KeyManager.get("google.redirectUri"));
@@ -44,27 +44,27 @@ public class MemberLoginController extends HttpServlet {
 
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-
+		
 		System.out.println(email);
 		System.out.println(password);
-
+		
 		MemberDTO mDTO = new MemberDTO(email, password);
-		// Member m = new Member();
-		// m.setEmail(email);
-		// m.setPassword(password);
-
+		//Member m = new Member();
+		//m.setEmail(email);
+        // m.setPassword(password);
+		
 		MemberDTO loginMember = memberService.loginMember(mDTO);
-
-		// Member loginMember = memberService.loginMember(m);
-
-		if (loginMember != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("loginMember", loginMember);
-			response.sendRedirect(request.getContextPath());
-		} else {
-			//request.setAttribute("errorMsg", "·Î±×ÀÎ Á¤º¸°¡ Àß¸øµÇ¾ú½À´Ï´Ù");
-			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
-		}
+		
+        //Member loginMember = memberService.loginMember(m);
+        
+        if(loginMember != null) {
+        	HttpSession session = request.getSession();
+        	session.setAttribute("loginMember", loginMember);
+        	response.sendRedirect(request.getContextPath());
+        }else {
+        	request.setAttribute("errorMsg", "ë¡œê·¸ì¸ ì •ë³´ê°€ ì˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤");
+			 request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
+        }
 	}
 
 }

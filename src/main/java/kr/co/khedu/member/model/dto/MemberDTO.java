@@ -8,11 +8,12 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class MemberDTO extends Member {
+public class MemberDTO extends Member{
 
 	private String countryName;
 
-	// È¸¿øÁ¤º¸ ¼öÁ¤ »ı¼ºÀÚ
+
+	 // íšŒì›ì •ë³´ ìˆ˜ì • ìƒì„±ì
 	public MemberDTO(int memberId, String password, String nickname, String phone, int countryId) {
 		super();
 		super.setMemberId(memberId);
@@ -21,15 +22,14 @@ public class MemberDTO extends Member {
 		super.setPhone(phone);
 		super.setCountryId(countryId);
 	}
-
-	// ·Î±×ÀÎ »ı¼ºÀÚ
+	
+	// ë¡œê·¸ì¸ ìƒì„±ì
 	public MemberDTO(String email, String password) {
-		super();
 		super.setEmail(email);
 		super.setPassword(password);
 	}
-
-	// ¼Ò¼È·Î±×ÀÎ »ı¼ºÀÚ
+	
+	// ì†Œì…œë¡œê·¸ì¸ ìƒì„±ì
 	public MemberDTO(String email) {
 		super();
 		super.setEmail(email);
