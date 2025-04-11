@@ -113,9 +113,9 @@ public class MemberKakaoLoginController extends HttpServlet {
 
     private void processSocialLogin(String email,HttpServletRequest request, HttpServletResponse response) throws IOException {
 		MemberService memberService = new MemberServiceImpl();
-		Member m = new MemberDTO(email);
+		MemberDTO m = new MemberDTO(email);
 		
-		Member loginMember = memberService.socialMember(m);
+		MemberDTO loginMember = memberService.socialMember(m);
 
         if (loginMember == null) {
             String tempPassword = "social_" + System.currentTimeMillis(); // 예시: "social_" + 현재 시간, 임의의 비밀번호값 지정용

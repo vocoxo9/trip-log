@@ -12,7 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>내 댓글 정보 관리</title>
+<title>Trip:Log</title>
 <!-- BootStrap CDN -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -70,25 +70,6 @@
 							</tr>
 						</thead>
 						<tbody>
-							<%-- 
-                        		List<Comment> CommentList = (List<Comment>)request.getAttribute("commentList");
-                        	--%>
-							<%-- for ( Comment c : commentList ){ --%>
-							<tr>
-								<td>
-									<%--= c.getCommentId() --%>
-								</td>
-								<td>
-									<%--= c.getContent() --%>
-								</td>
-								<td>
-									<%--= c.getCreatedAt() --%>
-								</td>
-								<td>
-									<%--= c.getCommentLike() --%>
-								</td>
-							</tr>
-							<%-- } --%>
 							<tr>
 								<td>1</td>
 								<td>댓글 내용입니다</td>

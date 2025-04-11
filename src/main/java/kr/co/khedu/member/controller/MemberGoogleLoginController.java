@@ -128,7 +128,7 @@ public class MemberGoogleLoginController extends HttpServlet {
 		MemberService memberService = new MemberServiceImpl();
 		MemberDTO m = new MemberDTO(email);
 		
-		Member loginMember = memberService.socialMember(m);
+		MemberDTO loginMember = memberService.socialMember(m);
 
         if (loginMember == null) {
             String tempPassword = "social_" + System.currentTimeMillis(); // 예시: "social_" + 현재 시간, 임의의 비밀번호값 지정용

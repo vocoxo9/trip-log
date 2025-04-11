@@ -27,7 +27,7 @@
                 <hr>
                 <a href="<%=rootPath%>/members/comments">내 댓글 정보 관리</a> <img src="<%= rootPath %>/assets/images/member/mypage-arrow.png" alt=">"><br>
                 <hr>
-                <a href="#">상품 찜 목록</a> <img src="<%= rootPath %>/assets/images/member/mypage-arrow.png" alt=">"><br>
+                <a href="<%=rootPath%>/members/productLikes">상품 찜 목록</a> <img src="<%= rootPath %>/assets/images/member/mypage-arrow.png" alt=">"><br>
                 <hr>
                 <a href="#">결제 내역</a> <img src="<%= rootPath %>/assets/images/member/mypage-arrow.png" alt=">">
                 <hr>
@@ -106,17 +106,29 @@
                                                 <input type="email" class="form-control" name="email" id="email"
                                                     value="<%= loginMember.getEmail() %>" disabled readonly>
                                             </div>
-                                            <div class="">
-                                                <label for="password" class="col-form-label">비밀번호</label>
-                                                <input type="password" class="form-control" name="password"
-                                                    id="password">
-                                            </div>
-                                            <div class="">
-                                                <label for="passwordCheck" class="col-form-label">비밀번호 확인</label>
-                                                <input type="password" class="form-control" id="passwordCheck">
-                                            </div>
+                                            
                                         </div>
-
+										<% if (loginMember.getRole().equals("SOCIAL")) { %>
+                                               <div class="">
+                                                   <label for="password" class="col-form-label">비밀번호</label>
+                                                   <input type="password" class="form-control" name="password"
+                                                       id="password" value="${loginMember.password}" readonly disabled>
+                                               </div>
+                                               <div class="">
+                                                <label for="passwordCheck" class="col-form-label">비밀번호 확인</label>
+                                                <input type="password" class="form-control" id="passwordCheck" value="${loginMember.password}" readonly disabled>
+                                            </div>
+                                            <% } else {%>
+                                               <div class="">
+                                                   <label for="password" class="col-form-label">비밀번호</label>
+                                                   <input type="password" class="form-control" name="password"
+                                                       id="password">
+                                               </div>
+                                               <div class="">
+                                                   <label for="passwordCheck" class="col-form-label">비밀번호 확인</label>
+                                                   <input type="password" class="form-control" id="passwordCheck">
+                                               </div>
+                                            <% } %>
                                         <div class="optionalItems">
                                             <h5 class="modal-title" id="title">선택항목</h5>
                                             <table>

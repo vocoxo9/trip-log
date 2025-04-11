@@ -82,7 +82,7 @@
 		WHERE EMAIL = #{email} AND DELETED_AT IS NULL
 	</select>
 	
-	<select id="socialMember" resultMap="memberResultMap" parameterType="Member"> 
+	<select id="socialMember" resultMap="memberDTOResultMap" parameterType="MemberDTO"> 
 		SELECT *
  		FROM TB_MEMBER
 		WHERE EMAIL= #{email}  

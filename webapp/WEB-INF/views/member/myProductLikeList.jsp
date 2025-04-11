@@ -4,14 +4,14 @@
 	import="kr.co.khedu.member.model.dto.MemberDTO,
 					java.util.List"%>
 <%
-	String rootPath = request.getContextPath();
-	MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+String rootPath = request.getContextPath();
+MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>상품 찜 목록</title>
+<title>Trip:Log</title>
 <!-- BootStrap CDN -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -29,7 +29,8 @@
 	integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="<%=rootPath%>/assets/css/reset.css">
-<link rel="stylesheet" href="<%=rootPath%>/assets/css/member/mypage2.css">
+<link rel="stylesheet"
+	href="<%=rootPath%>/assets/css/member/mypage2.css">
 </head>
 <body>
 	<div id="root">
@@ -54,61 +55,64 @@
 			</div>
 			<div class="mypage-right">
 				<div class="mypage-right-title">
-					<img src="<%=rootPath%>/assets/images/member/mypage-rectangle.png" alt="메뉴바">
+					<img src="<%=rootPath%>/assets/images/member/mypage-rectangle.png"
+						alt="메뉴바">
 					<div id="title">상품 찜 목록</div>
 				</div>
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th>상품 번호</th>
-							<th>상품명</th>
-							<th>가격</th>
-							<th>재고</th>
-							<th>상품 구매 날짜</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td>패키지</td>
-							<td>3000000원</td>
-							<td>3</td>
-							<td>2025.04.03</td>
-						</tr>
+				<div class="mypage-right-detail">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>상품 번호</th>
+								<th>상품명</th>
+								<th>가격</th>
+								<th>재고</th>
+								<th>상품 구매 날짜</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>패키지</td>
+								<td>3000000원</td>
+								<td>3</td>
+								<td>2025.04.03</td>
+							</tr>
 
-						<tr>
-							<td>2</td>
-							<td>패키지</td>
-							<td>3000000원</td>
-							<td>3</td>
-							<td>2025.04.03</td>
-						</tr>
+							<tr>
+								<td>2</td>
+								<td>패키지</td>
+								<td>3000000원</td>
+								<td>3</td>
+								<td>2025.04.03</td>
+							</tr>
 
-						<tr>
-							<td>3</td>
-							<td>패키지</td>
-							<td>3000000원</td>
-							<td>3</td>
-							<td>2025.04.03</td>
-						</tr>
+							<tr>
+								<td>3</td>
+								<td>패키지</td>
+								<td>3000000원</td>
+								<td>3</td>
+								<td>2025.04.03</td>
+							</tr>
 
-						<tr>
-							<td>4</td>
-							<td>패키지</td>
-							<td>3000000원</td>
-							<td>3</td>
-							<td>2025.04.03</td>
-						</tr>
+							<tr>
+								<td>4</td>
+								<td>패키지</td>
+								<td>3000000원</td>
+								<td>3</td>
+								<td>2025.04.03</td>
+							</tr>
 
-						<tr>
-							<td>5</td>
-							<td>패키지</td>
-							<td>3000000원</td>
-							<td>3</td>
-							<td>2025.04.03</td>
-						</tr>
-					</tbody>
-				</table>
+							<tr>
+								<td>5</td>
+								<td>패키지</td>
+								<td>3000000원</td>
+								<td>3</td>
+								<td>2025.04.03</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 				<div id="pagingArea">
 					<ul class="pagination">
 						<li class="page-item"><a href=""

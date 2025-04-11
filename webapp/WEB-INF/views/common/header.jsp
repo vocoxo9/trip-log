@@ -60,17 +60,10 @@
                         ===> 결론으로 우리 프로젝트 특성상 커뮤니티가 메인이므로 로그인 여부가 중요!! 그래서 꼭 표시해줘야함
                     -->
                     <li>
-                    	<% if (loginMember != null) { %>
                     	<a href="<%= rootPath %>/members/mypage" class="menu-list-item">
 	                        <i class="fa-solid fa-user"></i>
 	                        <span>My</span>
                     	</a>
-                    	<%}else{ %>
-                    	<a href="<%= rootPath %>/members/sign-in" class="menu-list-item">
-	                        <i class="fa-solid fa-user"></i>
-	                        <span>My</span>
-                    	</a>
-                    	<%} %>
                     </li>
                     <li>
                     	<a href="" class="menu-list-item">
@@ -98,13 +91,13 @@
                     </a>
                 </div>
                 <div class="nav-list-item">
-                    <a href="travelVote.do">
+                    <a href="/trip-log/travelVote.do">
                         <i class="fa-solid fa-check-to-slot"></i>
                         <span>여행지투표</span>
                     </a>
                 </div>
                 <div class="nav-list-item">
-                    <a href="tripCalculator.do">
+                    <a href="/trip-log/tripCalculator.do">
                         <i class="fa-solid fa-calculator"></i>
                         <span>여행경비계산기</span>
                     </a>

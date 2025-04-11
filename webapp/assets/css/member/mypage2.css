@@ -67,17 +67,39 @@ hr {
     vertical-align: middle !important;
 }
 
+.mypage-right table a {
+    width : 80%;
+    height : 2rem;
+    border-radius: 25px;
+    display : inline-flex;
+    align-items: center;
+    justify-content: center;
+}
 
+.mypage-right-detail i {
+    color : var(--main-color);
+}
+
+.mypage-right-detail i:hover{
+    color : var(--strong-color);
+}
+
+#pagingArea ul{
+    margin-left : 6rem;
+}
 
 .pagination {
     display: flex;
     justify-content: center;
-    margin-top: 2rem;
     gap: 0.4rem;
 }
 
 .pagination li {
     list-style: none;
+}
+
+.pagination i {
+    color : white;
 }
 
 .pagination a {

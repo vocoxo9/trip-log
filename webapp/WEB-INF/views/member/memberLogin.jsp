@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page isELIgnored="false" %>
+<%@ page isELIgnored="false"%>
 <%
-	String rootPath = request.getContextPath();
+String rootPath = request.getContextPath();
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="google-signin-client_id" content="656177775181-k2rlucfj6kjrb8ka3j0g7218rmlktm2h.apps.googleusercontent.com">
+<meta name="google-signin-client_id"
+	content="656177775181-k2rlucfj6kjrb8ka3j0g7218rmlktm2h.apps.googleusercontent.com">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -25,6 +26,7 @@
 <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js"
 	integrity="sha384-DKYJZ8NLiK8MN4/C5P2dtSmLQ4KwPaoqAfyA/DfmEc1VDxu4yyC7wy6K1Hs90nka"
 	crossorigin="anonymous">
+	
 </script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <title>Trip-log</title>
@@ -62,25 +64,22 @@
 		</div>
 	</div>
 	<script>
-	Kakao.init('${kakaoScriptKey}');
+		Kakao.init('${kakaoScriptKey}');
 
-	function signKakaoLogin() {
-	    Kakao.Auth.authorize({
-	        redirectUri:'${kakaoRedirectUri}',
-	        scope: 'account_email', 
-	        prompt: 'select_account'
-	    });
-	}
-	
-	function signGoogleLogin(){
-		const prompt = 'consent select_account';
-		const authUrl = `https://accounts.google.com/o/oauth2/auth?client_id=656177775181-k2rlucfj6kjrb8ka3j0g7218rmlktm2h.apps.googleusercontent.com&redirect_uri=http://localhost:8080/trip-log/google-login/callback&response_type=code&prompt=select_account%20consent&scope=email`;
-		
-		window.location.href = authUrl;
-		console.log(authUrl);
-	}
+		function signKakaoLogin() {
+			Kakao.Auth.authorize({
+				redirectUri : '${kakaoRedirectUri}',
+				scope : 'account_email',
+				prompt : 'select_account'
+			});
+		}
+
+		function signGoogleLogin() {
+			const authUrl = `https://accounts.google.com/o/oauth2/auth?client_id=656177775181-k2rlucfj6kjrb8ka3j0g7218rmlktm2h.apps.googleusercontent.com&redirect_uri=http://localhost:8080/trip-log/google-login/callback&response_type=code&prompt=select_account%20consent&scope=email`;
+
+			window.location.href = authUrl;
+			console.log(authUrl);
+		}
 	</script>
-	
-	<%--<script src="assets/js/member/socialLogin.js"></script>--%>
 </body>
 </html>

@@ -17,6 +17,8 @@
 		<typeAlias alias="Product" type="kr.co.khedu.product.model.vo.Product" />
 		<typeAlias alias="Member" type="kr.co.khedu.member.model.vo.Member" />
 		<typeAlias alias="MemberDTO" type="kr.co.khedu.member.model.dto.MemberDTO" />
+		<typeAlias alias="Post" type="kr.co.khedu.post.model.vo.Post" />
+		<typeAlias alias="Vote" type="kr.co.khedu.vote.model.vo.Vote" />
 	</typeAliases>
 
 	<environments default="develop">
@@ -36,5 +38,7 @@
 		<mapper resource="/mappers/country-mapper.xml" />
 		<mapper resource="/mappers/product-mapper.xml" />
 		<mapper resource="/mappers/member-mapper.xml"/>
+		<mapper resource="/mappers/post-mapper.xml"/>
+		<mapper resource="/mappers/vote-mapper.xml"/>
 	 </mappers>
 </configuration>

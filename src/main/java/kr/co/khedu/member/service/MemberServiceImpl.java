@@ -96,10 +96,10 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public Member socialMember(Member member) {
+	public MemberDTO socialMember(MemberDTO member) {
 		SqlSession sqlSession = Template.getSqlSession();
 
-		Member loginMember = mDAO.socialMember(sqlSession, member);
+		MemberDTO loginMember = mDAO.socialMember(sqlSession, member);
 
 		sqlSession.close();
 

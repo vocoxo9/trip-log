@@ -28,5 +28,5 @@ public interface MemberService {
 	int insertSocialMember(Member member);
 	
 	// 소셜로그인 
-	Member socialMember(Member member);
+	MemberDTO socialMember(MemberDTO member);
 }
