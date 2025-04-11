@@ -33,26 +33,28 @@ public class ProductListPageController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		request.setCharacterEncoding("UTF-8");
 		String keyword = request.getParameter("keyword") != null ? request.getParameter("keyword") : "";
 		String sort = request.getParameter("sort") != null ? request.getParameter("sort") : "";
 //		System.out.println("keyword : " + keyword);
 //		System.out.println("sort : " + sort);
 		ProductSearchDTO productSearchDTO = new ProductSearchDTO(keyword, sort);
+
 		
 		int listCount = new ProductServiceImpl().selectByProductNameCount(productSearchDTO);
 //		System.out.println(listCount);
 		
-		// 최대 아이템 수와 페이지 수
+		// 理쒕� �븘�씠�뀥 �닔�� �럹�씠吏� �닔
 		int itemLimit = 12;
 		int pageLimit = 10;
 		
-		// 현재 페이지 번호
+		// �쁽�옱 �럹�씠吏� 踰덊샇
 		int currentPageNo = request.getParameter("cpage") != null ? Integer.parseInt(request.getParameter("cpage")) : 1;
 		
 		PageInfo pageInfo = new PageInfo(listCount, currentPageNo, pageLimit, itemLimit);
 		
-		// 상품 조회 후 List Collection에 저장
+		// �긽�뭹 議고쉶 �썑 List Collection�뿉 ���옣
 //		List<Product> pList = new ProductServiceImpl().selectProductList();
 //		List<Product> pList = new ProductServiceImpl().selectByProductName(productSearchDTO, pageInfo);
 		List<ProductListDTO> pList = new ProductServiceImpl().selectByProductName(productSearchDTO, pageInfo);

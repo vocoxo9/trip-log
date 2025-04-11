@@ -1,0 +1,227 @@
+hr {
+    margin-bottom: 1rem;
+}
+
+/* ---------------------------- 좌측 설정 ---------------------------- */
+.mypage-left {
+    float: left;
+    width: 25%;
+    height: 25rem;
+    padding: 2rem;
+    padding-top: 3rem;
+    border: 0.3rem solid var(--main-color);
+    border-radius: 25px;
+    font-size: 1.1rem;
+    margin : 7rem 1rem 10rem 0;
+}
+
+.mypage-left a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.mypage-left a:hover {
+    font-weight: bold;
+}
+
+.mypage-left img {
+    float: right;
+}
+
+
+/* ---------------------------- 우측 설정 ---------------------------- */
+.mypage-right {
+    float: right;
+    width: 70%;
+    height: 20rem;
+    margin : 10rem 1rem 10rem 2rem;
+}
+
+.mypage-right-title {
+    display: flex;
+}
+
+
+.mypage-right-title .title {
+    font-size: 1.9rem;
+    font-weight: bold;
+    margin-left: 0.5rem;
+}
+
+.mypage-right table {
+    border-collapse: separate;
+    width: 65%;
+}
+
+.mypage-right table #space {
+    padding: 1rem;
+}
+
+.mypageInfo {
+    padding: 2.5rem;
+}
+
+table #mypageRequired {
+    margin-bottom: 2rem;
+}
+
+#myPageImage {
+    border-radius: 25px;
+    margin-right: 0.4rem;
+}
+
+.mypageInfo th {
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding-bottom: 0.4rem;
+}
+
+#myPageImage,
+td {
+    vertical-align: middle;
+}
+
+#mypageOption {
+    margin-top: 20px;
+}
+
+/* ---------------------------- �쉶�썝�젙蹂� �닔�젙 紐⑤떖 ---------------------------- */
+.modal-header h1{
+	font-size : 1.5rem !important;
+	font-weight : bold;
+}
+.mypage-update {
+    text-align: right;
+}
+#mypageUpdateBtn {
+    background-color: white;
+    border: none;
+    color: var(--strong-color);
+    font-weight: bold;
+}
+#mypageUpdateModalTitle {
+    color: var(--sub-strong-color);
+    font-weight: bold;
+}
+
+.modal-body,
+.modal-footer {
+    text-align: left;
+}
+.modal-body {
+    padding: 2rem;
+    
+}
+.modal-title {
+    color: var(--sub-strong-color);
+    font-size: 1.5rem;
+}
+
+.requiredItems input {
+    width: 97%;
+    margin: auto;
+}
+.requiredItems label,
+.requiredItems #title {
+    font-weight: bold;
+    margin-left : 0.8rem;
+}
+
+.optionalItems {
+    margin-top: 1.5rem;
+	margin-left : 0.5rem;
+}
+.optionalItems table{
+	width : 100%;
+}
+.optionalItems label{
+	margin-top : 1rem;
+	margin-bottom : 1rem;
+}
+.optionalItems .option-group {
+    display: grid;
+    gap : 1rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.optionalItems .option-group > div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom : 0.8rem;
+}
+
+.optionalItems label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.optionalItems input,
+.optionalItems select { 
+    width: 95%; 
+    padding: 0.3rem; 
+    box-sizing: border-box; 
+}
+
+.optionalItems input {
+    flex: 1;
+    min-width: 50%;
+}
+
+.optionalItems select {
+	border : 0.1rem solid #dee2e6;
+	border-radius : 0.3rem;
+}
+.optionalItems #birthday{
+	color : black !important;
+}
+/* ---------------------------- 회원정보 수정 모달 ---------------------------- */
+.mypage-delete {
+    text-align: right;
+}
+
+.mypage-delete .modal-dialog{
+	margin-top : 17rem !important;	
+}
+
+.mypage-delete #title{
+	font-weight : bold;
+}
+#mypageDeleteBtn {
+    background-color: white;
+    border: none;
+    color: var(--heart-color);
+    font-weight: bold;
+    margin-top : 1.5rem;
+}
+
+/* ---------------------------- modal-button ---------------------------- */
+.modal-button {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 1rem;
+}
+.modal-button button {
+    width: 45%;
+    min-width: 120px;
+    border-radius: 25px;
+    font-weight: bold;
+    padding: 0.6rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+.modal-button #submitBtn {
+    background-color: var(--strong-color);
+    color: white;
+    border: 2px solid var(--strong-color);
+}
+.modal-button #submitBtn:hover{
+    background-color: var(--sub-strong-color);
+    border : 2px solid var(--sub-strong-color);
+}
+.modal-button #cancelBtn {
+    background-color: white;
+    color: var(--sub-strong-color);
+    border: 2px solid var(--sub-strong-color);
+}

@@ -1,28 +1,28 @@
 package kr.co.khedu.member.controller;
 
 import java.io.IOException;
-import java.sql.Date;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kr.co.khedu.member.model.vo.Member;
+import kr.co.khedu.member.model.dto.MemberDTO;
+import kr.co.khedu.member.service.MemberService;
 import kr.co.khedu.member.service.MemberServiceImpl;
 
 /**
- * Servlet implementation class MemberSignupController
+ * Servlet implementation class MemberMycommentController
  */
-@WebServlet("/members/sign-up")
-public class MemberSignupController extends HttpServlet {
+@WebServlet("/members/comments")
+public class MemberMycommentController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	
+	private final MemberService memberService = new MemberServiceImpl();
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberSignupController() {
+    public MemberMycommentController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,30 +31,13 @@ public class MemberSignupController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		String phone = request.getParameter("phone");
-		String nickname = request.getParameter("nickname");
-		String birthdayStr = request.getParameter("birthday");
-
-		int country = Integer.parseInt(request.getParameter("country"));
-		
-		Date birthday = null;
-		if(birthdayStr != null && !birthdayStr.isEmpty()) {
-			birthday = Date.valueOf(birthdayStr);
-		}
-		
-		Member member = new Member(email, password, nickname, birthday, phone, country);
-		
-		int result = new MemberServiceImpl().insertMember(member);
-		
-		if(result > 0 ) {
-			request.getSession().setAttribute("alertMsg", "회원가입에 성공하였습니다!");
+		MemberDTO loginMember = (MemberDTO)request.getSession().getAttribute("loginMember");
+		if(loginMember == null) {
 			response.sendRedirect(request.getContextPath());
-		} else {
-			
-			
 		}
+		int memberId = loginMember.getMemberId();
+		
+		request.getRequestDispatcher("/WEB-INF/views/member/myCommentList.jsp").forward(request, response);
 	}
 
 	/**
