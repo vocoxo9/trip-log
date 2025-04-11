@@ -75,24 +75,24 @@ public class MemberGoogleLoginController extends HttpServlet {
 				"&client_secret=" + clientSecret +
 				"&redirect_uri=" + redirectUri +
 				"&grant_type=authorization_code";
-		System.out.println("params:"+params);
-        URL url = new URL("https://oauth2.googleapis.com/token");
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("POST");
-        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        conn.setDoOutput(true);
-        
-        conn.getOutputStream().write(params.getBytes());
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        StringBuilder sb = new StringBuilder();
-        
-        String line;
-        while ((line = br.readLine()) != null) sb.append(line);
-        br.close();
-        
-        JsonObject json = JsonParser.parseString(sb.toString()).getAsJsonObject();
-        return json.get("access_token").getAsString();
+		//System.out.println("params:"+params);
+		URL url = new URL("https://oauth2.googleapis.com/token");
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestMethod("POST");
+		conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+		conn.setDoOutput(true);
+		
+		conn.getOutputStream().write(params.getBytes());
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		StringBuilder sb = new StringBuilder();
+		
+		String line;
+		while ((line = br.readLine()) != null) sb.append(line);
+		br.close();
+		
+		JsonObject json = JsonParser.parseString(sb.toString()).getAsJsonObject();
+		return json.get("access_token").getAsString();
 	}
 	
 	private String getGoogleEmail(String token) throws IOException {
