@@ -92,7 +92,17 @@ public class ProductServiceImpl implements ProductService {
 	 */
 	@Override
 	public int deleteProduct(int productId) {
-		return 0;
+		SqlSession sqlSession = Template.getSqlSession();
+		
+		int result = new ProductDAO().deleteProduct(sqlSession, productId);
+		
+		if(result > 0) {
+			sqlSession.commit();
+		}
+		
+		sqlSession.close();
+		
+		return result;
 	}
 
 }

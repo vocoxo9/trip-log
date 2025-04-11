@@ -31,11 +31,17 @@ public class ProductDeleteController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 상품 번호 추출하기
 		String path = request.getPathInfo();
-		System.out.println(path.substring(1));
+		// System.out.println(path.substring(1));
 		int productId = Integer.parseInt(path.substring(1));
-		System.out.println("delete productId : " + productId);
+		// System.out.println("delete productId : " + productId);
 		
 		int result = new ProductServiceImpl().deleteProduct(productId);
+		
+		if(result > 0) {
+			response.sendRedirect("/trip-log/products");
+		} else {
+			// 에러페이지 연동
+		}
 	}
 
 	/**

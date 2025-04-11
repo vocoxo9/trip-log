@@ -46,4 +46,8 @@ public class ProductDAO {
 	public int insertProduct(SqlSession sqlSession, Product product) {
 		return sqlSession.insert("productMapper.insertProduct", product);
 	}
+
+	public int deleteProduct(SqlSession sqlSession, int productId) {
+		return sqlSession.delete("productMapper.deleteProduct", productId);
+	}
 }

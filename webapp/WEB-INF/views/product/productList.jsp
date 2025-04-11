@@ -55,11 +55,11 @@
 											<span class="heart-icon"><i class="fa-solid fa-heart"></i></span>
 										</span>
 										<c:choose>
-											<c:when test="${p.changeFileName eq defaultPath}">
+											<c:when test="${p.changeFileName == defaultPath}">
 												<img src="${pageContext.request.contextPath}/${defaultPath}" alt="Product Image" class="product-image" />
 											</c:when>
 											<c:otherwise>
-												<img src="${pageContext.request.contextPath}/${p.changeFileName}" alt="Product Image" class="product-image" />
+												<img src="/trip-log/${p.changeFileName}" alt="Product Image" class="product-image" />
 											</c:otherwise>
 										</c:choose>
 										<%--

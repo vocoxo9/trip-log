@@ -85,4 +85,9 @@
 	<insert id="insertProduct" parameterType="Product">
 		INSERT INTO TB_PRODUCT VALUES (SEQ_PRODUCT_ID.NEXTVAL, #{name}, #{price}, #{stock}, #{description}, DEFAULT, 1, 25, #{originFileName}, #{changeFileName})
 	</insert>
+	
+	<!-- 상품 삭제 쿼리문 -->
+	<delete id="deleteProduct">
+		DELETE FROM TB_PRODUCT WHERE PRODUCT_ID = #{productId}
+	</delete>
 </mapper>

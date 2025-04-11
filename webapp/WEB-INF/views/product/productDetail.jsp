@@ -27,7 +27,7 @@
 							<img src="${pageContext.request.contextPath}/${defaultPath}" alt="Product Image" class="product-image" />
 						</c:when>
 						<c:otherwise>
-							<img src="${pageContext.request.contextPath}/${productInfo.changeFileName}" alt="Product Image" class="product-image" />
+							<img src="/trip-log/${productInfo.changeFileName}" alt="Product Image" class="product-image" />
 						</c:otherwise>
 					</c:choose>
 	            </div>

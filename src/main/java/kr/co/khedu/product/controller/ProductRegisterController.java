@@ -50,6 +50,7 @@ public class ProductRegisterController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// System.out.println("test");
 		request.setCharacterEncoding("UTF-8");
+		TripFileUtils uploadUtil = TripFileUtils.create(request.getServletContext());
 		String name = "";
 		String originFileName = "";
 		String changeFileName = "";
@@ -75,8 +76,13 @@ public class ProductRegisterController extends HttpServlet {
 			        break;
 			    case "uploadFile":
 			    	if(!p.getSubmittedFileName().equals("")) {
-				    	changeFileName = TripFileUtils.saveFile(p, request.getSession(), "/resources/upload/");
-
+			    		String subFolder = uploadUtil.createFilePath(); // yyyy/MM/dd 폴더 경로
+			    		// System.out.println(subFolder);
+			    		changeFileName = TripFileUtils.changeFileName(p);
+			    		// System.out.println(changeFileName);
+			    		uploadUtil.saveFile(p, subFolder, changeFileName);
+			    		changeFileName = "/assets/resources/upload/" + subFolder + "/" + changeFileName;
+			    		
 				    	originFileName = p.getSubmittedFileName();
 			    	}
 			        break;
@@ -93,18 +99,18 @@ public class ProductRegisterController extends HttpServlet {
 		}
 		
 		Product product = new Product(name, price, stock, description, originFileName, changeFileName);
-		System.out.println(product);
+		// System.out.println(product);
 		
 		int result = new ProductServiceImpl().insertProduct(product);
 		
-		System.out.println(result);
+		// System.out.println(result);
 		
 		if(result > 0) {
 			response.sendRedirect("/trip-log/products");
 		} else {
 			// 추후 수정 예정
 			request.setAttribute("errorMsg", "로그인 정보가 잘못되었습니다");
-			 request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
 		}
 		
 	}
