@@ -1,4 +1,14 @@
 	
+
+
+	// 오늘 이후 날짜 지정 불가
+	var now_utc = Date.now()
+	var timeOff = new Date().getTimezoneOffset()*60000;
+	var today = new Date(now_utc-timeOff).toISOString().split("T")[0];
+	document.querySelector(".signup-box #birthday").setAttribute("max", today);
+
+
+
 	// 이메일 체크
 	function emailCheck(){
 		const $email = $(".signup-box #email").val();

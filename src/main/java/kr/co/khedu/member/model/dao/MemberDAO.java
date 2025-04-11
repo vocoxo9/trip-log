@@ -6,11 +6,11 @@ import kr.co.khedu.member.model.dto.MemberDTO;
 import kr.co.khedu.member.model.vo.Member;
 
 public class MemberDAO {
-	// DTO 로그인 테스트
-//	public MemberDTO dtoTest(SqlSession sqlSession, MemberDTO m) {
-//		return sqlSession.selectOne("memberMapper.dtoTest", m);
-//	}
-	
+	// DTO �α��� �׽�Ʈ
+//		public MemberDTO dtoTest(SqlSession sqlSession, MemberDTO m) {
+//			return sqlSession.selectOne("memberMapper.dtoTest", m);
+//		}
+
 	// 로그인
 	public MemberDTO loginMember(SqlSession sqlSession, MemberDTO m) {
 		return sqlSession.selectOne("memberMapper.loginMember", m);
@@ -21,11 +21,11 @@ public class MemberDAO {
 		return sqlSession.insert("memberMapper.insertMember", member);
 	}
 
-	// 이메일 중복확인
+	// 이메일 중복 조회
 	public int countMemberByEmail(SqlSession sqlSession, String email) {
 		return sqlSession.selectOne("memberMapper.countMemberByEmail", email);
 	}
-	
+
 	// 회원정보 수정
 	public int updateMember(SqlSession sqlSession, MemberDTO member) {
 		return sqlSession.update("memberMapper.updateMember", member);
@@ -38,5 +38,12 @@ public class MemberDAO {
 	public MemberDTO selectMember(SqlSession sqlSession, int memNo) {
 		return sqlSession.selectOne("memberMapper.selectMember", memNo);
 	}
-
+	
+	public MemberDTO socialMember(SqlSession sqlSession, MemberDTO m) {
+		return sqlSession.selectOne("memberMapper.socialMember", m);
+	}
+	
+	public int insertSocialMember(SqlSession sqlSession, Member member) {
+		return sqlSession.insert("memberMapper.insertSocialMember", member);
+	}
 }

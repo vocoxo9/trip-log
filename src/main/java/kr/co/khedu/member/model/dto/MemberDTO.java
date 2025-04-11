@@ -28,4 +28,10 @@ public class MemberDTO extends Member{
 		super.setEmail(email);
 		super.setPassword(password);
 	}
+	
+	// 소셜로그인 생성자
+	public MemberDTO(String email) {
+		super();
+		super.setEmail(email);
+	}
 }

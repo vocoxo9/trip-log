@@ -26,16 +26,21 @@
     <jsp:include page="../common/header.jsp" />
         <div class="container">
             <div class="mypost-left">
-                <a href="<%=rootPath%>/members/mypage">내 정보 관리</a> <img src="<%= rootPath %>/assets/images/member/mypage-arrow.png" alt=">"><br>
-                <hr>
-                <a href="<%=rootPath%>/members/posts">내 글 정보 관리</a> <img src="<%= rootPath %>/assets/images/member/mypage-arrow.png" alt=">"><br>
-                <hr>
-                <a href="<%=rootPath%>/members/#">내 댓글 정보 관리</a> <img src="<%= rootPath %>/assets/images/member/mypage-arrow.png" alt=">"><br>
-                <hr>
-                <a href="<%=rootPath%>/members/#">상품 찜 목록</a> <img src="<%= rootPath %>/assets/images/member/mypage-arrow.png" alt=">"><br>
-                <hr>
-                <a href="<%=rootPath%>/members/#">개발 중. . .</a> <img src="<%= rootPath %>/assets/images/member/mypage-arrow.png" alt=">">
-                <hr>
+				<a href="<%=rootPath%>/members/mypage">내 정보 관리</a> <img
+					src="<%=rootPath%>/assets/images/member/mypage-arrow.png" alt=">"><br>
+				<hr>
+				<a href="<%=rootPath%>/members/posts">내 글 정보 관리</a> <img
+					src="<%=rootPath%>/assets/images/member/mypage-arrow.png" alt=">"><br>
+				<hr>
+				<a href="<%=rootPath%>/members/comments">내 댓글 정보 관리</a> <img
+					src="<%=rootPath%>/assets/images/member/mypage-arrow.png" alt=">"><br>
+				<hr>
+				<a href="<%=rootPath%>/members/productLikes">상품 찜 목록</a> <img
+					src="<%=rootPath%>/assets/images/member/mypage-arrow.png" alt=">"><br>
+				<hr>
+				<a href="<%=rootPath%>/members/#">개발중 . . .</a> <img
+					src="<%=rootPath%>/assets/images/member/mypage-arrow.png" alt=">">
+				<hr>
             </div>
             <div class="mypost-right">
                 <div class="mypost-right-title">
@@ -70,15 +75,6 @@
                                 <td><a href="" id="edit"><i class="fa-solid fa-trash-can fa-lg"></i></a></td>
                             </tr>
                             <%-- } --%>
-                            <tr>
-                                <td>1</td>
-                                <td>글 제목입니다.</td>
-                                <td>관리자</td>
-                                <td>25.03.28</td>
-                                <td>99</td>
-                                <td><a href=""><i class="fa-solid fa-pen-to-square fa-lg"></i></a></td>
-                                <td><a href=""><i class="fa-solid fa-trash-can fa-lg"></i></a></td>
-                            </tr>
                             <tr>
                                 <td>1</td>
                                 <td>글 제목입니다.</td>

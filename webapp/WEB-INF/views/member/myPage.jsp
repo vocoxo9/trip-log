@@ -21,16 +21,21 @@
     <jsp:include page="../common/header.jsp" />
         <div class="container">
             <div class="mypage-left">
-                <a href="<%=rootPath%>/members/mypage">내 정보 관리</a> <img src="<%= rootPath %>/assets/images/member/mypage-arrow.png" alt=">"><br>
-                <hr>
-                <a href="<%=rootPath%>/members/posts">내 글 정보 관리</a> <img src="<%= rootPath %>/assets/images/member/mypage-arrow.png" alt=">"><br>
-                <hr>
-                <a href="#">내 댓글 정보 관리</a> <img src="<%= rootPath %>/assets/images/member/mypage-arrow.png" alt=">"><br>
-                <hr>
-                <a href="#">상품 찜 목록</a> <img src="<%= rootPath %>/assets/images/member/mypage-arrow.png" alt=">"><br>
-                <hr>
-                <a href="#">개발 중. . .</a> <img src="<%= rootPath %>/assets/images/member/mypage-arrow.png" alt=">">
-                <hr>
+				<a href="<%=rootPath%>/members/mypage">내 정보 관리</a> <img
+					src="<%=rootPath%>/assets/images/member/mypage-arrow.png" alt=">"><br>
+				<hr>
+				<a href="<%=rootPath%>/members/posts">내 글 정보 관리</a> <img
+					src="<%=rootPath%>/assets/images/member/mypage-arrow.png" alt=">"><br>
+				<hr>
+				<a href="<%=rootPath%>/members/comments">내 댓글 정보 관리</a> <img
+					src="<%=rootPath%>/assets/images/member/mypage-arrow.png" alt=">"><br>
+				<hr>
+				<a href="<%=rootPath%>/members/productLikes">상품 찜 목록</a> <img
+					src="<%=rootPath%>/assets/images/member/mypage-arrow.png" alt=">"><br>
+				<hr>
+				<a href="<%=rootPath%>/members/#">개발중 . . .</a> <img
+					src="<%=rootPath%>/assets/images/member/mypage-arrow.png" alt=">">
+				<hr>
             </div>
             <div class="mypage-right">
                 <div class="mypage-right-title">

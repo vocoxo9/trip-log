@@ -75,4 +75,16 @@
 		SET DELETED_AT = SYSDATE
 		WHERE MEMBER_ID = #{memNo}
 	</update>
+	
+		<select id="socialMember" resultMap="memberDTOResultMap" parameterType="MemberDTO"> 
+		SELECT *
+ 		FROM TB_MEMBER
+		WHERE EMAIL= #{email}  
+		AND DELETED_AT IS NULL
+	</select>
+	
+	<insert id="insertSocialMember" parameterType="MemberDTO">
+		INSERT INTO TB_MEMBER(MEMBER_ID, EMAIL, PASSWORD, ROLE)
+		VALUES (SEQ_MEM_ID.NEXTVAL , #{email}, #{password}, 'SOCIAL')
+	</insert>
 </mapper>
