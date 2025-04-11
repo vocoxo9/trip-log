@@ -35,13 +35,6 @@
 		AND DELETED_AT IS NULL
 	</select>
 	
-	<select id="socialMember" resultMap="memberResultMap" parameterType="Member"> 
-		SELECT *
- 		FROM TB_MEMBER
-		WHERE EMAIL= #{email}  
-		AND DELETED_AT IS NULL
-	</select>
-	
 <!-- 	
 	<select id="dtoTest" resultMap="memberDTOResultMap" parameterType="kr.co.khedu.member.model.dto.MemberDTO"> 
 		SELECT *
@@ -87,6 +80,13 @@
 		SELECT *
 		FROM TB_MEMBER
 		WHERE EMAIL = #{email} AND DELETED_AT IS NULL
+	</select>
+	
+	<select id="socialMember" resultMap="memberResultMap" parameterType="Member"> 
+		SELECT *
+ 		FROM TB_MEMBER
+		WHERE EMAIL= #{email}  
+		AND DELETED_AT IS NULL
 	</select>
 	
 	<insert id="insertSocialMember" parameterType="MemberDTO">

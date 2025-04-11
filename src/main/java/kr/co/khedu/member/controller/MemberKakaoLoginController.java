@@ -113,16 +113,16 @@ public class MemberKakaoLoginController extends HttpServlet {
 
     private void processSocialLogin(String email,HttpServletRequest request, HttpServletResponse response) throws IOException {
 		MemberService memberService = new MemberServiceImpl();
-		MemberDTO mDTO = new MemberDTO(email);
+		Member m = new MemberDTO(email);
 		
-		MemberDTO loginMember = memberService.loginMember(mDTO);
+		Member loginMember = memberService.socialMember(m);
 
         if (loginMember == null) {
             String tempPassword = "social_" + System.currentTimeMillis(); // 예시: "social_" + 현재 시간, 임의의 비밀번호값 지정용
-            mDTO.setPassword(tempPassword);
+            m.setPassword(tempPassword);
             try {
-            	memberService.insertSocialMember(mDTO);
-                loginMember = memberService.loginMember(mDTO);
+            	memberService.insertSocialMember(m);
+                loginMember = memberService.socialMember(m);
             }catch(PersistenceException e) {
             	e.printStackTrace();
             	return;

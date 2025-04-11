@@ -24,6 +24,9 @@ public interface MemberService {
 	
 	MemberDTO selectMember(int memNo);
 
-	// 쇼셜로그인 가입
+	// 소셜로그인 가입
 	int insertSocialMember(Member member);
+	
+	// 소셜로그인 
+	Member socialMember(Member member);
 }

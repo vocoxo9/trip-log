@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.exceptions.PersistenceException;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -126,17 +128,24 @@ public class MemberGoogleLoginController extends HttpServlet {
 		MemberService memberService = new MemberServiceImpl();
 		MemberDTO m = new MemberDTO(email);
 		
-		MemberDTO loginMember = memberService.loginMember(m);
+		Member loginMember = memberService.socialMember(m);
 
-		if (loginMember == null) {
-		String tempPassword = "social_" + System.currentTimeMillis();
-		m.setPassword(tempPassword);
-		memberService.insertSocialMember(m);
-		loginMember = memberService.loginMember(m);
-		}
-
-		HttpSession session = request.getSession();
-		session.setAttribute("loginMember", loginMember);
-		response.sendRedirect(request.getContextPath());
-		}
+        if (loginMember == null) {
+            String tempPassword = "social_" + System.currentTimeMillis(); // 예시: "social_" + 현재 시간, 임의의 비밀번호값 지정용
+            m.setPassword(tempPassword);
+            try {
+            	memberService.insertSocialMember(m);
+                loginMember = (MemberDTO) memberService.socialMember(m);
+            }catch(PersistenceException e) {
+            	e.printStackTrace();
+            	return;
+            }
+        }else {
+        	
+        }
+        HttpSession session = request.getSession();
+        session.setAttribute("loginMember", loginMember);
+        System.out.println(loginMember);
+        response.sendRedirect(request.getContextPath());
+	}
 }

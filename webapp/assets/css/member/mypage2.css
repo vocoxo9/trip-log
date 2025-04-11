@@ -1,38 +1,47 @@
-
+hr {
+    margin-bottom: 1rem;
+}
 .mypage-left {
+    float : left;
     width: 25%;
-    height: 25rem;
-    border: 3px solid var(--main-color);
-    border-radius: 25px;
+    height : 25rem;
     padding: 2rem;
-    padding-top: 3rem;
-    margin-right: 1rem;
+    padding-top : 3rem;
+    margin : 7rem 1rem 10rem 0;
+    border: 0.3rem solid var(--main-color);
+    border-radius: 25px;
+    font-size: 1.1rem;
 }
 
 .mypage-left a {
     color: var(--text-color);
     text-decoration: none;
-    font-size: 1.1rem;
 }
 
-.mypage-left a.active {
+.mypage-left a:hover {
     font-weight: bold;
 }
+
 
 .mypage-left img {
     float: right;
 }
 
-
-.container {
-    display: flex;
-    align-items: center;
-    justify-self: center;
-    height: 100%;
+.mypage-right {
+    float: right;
+    width: 70%;
+    height: 35rem;
+    margin : 3rem 1rem 10rem 2rem;
 }
 
-.mypage-left a:hover {
+.mypage-right-title {
+    display: flex;
+}
+
+.mypage-right-title #title {
+    font-size: 1.9rem;
     font-weight: bold;
+    margin-left: 0.5rem;
 }
 
 .mypage-right table {
@@ -40,9 +49,15 @@
     margin: 3rem;
     text-align: center;
 }
+
 .mypage-right table th{
     font-weight: bold;
 }
+
+.mypost-right table tr{
+    cursor : pointer;
+}
+
 .mypage-right table thead tr :nth-child(2){
     width : 40%;
 }
@@ -52,22 +67,7 @@
     vertical-align: middle !important;
 }
 
-.mypage-right {
-    width: 75%;
-    padding-left: 3rem;
-}
 
-.mypage-right-title {
-    display: flex;
-    align-items: center;
-
-}
-
-.mypage-right-title .title {
-    font-size: 1.6rem;
-    font-weight: bold;
-    margin-left: 0.8rem;
-}
 
 .pagination {
     display: flex;

@@ -39,15 +39,10 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.selectMember", memNo);
 	}
 	
-	
-	public MemberDTO socialMember(SqlSession sqlSession, MemberDTO m) {
+	public Member socialMember(SqlSession sqlSession, Member m) {
 		return sqlSession.selectOne("memberMapper.socialMember", m);
 	}
 	
-	public MemberDTO selectMemberBySocialEmail(SqlSession sqlSession, Member member) {
-		return sqlSession.selectOne("memberMapper.socialLoginMember", member);
-	}
-
 	public int insertSocialMember(SqlSession sqlSession, Member member) {
 		return sqlSession.insert("memberMapper.insertSocialMember", member);
 	}

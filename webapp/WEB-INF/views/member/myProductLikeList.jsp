@@ -11,8 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>내 댓글 정보 관리</title>
+<title>상품 찜 목록</title>
 <!-- BootStrap CDN -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -55,74 +54,61 @@
 			</div>
 			<div class="mypage-right">
 				<div class="mypage-right-title">
-					<img src="<%=rootPath%>/assets/images/member/mypage-rectangle.png"
-						alt="메뉴바">
-					<div id="title">내 댓글 정보 관리</div>
+					<img src="<%=rootPath%>/assets/images/member/mypage-rectangle.png" alt="메뉴바">
+					<div id="title">상품 찜 목록</div>
 				</div>
-				<div class="mypage-right-detail">
-					<table class="table table-hover">
-						<thead>
-							<tr>
-								<th>댓글 번호</th>
-								<th>댓글</th>
-								<th>작성 날짜</th>
-								<th>공감수</th>
-							</tr>
-						</thead>
-						<tbody>
-							<%-- 
-                        		List<Comment> CommentList = (List<Comment>)request.getAttribute("commentList");
-                        	--%>
-							<%-- for ( Comment c : commentList ){ --%>
-							<tr>
-								<td>
-									<%--= c.getCommentId() --%>
-								</td>
-								<td>
-									<%--= c.getContent() --%>
-								</td>
-								<td>
-									<%--= c.getCreatedAt() --%>
-								</td>
-								<td>
-									<%--= c.getCommentLike() --%>
-								</td>
-							</tr>
-							<%-- } --%>
-							<tr>
-								<td>1</td>
-								<td>댓글 내용입니다</td>
-								<td>25.03.28</td>
-								<td>33</td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>댓글 내용입니다</td>
-								<td>25.03.28</td>
-								<td>33</td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td>댓글 내용입니다</td>
-								<td>25.03.28</td>
-								<td>33</td>
-							</tr>
-							<tr>
-								<td>4</td>
-								<td>댓글 내용입니다</td>
-								<td>25.03.28</td>
-								<td>33</td>
-							</tr>
-							<tr>
-								<td>5</td>
-								<td>댓글 내용입니다</td>
-								<td>25.03.28</td>
-								<td>33</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>상품 번호</th>
+							<th>상품명</th>
+							<th>가격</th>
+							<th>재고</th>
+							<th>상품 구매 날짜</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>패키지</td>
+							<td>3000000원</td>
+							<td>3</td>
+							<td>2025.04.03</td>
+						</tr>
 
+						<tr>
+							<td>2</td>
+							<td>패키지</td>
+							<td>3000000원</td>
+							<td>3</td>
+							<td>2025.04.03</td>
+						</tr>
+
+						<tr>
+							<td>3</td>
+							<td>패키지</td>
+							<td>3000000원</td>
+							<td>3</td>
+							<td>2025.04.03</td>
+						</tr>
+
+						<tr>
+							<td>4</td>
+							<td>패키지</td>
+							<td>3000000원</td>
+							<td>3</td>
+							<td>2025.04.03</td>
+						</tr>
+
+						<tr>
+							<td>5</td>
+							<td>패키지</td>
+							<td>3000000원</td>
+							<td>3</td>
+							<td>2025.04.03</td>
+						</tr>
+					</tbody>
+				</table>
 				<div id="pagingArea">
 					<ul class="pagination">
 						<li class="page-item"><a href=""

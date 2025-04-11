@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="kr.co.khedu.member.model.dto.MemberDTO" %>
+<%@ page import="kr.co.khedu.member.model.dto.MemberDTO
+				,kr.co.khedu.member.model.vo.Member " %>
 <% 
 	String rootPath = request.getContextPath();
-	MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+	Member loginMember = (Member) session.getAttribute("loginMember");
 %>    
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
@@ -59,10 +60,17 @@
                         ===> 결론으로 우리 프로젝트 특성상 커뮤니티가 메인이므로 로그인 여부가 중요!! 그래서 꼭 표시해줘야함
                     -->
                     <li>
+                    	<% if (loginMember != null) { %>
                     	<a href="<%= rootPath %>/members/mypage" class="menu-list-item">
 	                        <i class="fa-solid fa-user"></i>
 	                        <span>My</span>
                     	</a>
+                    	<%}else{ %>
+                    	<a href="<%= rootPath %>/members/sign-in" class="menu-list-item">
+	                        <i class="fa-solid fa-user"></i>
+	                        <span>My</span>
+                    	</a>
+                    	<%} %>
                     </li>
                     <li>
                     	<a href="" class="menu-list-item">
