@@ -1,4 +1,4 @@
-package kr.co.khedu.board.model.vo;
+package kr.co.khedu.post.model.vo;
 
 public class CommentDto {
 

@@ -1,15 +1,15 @@
-package kr.co.khedu.board.service;
+package kr.co.khedu.post.service;
 
 import java.util.ArrayList;
 
-import kr.co.khedu.board.model.vo.BoardDetailDto;
-import kr.co.khedu.board.model.vo.CommentDto;
-import kr.co.khedu.board.model.vo.ReplyDto;
+import kr.co.khedu.post.model.vo.CommentDto;
+import kr.co.khedu.post.model.vo.PostDetailDto;
+import kr.co.khedu.post.model.vo.ReplyDto;
 
-public interface BoardDetailService {
+public interface PostDetailService {
 
 	/* 게시글 정보 조회 */
-	BoardDetailDto selectBoardDetail(int num);
+	PostDetailDto selectBoardDetail(int num);
 
 	/* 댓글 리스트 조회 */
 	ArrayList<CommentDto> selectCommentList(int pNum);

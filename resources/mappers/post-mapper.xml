@@ -2,15 +2,15 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="boardDetailMapper">
-	<resultMap id="boardDetailResultMap" type="BoardDetailDto">
+<mapper namespace="postDetailMapper">
+	<resultMap id="postDetailResultMap" type="PostDetailDto">
 		<result column="POST_ID" property="postId"/>
 		<result column="TITLE" property="title"/>
 		<result column="CONTENT" property="content"/>
 		<result column="LIKE_COUNT" property="likeCount"/>
 		<result column="MEMBER_ID" property="memberId"/>
 	</resultMap>
-	<resultMap type="CommentDto" id="boardCommentResultMap">
+	<resultMap type="CommentDto" id="postCommentResultMap">
 		<result column="POST_ID" property="postId"/>
 		<result column="COMMENT_ID" property="commentId"/>
 		<result column="EMAIL" property="memberId"/>
@@ -18,7 +18,7 @@
 		<result column="CONTENT" property="content"/>
 		<result column="LIKE_COUNT" property="likeCount"/>
 	</resultMap>
-		<resultMap type="ReplyDto" id="boardReplyResultMap">
+		<resultMap type="ReplyDto" id="postReplyResultMap">
 		<result column="POST_ID" property="postId"/>
 		<result column="COMMENT_ID" property="commentId"/>
 		<result column="EMAIL" property="userName"/>
@@ -27,7 +27,7 @@
 		<result column="LIKE_COUNT" property="likeCount"/>
 		<result column="PARENT_ID" property="parentId"/>
 	</resultMap>
-	<resultMap type="CommentDto" id="boardLastCommentResultMap">
+	<resultMap type="CommentDto" id="postLastCommentResultMap">
 		<result column="POST_ID" property="postId"/>
 		<result column="COMMENT_ID" property="commentId"/>
 		<result column="EMAIL" property="memberId"/>
@@ -36,7 +36,7 @@
 		<result column="LIKE_COUNT" property="likeCount"/>
 	</resultMap>
 	
-	<select id="searchBoardDetail" resultMap="boardDetailResultMap" parameterType="BoardDetailDto">
+	<select id="searchPostDetail" resultMap="postDetailResultMap" parameterType="postDetailDto">
 		SELECT 
 			P.POST_ID, 
 			P.TITLE, 
@@ -49,7 +49,7 @@
 		GROUP BY P.POST_ID, P.TITLE, TO_CHAR(P.CONTENT), P.MEMBER_ID
 	</select>
 	
-	<select id="selectCommentList" resultMap="boardCommentResultMap" parameterType="CommentDto">
+	<select id="selectCommentList" resultMap="postCommentResultMap" parameterType="CommentDto">
 		SELECT
 			C.POST_ID, C.COMMENT_ID, 
 			SUBSTR(M.EMAIL, 1, INSTR(M.EMAIL, '@')-1) AS EMAIL,
@@ -69,7 +69,7 @@
 		ORDER BY COMMENT_ID DESC
 	</select>
 	
-	<select id="selectReplyList" resultMap="boardReplyResultMap" parameterType="ReplyDto">
+	<select id="selectReplyList" resultMap="postReplyResultMap" parameterType="ReplyDto">
 				SELECT
 			C.POST_ID, C.COMMENT_ID, 
 			SUBSTR(M.EMAIL, 1, INSTR(M.EMAIL, '@')-1) AS EMAIL,
@@ -94,7 +94,7 @@
 			(SEQ_COMMENT_ID.NEXTVAL, #{commentView}, SYSDATE, NULL, #{postId}, #{name})
 	</insert>
 	
-	<select id="selectLastComment" resultMap="boardLastCommentResultMap" parameterType="CommentDto">
+	<select id="selectLastComment" resultMap="postLastCommentResultMap" parameterType="CommentDto">
 		SELECT 
 		    C.POST_ID,
 		    C.COMMENT_ID,

@@ -1,6 +1,6 @@
-package kr.co.khedu.board.model.vo;
+package kr.co.khedu.post.model.vo;
 
-public class BoardDetailDto {
+public class PostDetailDto {
 
 	private int postId;
 	private String title;
@@ -10,10 +10,10 @@ public class BoardDetailDto {
 	
 	// -------------------------
 	
-	public BoardDetailDto() {
+	public PostDetailDto() {
 		super();
 	}
-	public BoardDetailDto(int postId, String title, String content, int memberId, int likeCount) {
+	public PostDetailDto(int postId, String title, String content, int memberId, int likeCount) {
 		super();
 		this.postId = postId;
 		this.title = title;

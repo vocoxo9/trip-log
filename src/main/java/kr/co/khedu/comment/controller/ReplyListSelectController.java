@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import kr.co.khedu.board.model.vo.ReplyDto;
-import kr.co.khedu.board.service.BoardDetailService;
-import kr.co.khedu.board.service.BoardDetailServiceImpl;
+import kr.co.khedu.post.model.vo.ReplyDto;
+import kr.co.khedu.post.service.PostDetailService;
+import kr.co.khedu.post.service.PostDetailServiceImpl;
 
 /**
  * Servlet implementation class ReplyListSelectController
@@ -38,7 +38,7 @@ public class ReplyListSelectController extends HttpServlet {
 		int parentNum = Integer.parseInt(request.getParameter("parentNum"));
 		int postNum = Integer.parseInt(request.getParameter("postNum"));
 		
-		BoardDetailService bdService = new BoardDetailServiceImpl();
+		PostDetailService bdService = new PostDetailServiceImpl();
 		ArrayList<ReplyDto> replys = (ArrayList<ReplyDto>)bdService.selectReplyList(parentNum, postNum);
 		// => 조회된 결과가 있을 경우 ArrayList<ReplyDto> 전달
 		//				없을 경우 null이 전달

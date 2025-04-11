@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 
-import kr.co.khedu.board.model.vo.CommentDto;
-import kr.co.khedu.board.service.BoardDetailService;
-import kr.co.khedu.board.service.BoardDetailServiceImpl;
+import kr.co.khedu.post.model.vo.CommentDto;
+import kr.co.khedu.post.service.PostDetailService;
+import kr.co.khedu.post.service.PostDetailServiceImpl;
 
 /**
  * Servlet implementation class CommentRegistController
@@ -33,14 +33,9 @@ public class CommentRegistController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("비동기 식 요청옴@@");
+		
 		// 데이터 추출
 		String name = request.getParameter("name");
 		String commentView = request.getParameter("commentView");
@@ -51,7 +46,7 @@ public class CommentRegistController extends HttpServlet {
 		System.out.println("postId : " + postId);
 		
 		// Service 객체에 전달받은 값들을 전달 - DB에 저장(insert)
-		BoardDetailService bdService = new BoardDetailServiceImpl();
+		PostDetailService bdService = new PostDetailServiceImpl();
 		int result = bdService.insertComment(name, commentView, postId);
 		
 		// 결과 데이터 추출
@@ -62,7 +57,12 @@ public class CommentRegistController extends HttpServlet {
 		
 		// 일반 객체 (JSONObject)에 담아 응답
 		JSONObject jsonObj = new JSONObject();
-		jsonObj.put("lastComment", lastComment);
+		jsonObj.put("commentId", lastComment.getCommentId() );
+		jsonObj.put("content", lastComment.getContent() );
+		jsonObj.put("likeCount", lastComment.getLikeCount() );		
+		jsonObj.put("memberId", lastComment.getMemberId() );
+		jsonObj.put("postId", lastComment.getPostId() );
+		jsonObj.put("registDate", lastComment.getRegistDate() );
 		
 		System.out.println(jsonObj.get("lastComment"));
 		
@@ -70,6 +70,16 @@ public class CommentRegistController extends HttpServlet {
 		response.getWriter().print(jsonObj);
 		
 		// => ajax 응답이 실패됨 여쭤보기
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		
+		doGet(request, response);
 		
 		
 	}

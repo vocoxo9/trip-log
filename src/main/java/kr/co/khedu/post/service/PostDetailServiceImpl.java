@@ -1,33 +1,33 @@
-package kr.co.khedu.board.service;
+package kr.co.khedu.post.service;
 
 import java.util.ArrayList;
 
 import org.apache.ibatis.session.SqlSession;
 
-import kr.co.khedu.board.model.dao.BoardDetailDAO;
-import kr.co.khedu.board.model.vo.BoardDetailDto;
-import kr.co.khedu.board.model.vo.CommentDto;
-import kr.co.khedu.board.model.vo.ReplyDto;
+import kr.co.khedu.post.model.dao.PostDetailDAO;
+import kr.co.khedu.post.model.vo.CommentDto;
+import kr.co.khedu.post.model.vo.PostDetailDto;
+import kr.co.khedu.post.model.vo.ReplyDto;
 import kr.co.khedu.template.Template;
 
-public class BoardDetailServiceImpl implements BoardDetailService {
+public class PostDetailServiceImpl implements PostDetailService {
 
-	BoardDetailDAO bdDao = new BoardDetailDAO();
+	PostDetailDAO pdDao = new PostDetailDAO();
 	
 	@Override
-	public BoardDetailDto selectBoardDetail(int num) {
+	public PostDetailDto selectBoardDetail(int num) {
 		
 		
 		SqlSession sqlSession = Template.getSqlSession();
 		
 		
-		BoardDetailDto boardDetail = bdDao.selectBoardDetail(sqlSession, num);
+		PostDetailDto postDetail = pdDao.selectPostDetail(sqlSession, num);
 
 		
 		sqlSession.close();
 		
 		
-		return boardDetail;
+		return postDetail;
 	}
 
 	
@@ -38,7 +38,7 @@ public class BoardDetailServiceImpl implements BoardDetailService {
 		SqlSession sqlSession = Template.getSqlSession();
 		System.out.println("sqlSession 객체 생성까지 함");
 
-		ArrayList<CommentDto> comments = bdDao.selectCommentList(sqlSession, pNum);
+		ArrayList<CommentDto> comments = pdDao.selectCommentList(sqlSession, pNum);
 		System.out.println("DAO로 요청후 반환받음");
 		
 		sqlSession.close();
@@ -52,7 +52,7 @@ public class BoardDetailServiceImpl implements BoardDetailService {
 
 		SqlSession sqlSession = Template.getSqlSession();
 		
-		ArrayList<ReplyDto> replys = bdDao.selectReplyList(sqlSession, parentNum, postNum);
+		ArrayList<ReplyDto> replys = pdDao.selectReplyList(sqlSession, parentNum, postNum);
 
 		sqlSession.close();
 		
@@ -65,7 +65,7 @@ public class BoardDetailServiceImpl implements BoardDetailService {
 
 		SqlSession sqlSession = Template.getSqlSession();
 		
-		int result = bdDao.insertComment(sqlSession, name, commentView, postId);
+		int result = pdDao.insertComment(sqlSession, name, commentView, postId);
 		
 		sqlSession.close();
 		
@@ -80,7 +80,7 @@ public class BoardDetailServiceImpl implements BoardDetailService {
 		
 		System.out.println("Service요청 들어왔구여");
 
-		CommentDto lastComment = bdDao.selectLastComment(sqlSession, postId);
+		CommentDto lastComment = pdDao.selectLastComment(sqlSession, postId);
 		
 		System.out.println("반환받았구여");
 		

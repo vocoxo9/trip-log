@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page
-	import="kr.co.khedu.board.model.vo.CommentDto,
+	import="kr.co.khedu.post.model.vo.CommentDto,
 				java.util.ArrayList"%>
 <%
 String rootPath = request.getContextPath();
@@ -189,12 +189,11 @@ String rootPath = request.getContextPath();
 					</div>
 					<div class="comments" id="pageComment">
 						<div class="views">
+							<div class="comment-input">
+								<textarea id="comment"></textarea>
+								<i class="fa-regular fa-paper-plane"></i>
+							</div>
 							<div class="comment">
-								<div class="comment-input">
-									<!-- <input type="text" id="comment"> -->
-									<textarea id="comment"></textarea>
-									<i class="fa-regular fa-paper-plane"></i>
-								</div>
 								<%
 								ArrayList<CommentDto> comments = (ArrayList<CommentDto>) request.getAttribute("comments");
 								%>

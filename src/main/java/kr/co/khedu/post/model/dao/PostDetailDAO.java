@@ -1,30 +1,30 @@
-package kr.co.khedu.board.model.dao;
+package kr.co.khedu.post.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.ibatis.session.SqlSession;
 
-import kr.co.khedu.board.model.vo.BoardDetailDto;
-import kr.co.khedu.board.model.vo.CommentDto;
-import kr.co.khedu.board.model.vo.ReplyDto;
+import kr.co.khedu.post.model.vo.CommentDto;
+import kr.co.khedu.post.model.vo.PostDetailDto;
+import kr.co.khedu.post.model.vo.ReplyDto;
 
-public class BoardDetailDAO {
+public class PostDetailDAO {
 
-	public BoardDetailDto selectBoardDetail(SqlSession sqlSession, int num) {
+	public PostDetailDto selectPostDetail(SqlSession sqlSession, int num) {
 		
 		
-		BoardDetailDto boardDetail = sqlSession.selectOne("boardDetailMapper.searchBoardDetail", num);
+		PostDetailDto postDetail = sqlSession.selectOne("postDetailMapper.searchPostDetail", num);
 		
 		
-		return boardDetail;
+		return postDetail;
 		
 	}
 
 	public ArrayList<CommentDto> selectCommentList(SqlSession sqlSession, int pNum) {
 		System.out.println("DAO로 요청은 들어옴");
 
-		ArrayList<CommentDto> comments = (ArrayList)sqlSession.selectList("boardDetailMapper.selectCommentList", pNum);
+		ArrayList<CommentDto> comments = (ArrayList)sqlSession.selectList("postDetailMapper.selectCommentList", pNum);
 		
 		return comments;
 	}
@@ -35,7 +35,7 @@ public class BoardDetailDAO {
 		hashMap.put("parentNum", parentNum);
 		hashMap.put("postNum", postNum);
 		
-		ArrayList<ReplyDto> replys = (ArrayList)sqlSession.selectList("boardDetailMapper.selectReplyList", hashMap);
+		ArrayList<ReplyDto> replys = (ArrayList)sqlSession.selectList("postDetailMapper.selectReplyList", hashMap);
 		
 		
 		return replys;
@@ -48,7 +48,7 @@ public class BoardDetailDAO {
 		hashMap.put("commentView", commentView);
 		hashMap.put("postId", postId);
 		
-		int result = sqlSession.insert("boardDetailMapper.insertComment", hashMap);
+		int result = sqlSession.insert("postDetailMapper.insertComment", hashMap);
 		
 		System.out.println("@@DAO에서 요청 후 서비스에서 반환받긴함");
 		
@@ -63,7 +63,7 @@ public class BoardDetailDAO {
 
 	public CommentDto selectLastComment(SqlSession sqlSession, String postId) {
 		
-		CommentDto lastComment = sqlSession.selectOne("boardDetailMapper.selectLastComment", postId);
+		CommentDto lastComment = sqlSession.selectOne("postDetailMapper.selectLastComment", postId);
 		System.out.println("DAO에서 DB처리 후 ");
 		
 		return lastComment;

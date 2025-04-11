@@ -43,7 +43,8 @@ String rootPath = request.getContextPath();
 					<h6>가장 가고싶은 여행지를 골라주세요.</h6>
 				</div>
 			</div>
-			<form action="vote/result.do" method="get">
+			<form action="vote/result" method="get">
+				<input type="hidden" name="userId" value="${ loginUser.userId }"/>
 				<div class="vote-body">
 					<div class="vote-lists">
 						<div class="vote-list">
@@ -52,7 +53,7 @@ String rootPath = request.getContextPath();
 							</div>
 							<div class="vote-list-name">
 								<!-- 비어있는 원 -->
-								<input type="radio" name="travle" id="가평"> <label
+								<input type="radio" name="travel" id="가평" value="가평"> <label
 									for="가평">가평</label>
 							</div>
 						</div>
@@ -62,7 +63,7 @@ String rootPath = request.getContextPath();
 							</div>
 							<div class="vote-list-name">
 								<!-- 비어있는 원 -->
-								<input type="radio" name="travle" id="강릉"> <label
+								<input type="radio" name="travel" id="강릉" value="강릉"> <label
 									for="강릉">강릉</label>
 							</div>
 						</div>
@@ -72,7 +73,7 @@ String rootPath = request.getContextPath();
 							</div>
 							<div class="vote-list-name">
 								<!-- 비어있는 원 -->
-								<input type="radio" name="travle" id="속초"> <label
+								<input type="radio" name="travel" id="속초" value="속초"> <label
 									for="속초">속초</label>
 							</div>
 						</div>
@@ -82,7 +83,7 @@ String rootPath = request.getContextPath();
 							</div>
 							<div class="vote-list-name">
 								<!-- 비어있는 원 -->
-								<input type="radio" name="travle" id="여수"> <label
+								<input type="radio" name="travel" id="여수" value="여수"> <label
 									for="여수">여수</label>
 							</div>
 						</div>
@@ -94,7 +95,7 @@ String rootPath = request.getContextPath();
 							</div>
 							<div class="vote-list-name">
 								<!-- 비어있는 원 -->
-								<input type="radio" name="travle" id="춘천"> <label
+								<input type="radio" name="travel" id="춘천" value="춘천"> <label
 									for="춘천">춘천</label>
 							</div>
 						</div>
@@ -104,7 +105,7 @@ String rootPath = request.getContextPath();
 							</div>
 							<div class="vote-list-name">
 								<!-- 비어있는 원 -->
-								<input type="radio" name="travle" id="전주"> <label
+								<input type="radio" name="travel" id="전주" value="전주"> <label
 									for="전주">전주</label>
 							</div>
 						</div>
@@ -114,7 +115,7 @@ String rootPath = request.getContextPath();
 							</div>
 							<div class="vote-list-name">
 								<!-- 비어있는 원 -->
-								<input type="radio" name="travle" id="부산"> <label
+								<input type="radio" name="travel" id="부산" value="부산"> <label
 									for="부산">부산</label>
 							</div>
 						</div>
@@ -124,7 +125,7 @@ String rootPath = request.getContextPath();
 							</div>
 							<div class="vote-list-name">
 								<!-- 비어있는 원 -->
-								<input type="radio" name="travle" id="제주도"> <label
+								<input type="radio" name="travel" id="제주도" value="제주도"> <label
 									for="제주도">제주도</label>
 							</div>
 						</div>

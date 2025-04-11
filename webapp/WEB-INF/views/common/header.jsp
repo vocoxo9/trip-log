@@ -75,7 +75,7 @@
             <div class="nav-list">
                 <!-- 각 메뉴(li) 클릭 시 해당 페이지로 이동 -->
                 <div class="nav-list-item">
-                    <a href="">
+                    <a href="postDetail">
                         <i class="fa-solid fa-users"></i>
                         <span>커뮤니티</span>
                     </a>

@@ -10,6 +10,7 @@
     
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL" />
+		<setting name="logImpl" value="STDOUT_LOGGING" />
 	</settings>
 
 	<typeAliases>
@@ -17,9 +18,10 @@
         <typeAlias alias="Country" type="kr.co.khedu.country.model.vo.Country" />
 		<typeAlias alias="Product" type="kr.co.khedu.product.model.vo.Product" />
 		<typeAlias alias="Member" type="kr.co.khedu.member.model.vo.Member" />
-		<typeAlias alias="BoardDetailDto" type="kr.co.khedu.board.model.vo.BoardDetailDto" />
-		<typeAlias alias="CommentDto" type="kr.co.khedu.board.model.vo.CommentDto" />
-		<typeAlias alias="ReplyDto" type="kr.co.khedu.board.model.vo.ReplyDto" />
+		<typeAlias alias="PostDetailDto" type="kr.co.khedu.post.model.vo.PostDetailDto" />
+		<typeAlias alias="CommentDto" type="kr.co.khedu.post.model.vo.CommentDto" />
+		<typeAlias alias="ReplyDto" type="kr.co.khedu.post.model.vo.ReplyDto" />
+		<typeAlias alias="TravelVote" type="kr.co.khedu.vote.model.vo.TravelVote" />
 	</typeAliases>
 
 	<environments default="develop">
@@ -39,6 +41,7 @@
 		<mapper resource="/mappers/country-mapper.xml" />
 		<mapper resource="/mappers/product-mapper.xml" />
 		<mapper resource="/mappers/member-mapper.xml"/>
-		<mapper resource="/mappers/board-mapper.xml"/>
+		<mapper resource="/mappers/post-mapper.xml"/>
+		<mapper resource="/mappers/vote-mapper.xml"/>
 	 </mappers>
 </configuration>
