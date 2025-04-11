@@ -19,6 +19,7 @@
 		<typeAlias alias="Member" type="kr.co.khedu.member.model.vo.Member" />
 		<typeAlias alias="Post" type="kr.co.khedu.post.model.vo.Post" />
 		<typeAlias alias="Vote" type="kr.co.khedu.vote.model.vo.Vote" />
+		<typeAlias alias="Review" type="kr.co.khedu.product.model.vo.Review" />
 	</typeAliases>
 
 	<environments default="develop">

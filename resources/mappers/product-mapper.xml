@@ -42,6 +42,8 @@
 		WHERE PRODUCT_ID = #{productId}
 	</select>
 	
+	<!-- 상품 리뷰 -->
+	
 	<!-- 상품의 전체 갯수 조회 -->
 	<select id="selectByProductNameCount" resultType="_int">
 		SELECT COUNT(*) FROM TB_PRODUCT
@@ -70,15 +72,24 @@
 			LEFT JOIN TB_PRODUCT_REVIEW USING(PRODUCT_ID)
 		WHERE 1 = 1 AND NAME LIKE '%${keyword}%'
 		GROUP BY PRODUCT_ID, NAME, PRICE, CHANGE_FILE_NAME, CREATED_AT
-		<if test="sort == 'recentValue'">
-			ORDER BY CREATED_AT DESC
-		</if>
-		<if test="sort == 'reviewValue'">
-			ORDER BY SCORE DESC, CREATED_AT DESC
-		</if>
-		<if test="sort == 'priceValue'">
-			ORDER BY PRICE DESC, CREATED_AT DESC
-		</if>
+		<choose>
+			<when test="sort == 'reviewValue'">
+				ORDER BY SCORE DESC, CREATED_AT DESC
+			</when>
+			<when test="sort == 'priceValue'">
+				ORDER BY PRICE DESC, CREATED_AT DESC
+			</when>
+			<otherwise>
+				ORDER BY CREATED_AT DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 상품 리뷰 조회 쿼리문 -->
+	<select id="selectProductReview" resultType="_int">
+		SELECT ROUND(NVL(AVG(SCORE), 0), 1) AS SCORE
+		FROM TB_PRODUCT_REVIEW
+		WHERE PRODUCT_ID = #{productId}
 	</select>
   
   	<!-- 상품 등록 쿼리문 -->
@@ -90,4 +101,10 @@
 	<delete id="deleteProduct">
 		DELETE FROM TB_PRODUCT WHERE PRODUCT_ID = #{productId}
 	</delete>
+	
+	<!-- 상품 리뷰 등록 쿼리문 -->
+	<insert id="insertProductReview" parameterType="Review">
+		INSERT INTO TB_PRODUCT_REVIEW
+		VALUES (SEQ_PRODUCT_REVIEW_ID.NEXTVAL, #{score}, #{memberId}, #{productId})
+	</insert>
 </mapper>

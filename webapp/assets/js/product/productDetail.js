@@ -210,6 +210,38 @@ const reviewRegister = () => {
     $reviewRegisterBtn.on("click", function () {
         const $starInputArr = $(".star-icon.filled");
         console.log($starInputArr.length / 2);
+        const score = $starInputArr.length / 2;
+        
+        // 리뷰 등록
+        $.ajax({
+            url: "/trip-log/products/review/" + productInfo.productId,
+            method: "post",
+            data: {
+                memberId: productInfo.memberId,
+                score: score
+            },
+            success: (data) => {
+                console.log("통신 성공");
+                console.log(data);
+                Swal.fire({
+                    title: data.title,
+                    icon: data.icon,
+                    text: data.text
+                });
+            },
+            error: () => {
+                Swal.fire({
+                    title: "리뷰 등록",
+                    icon: "error",
+                    text: "리뷰 등록 오류",
+                    confirmButtonText: "확인"
+                }).then((result) => {
+                    if(result.isConfirmed) {
+                        location.href = "/trip-log/products/detail/" + productInfo.productId;
+                    }
+                });
+            }
+        });
     });
 };
 

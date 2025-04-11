@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="kr.co.khedu.member.model.vo.Member"  %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	String rootPath = request.getContextPath();
+	Member member = (Member) request.getSession().getAttribute("loginMember");
 %>
 <!DOCTYPE html>
 <html>
@@ -57,7 +59,7 @@
 	                    </p>
 	                </div>
 	                <div class="product-detail-header-etc-review">
-	                    <span class="review-score"><i class="fa-solid fa-star"></i><span>4.5</span></span>
+	                    <span class="review-score"><i class="fa-solid fa-star"></i><span>${reviewScore }</span></span>
 	                    <span class="review-link"><a href="#">여행후기 <i class="fa-solid fa-arrow-right"></i></a></span>
 	                </div>
 	            </div>
@@ -77,11 +79,12 @@
 	            </div>
 	        </div>
 	
+			<%-- TODO: 상품 리뷰 테이블에서 해당 상품의 별점 정보를 모두 조회해서 각 점수별로 계산해서 출력 --%>
 	        <div class="product-detail-review-area">
 	            <div class="product-detail-review-content">
 	                <div class="product-detail-review-score-area">
 	                    <div class="product-detail-review-header">
-	                        <span class="review-score"><i class="fa-solid fa-star"></i><span>4.5</span></span>
+	                        <span class="review-score"><i class="fa-solid fa-star"></i><span>${ reviewScore }</span></span>
 	                    </div>
 	                    <div class="product-detail-review-score progress" role="progressbar" aria-label="Success example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
 	                        <div class="progress-bar" style="width:25%">25%</div>
@@ -102,6 +105,7 @@
 	            </div>
 	        </div>
 	
+			<%-- TODO: 한번 평점을 남겼다면 아래 버튼을 안보이게 하기 --%>
 	        <div class="btn-area">
 	            <button data-bs-toggle="modal" data-bs-target="#productReviewBtn" class="product-review-btn">당신의 평점은?</button>
 	        </div>
@@ -172,12 +176,14 @@
 	
     <script>
         // 외부 JS 파일에서 상품 정보를 출력하기 위해 전역변수에 저장
-        const productInfo = {
-            productId: ${productInfo.productId},
-            name: "${productInfo.name}",
-            memberId: "test",
-            price: ${productInfo.price}
-        }
+        <% if(member != null) { %>
+	        const productInfo = {
+	            productId: ${productInfo.productId},
+	            name: "${productInfo.name}",
+	            memberId: "<%= member.getMemberId() %>",
+	            price: ${productInfo.price}
+	        }
+        <% } %>
     </script>
 	<script src="<%= rootPath %>/assets/js/product/productDetail.js"></script>
 </body>

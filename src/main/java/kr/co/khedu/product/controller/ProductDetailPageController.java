@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.khedu.product.common.ProductPath;
 import kr.co.khedu.product.model.vo.Product;
 import kr.co.khedu.product.service.ProductServiceImpl;
 
@@ -35,30 +36,12 @@ public class ProductDetailPageController extends HttpServlet {
 		
 		// URL 경로에서 상품 아이디 추출
 		String pathInfo = request.getPathInfo();
-		String path = "";
-		
-		if(pathInfo == null || pathInfo.equals("/")) {
-			String uri = request.getRequestURI(); // 웹 서버로 요청 시, 요청에 사용된 URL 로부터 URI 값을 리턴
-			path = uri.substring(uri.lastIndexOf("/") + 1);
-		} else {
-			path = pathInfo.substring(1);
-		}
-		
-		// 숫자인지 확인 후 변환
-		int productId = 0;
-		
-		if(path.matches("\\d+")) {
-			productId = Integer.parseInt(path);
-		} else {
-			// TODO: 에러 페이지 이동
-			System.out.println("오류입니다.");
-			response.sendRedirect(request.getContextPath());
-		}
-		
-		System.out.println(productId);
+
+		int productId = ProductPath.getProductId(request, pathInfo);
 		
 		// 추출한 상품 아이디로 상품 조회 후 request에 저장하기
 		Product product = new ProductServiceImpl().selectProductByProductId(productId);
+		int reviewScore = new ProductServiceImpl().selectProductReview(productId);
 		
 		if(product == null) {
 			// TODO: 에러 페이지로 이동
@@ -70,6 +53,7 @@ public class ProductDetailPageController extends HttpServlet {
 		System.out.println(product);
 		
 		request.setAttribute("productInfo", product);
+		request.setAttribute("reviewScore", reviewScore);
 		request.setAttribute("defaultPath", "assets/images/product/sample-img.jpg");
 		
 		request.getRequestDispatcher("/WEB-INF/views/product/productDetail.jsp").forward(request, response);

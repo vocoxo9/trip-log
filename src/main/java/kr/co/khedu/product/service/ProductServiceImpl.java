@@ -9,6 +9,7 @@ import kr.co.khedu.product.model.dao.ProductDAO;
 import kr.co.khedu.product.model.dto.ProductListDTO;
 import kr.co.khedu.product.model.dto.ProductSearchDTO;
 import kr.co.khedu.product.model.vo.Product;
+import kr.co.khedu.product.model.vo.Review;
 import kr.co.khedu.template.Template;
 
 public class ProductServiceImpl implements ProductService {
@@ -103,6 +104,31 @@ public class ProductServiceImpl implements ProductService {
 		sqlSession.close();
 		
 		return result;
+	}
+
+	// 상품 리뷰 등록 기능
+	public int insertProductReview(Review review) {
+		SqlSession sqlSession = Template.getSqlSession();
+		
+		int result = new ProductDAO().insertProductReview(sqlSession, review);
+		
+		if(result > 0) {
+			sqlSession.commit();
+		}
+		
+		sqlSession.close();
+		
+		return result;
+	}
+
+	public int selectProductReview(int productId) {
+		SqlSession sqlSession = Template.getSqlSession();
+		
+		int reviewScore = new ProductDAO().selectProductReview(sqlSession, productId);
+		
+		sqlSession.close();
+		
+		return reviewScore;
 	}
 
 }
