@@ -65,7 +65,11 @@ public class ProductServiceImpl implements ProductService {
 		sqlSession.close();
 		
 		return productList;
-  }
+	}
+	
+	/**
+	 * 상품 등록 기능
+	 */
 	@Override
 	public int insertProduct(Product product) {
 		SqlSession sqlSession = Template.getSqlSession();
@@ -79,6 +83,16 @@ public class ProductServiceImpl implements ProductService {
 		sqlSession.close();
 		
 		return result;
+	}
+
+	/**
+	 * 상품 삭제 기능
+	 * @param productId
+	 * @return
+	 */
+	@Override
+	public int deleteProduct(int productId) {
+		return 0;
 	}
 
 }

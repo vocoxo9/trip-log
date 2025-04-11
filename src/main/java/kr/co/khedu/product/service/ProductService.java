@@ -30,4 +30,11 @@ public interface ProductService {
 	
 	// 상품 등록 
 	int insertProduct(Product product);
+
+	/**
+	 * 상품 삭제 기능
+	 * @param productId
+	 * @return
+	 */
+	int deleteProduct(int productId);
 }

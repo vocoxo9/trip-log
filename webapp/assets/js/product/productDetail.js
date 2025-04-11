@@ -102,6 +102,7 @@
 $(function() {
     reviewRegister();
     payment();
+    productDeleteBtn();
 });
 // 결제 API
 const payment = () => {
@@ -211,3 +212,23 @@ const reviewRegister = () => {
         console.log($starInputArr.length / 2);
     });
 };
+
+const productDeleteBtn = () => {
+    $(".product-trash-icon").click(() => {
+        // console.log("click");
+        Swal.fire({
+            title: "상품삭제",
+            icon: "question",
+            text: "상품을 삭제하시겠습니까?",
+            confirmButtonColor: "#F00",
+            confirmButtonText: "삭제",
+            showCancelButton: true,
+            cancelButtonText: "취소"
+        }).then((result) => {
+            if(result.isConfirmed) {
+                // console.log(productInfo.productId);
+                location.href = "/trip-log/products/auth/delete/" + productInfo.productId;
+            }
+        });
+    });
+}
