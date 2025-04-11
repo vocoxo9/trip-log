@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%
-    String rootPath = request.getContextPath();
-    String result = (String) request.getAttribute("result");
-%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="ko">
 
 <head>
@@ -20,7 +17,7 @@
           integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link href="<%= rootPath %>/assets/css/reset.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/assets/css/reset.css" rel="stylesheet">
 
     <!-- Chart.js CDN  -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -30,9 +27,17 @@
         $(() => {
             const context = $('#graph-canvas')[0].getContext('2d')
 
-            const data = JSON.parse(
-                $('#result').val()
-            );
+            const data = {}
+            $('.graph-data tr')
+                .hide()
+                .each(function () {
+                    const entry = $(this).find('td')
+
+                    const key = $(entry[0]).text().trim()
+                    const value = parseInt($(entry[1]).text().trim(), 10)
+
+                    data[key] = value
+                })
 
             const colors = []
             for (let i = 0; i < Object.keys(data).length; i++) {
@@ -172,11 +177,14 @@
             </div>
         </div>
         <div class="graph-area">
-            <!-- 값 전달을 위한 태그 -->
-            <input type="hidden"
-                   id="result"
-                   value='${result}'>
-
+            <table class="graph-data">
+                <c:forEach var="vote" items="${votes}">
+                    <tr>
+                        <td>${vote.travelDestination}</td>
+                        <td>${vote.count}</td>
+                    </tr>
+                </c:forEach>
+            </table>
             <canvas id="graph-canvas"></canvas>
         </div>
     </div>
