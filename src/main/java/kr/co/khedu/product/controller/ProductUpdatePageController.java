@@ -1,7 +1,6 @@
 package kr.co.khedu.product.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,16 +12,16 @@ import kr.co.khedu.product.model.vo.Product;
 import kr.co.khedu.product.service.ProductServiceImpl;
 
 /**
- * Servlet implementation class ProductDetailPageController
+ * Servlet implementation class ProductUpdateController
  */
-@WebServlet("/products/detail/*")
-public class ProductDetailPageController extends HttpServlet {
+@WebServlet("/products/update/*")
+public class ProductUpdatePageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductDetailPageController() {
+    public ProductUpdatePageController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,17 +30,11 @@ public class ProductDetailPageController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		System.out.println(request.getPathInfo());
-		
-		// URL 경로에서 상품 아이디 추출
+		// 상품 아이디 값 구하기
 		String pathInfo = request.getPathInfo();
-
 		int productId = ProductPath.getProductId(request, pathInfo);
 		
-		// 추출한 상품 아이디로 상품 조회 후 request에 저장하기
 		Product product = new ProductServiceImpl().selectProductByProductId(productId);
-		int reviewScore = new ProductServiceImpl().selectProductReview(productId);
 		
 		if(product == null) {
 			// TODO: 에러 페이지로 이동
@@ -53,10 +46,7 @@ public class ProductDetailPageController extends HttpServlet {
 		System.out.println(product);
 		
 		request.setAttribute("productInfo", product);
-		request.setAttribute("reviewScore", reviewScore);
-//		request.setAttribute("defaultPath", defaultPath);
-		
-		request.getRequestDispatcher("/WEB-INF/views/product/productDetail.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/product/productUpdate.jsp").forward(request, response);
 	}
 
 	/**

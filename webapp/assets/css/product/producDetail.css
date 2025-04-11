@@ -45,12 +45,10 @@
 }
 
 .product-icon-area {
+	width: 15%;
 	display:flex;
 	align-items: center;
-}
-
-.product-icon-area span:nth-child(1) {
-	margin-right: 1.5rem;
+	justify-content: space-between;
 }
 
 .product-detail-header-etc {
@@ -76,7 +74,6 @@
 	font-weight: 700;
 }
 
-/* 공통 기능이 될 거 같음 */
 .review-score {
 	font-weight: 900;
 }
@@ -86,14 +83,20 @@
 }
 
 .heart-icon,
-.product-trash-icon {
-	cursor: pointer;
+.product-trash-icon,
+.product-edit-icon {
 	transition: all .15s ease-in-out;
 }
 
 .heart-icon:hover,
 .product-trash-icon:hover {
+	cursor: pointer;
 	color: var(--heart-color);
+}
+
+.product-edit-icon:hover {
+	cursor: pointer;
+	color: var(--strong-color);
 }
 
 /* 상품 설명 */

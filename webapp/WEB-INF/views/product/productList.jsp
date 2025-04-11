@@ -54,18 +54,21 @@
 										<span class="product-list-card-header">
 											<span class="heart-icon"><i class="fa-solid fa-heart"></i></span>
 										</span>
+										<%--
 										<c:choose>
 											<c:when test="${p.changeFileName == defaultPath}">
+											${pageContext.request.contextPath}/${defaultPath}
 												<img src="${pageContext.request.contextPath}/${defaultPath}" alt="Product Image" class="product-image" />
 											</c:when>
 											<c:otherwise>
-												<img src="/trip-log/${p.changeFileName}" alt="Product Image" class="product-image" />
+												<img src="/trip-log${p.changeFileName}" alt="Product Image" class="product-image" />
 											</c:otherwise>
 										</c:choose>
+										 --%>
 										<%--
 										<img src="<%= rootPath %>/resources/upload/${product.changeFileName}" alt="Product Image" class="product-image" />
 										 --%>
-										 
+										 <img src="/trip-log/${p.changeFileName}" alt="Product Image" class="product-image" />
 										<span class="product-list-card-body">
 											<span class="product-item-title">${ p.name }</span>
 											<span><fmt:formatNumber value="${p.price}" type="number" groupingUsed="true" />원</span>

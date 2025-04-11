@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.co.khedu.common.PageInfo;
+import kr.co.khedu.product.common.ProductPath;
 import kr.co.khedu.product.model.dto.ProductListDTO;
 import kr.co.khedu.product.model.dto.ProductSearchDTO;
 import kr.co.khedu.product.service.ProductServiceImpl;
@@ -58,7 +59,7 @@ public class ProductListPageController extends HttpServlet {
 //		List<Product> pList = new ProductServiceImpl().selectProductList();
 //		List<Product> pList = new ProductServiceImpl().selectByProductName(productSearchDTO, pageInfo);
 		List<ProductListDTO> pList = new ProductServiceImpl().selectByProductName(productSearchDTO, pageInfo);
-		
+
 		for(ProductListDTO p : pList) System.out.println(p);
 		
 //		System.out.println(productSearchDTO.getKeyword());
@@ -68,7 +69,7 @@ public class ProductListPageController extends HttpServlet {
 		request.setAttribute("sort", productSearchDTO.getSort());
 		request.setAttribute("keyword", productSearchDTO.getKeyword());
 		request.setAttribute("pList", pList);
-		request.setAttribute("defaultPath", "assets/images/product/sample-img.jpg");
+//		request.setAttribute("defaultPath", ProductPath.sampleImg());
 		request.getRequestDispatcher("WEB-INF/views/product/productList.jsp").forward(request, response);
 	}
 

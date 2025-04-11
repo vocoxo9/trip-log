@@ -26,4 +26,11 @@ public class ProductPath {
 		System.out.println(productId);
 		return productId;
 	}
+	
+	public static String sampleImg() {
+		int sampleNum = (int)(Math.random() * 4) + 1;
+		System.out.println("sampleNum : " + sampleNum);
+		String sampleImgPath = "assets/images/product/sample/product-sample-" + sampleNum + ".png";
+		return sampleImgPath;
+	}
 }

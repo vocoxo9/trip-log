@@ -65,7 +65,7 @@
 		    PRODUCT_ID,
 		    NAME,
 		    PRICE,
-		    NVL2(CHANGE_FILE_NAME, CHANGE_FILE_NAME, 'assets/images/product/sample-img.jpg') AS CHANGE_FILE_NAME,
+		    CHANGE_FILE_NAME,
 		    CREATED_AT,
 		    ROUND(NVL(AVG(SCORE), 0), 1) AS SCORE
 		FROM TB_PRODUCT
@@ -107,4 +107,16 @@
 		INSERT INTO TB_PRODUCT_REVIEW
 		VALUES (SEQ_PRODUCT_REVIEW_ID.NEXTVAL, #{score}, #{memberId}, #{productId})
 	</insert>
+	
+	<!-- 상품 수정 쿼리문 -->
+	<update id="updateProduct" parameterType="Product">
+		UPDATE TB_PRODUCT SET
+			NAME = #{name},
+			PRICE = #{price},
+			STOCK = #{stock},
+			DESCRIPTION = #{description},
+			ORIGIN_FILE_NAME = #{originFileName},
+			CHANGE_FILE_NAME = #{changeFileName}
+		WHERE PRODUCT_ID = #{productId}
+	</update>
 </mapper>

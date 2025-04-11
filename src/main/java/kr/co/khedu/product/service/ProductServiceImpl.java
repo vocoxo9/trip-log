@@ -131,4 +131,18 @@ public class ProductServiceImpl implements ProductService {
 		return reviewScore;
 	}
 
+	public int updateProduct(Product product) {
+		SqlSession sqlSession = Template.getSqlSession();
+		
+		int result = new ProductDAO().updateProduct(sqlSession, product);
+		
+		if(result > 0) {
+			sqlSession.commit();
+		}
+		
+		sqlSession.close();
+		
+		return result;
+	}
+
 }

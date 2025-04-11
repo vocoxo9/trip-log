@@ -46,11 +46,18 @@ public class ProductDAO {
 		return sqlSession.delete("productMapper.deleteProduct", productId);
 	}
 
+	// 상품 리뷰 등록
 	public int insertProductReview(SqlSession sqlSession, Review review) {
 		return sqlSession.insert("productMapper.insertProductReview", review);
 	}
 
+	// 상품 리뷰 조회
 	public int selectProductReview(SqlSession sqlSession, int productId) {
 		return sqlSession.selectOne("productMapper.selectProductReview", productId);
+	}
+
+	// 상품 수정
+	public int updateProduct(SqlSession sqlSession, Product product) {
+		return sqlSession.update("productMapper.updateProduct", product);
 	}
 }

@@ -102,6 +102,7 @@
 $(function() {
     reviewRegister();
     payment();
+    productEditBtn();
     productDeleteBtn();
 });
 // 결제 API
@@ -227,6 +228,11 @@ const reviewRegister = () => {
                     title: data.title,
                     icon: data.icon,
                     text: data.text
+                }).then((result) => {
+                    if(result.isConfirmed) {
+                        // 리뷰 등록 후 reload
+                        location.reload(true);
+                    } 
                 });
             },
             error: () => {
@@ -245,11 +251,31 @@ const reviewRegister = () => {
     });
 };
 
+const productEditBtn = () => {
+    $(".product-edit-icon").click(() => {
+        Swal.fire({
+            title: "상품 수정",
+            icon: "question",
+            text: "상품을 수정하시겠습니까?",
+            confirmButtonColor: "#118C8C",
+            confirmButtonText: "수정",
+            confirmTextColor: "#FFF",
+            showCancelButton: true,
+            cancelButtonText: "취소"
+        }).then((result) => {
+            if(result.isConfirmed) {
+                // console.log(productInfo.productId);
+                location.href = "/trip-log/products/update/" + productInfo.productId;
+            }
+        });
+    })
+}
+
 const productDeleteBtn = () => {
     $(".product-trash-icon").click(() => {
         // console.log("click");
         Swal.fire({
-            title: "상품삭제",
+            title: "상품 삭제",
             icon: "question",
             text: "상품을 삭제하시겠습니까?",
             confirmButtonColor: "#F00",

@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="kr.co.khedu.member.model.vo.Member"  %>
+<%@ page import="kr.co.khedu.member.model.vo.Member, kr.co.khedu.product.model.vo.Product"  %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	String rootPath = request.getContextPath();
 	Member member = (Member) request.getSession().getAttribute("loginMember");
+	Product product = (Product) request.getAttribute("productInfo");
 %>
 <!DOCTYPE html>
 <html>
@@ -24,6 +25,7 @@
 	        <!-- 상품 이미지 영역 -->
 	        <div class="product-image-area">
 	            <div class="product-image">
+	            	<%--
 					<c:choose>
 						<c:when test="${productInfo.changeFileName == null}">
 							<img src="${pageContext.request.contextPath}/${defaultPath}" alt="Product Image" class="product-image" />
@@ -32,6 +34,8 @@
 							<img src="/trip-log/${productInfo.changeFileName}" alt="Product Image" class="product-image" />
 						</c:otherwise>
 					</c:choose>
+	            	 --%>
+					<img src="/trip-log/${productInfo.changeFileName}" alt="Product Image" class="product-image" />
 	            </div>
 	        </div>
 	        <!-- 상품 상단 영역 -->
@@ -44,9 +48,15 @@
 						<span class="heart-icon">
 		                	<i class="fa-solid fa-heart"></i>
 		                </span>
-		                <span class="product-trash-icon">
-		                	<i class="fa-solid fa-trash-can"></i>
-		                </span>
+		                
+		                <% if(member.getMemberId() == product.getMemberId()) { %>
+		                	<span class="product-edit-icon">
+			                	<i class="fa-solid fa-edit"></i>
+			                </span>
+			                <span class="product-trash-icon">
+			                	<i class="fa-solid fa-trash-can"></i>
+			                </span>
+		                <% } %>
 					</div>
 	            </div>
 	
