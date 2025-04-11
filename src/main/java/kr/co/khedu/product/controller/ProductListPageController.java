@@ -33,12 +33,14 @@ public class ProductListPageController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		request.setCharacterEncoding("UTF-8");
 		String keyword = request.getParameter("keyword") != null ? request.getParameter("keyword") : "";
 		String sort = request.getParameter("sort") != null ? request.getParameter("sort") : "";
 //		System.out.println("keyword : " + keyword);
 //		System.out.println("sort : " + sort);
 		ProductSearchDTO productSearchDTO = new ProductSearchDTO(keyword, sort);
+
 		
 		int listCount = new ProductServiceImpl().selectByProductNameCount(productSearchDTO);
 //		System.out.println(listCount);

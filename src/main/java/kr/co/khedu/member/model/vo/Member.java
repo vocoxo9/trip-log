@@ -22,7 +22,6 @@ public class Member {
 	private Date createdAt;
 	private Date deletedAt;
 	private int countryId;
-
   
 	// 회원가입용 생성자
 	public Member(String email, String password, String nickname, Date birthday, String phone, int countryId) {

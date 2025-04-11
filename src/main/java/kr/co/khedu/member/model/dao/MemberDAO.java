@@ -6,10 +6,6 @@ import kr.co.khedu.member.model.dto.MemberDTO;
 import kr.co.khedu.member.model.vo.Member;
 
 public class MemberDAO {
-	// DTO �α��� �׽�Ʈ
-//		public MemberDTO dtoTest(SqlSession sqlSession, MemberDTO m) {
-//			return sqlSession.selectOne("memberMapper.dtoTest", m);
-//		}
 
 	// 로그인
 	public MemberDTO loginMember(SqlSession sqlSession, MemberDTO m) {

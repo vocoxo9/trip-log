@@ -9,25 +9,39 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import kr.co.khedu.keys.KeyManager;
 import kr.co.khedu.member.model.dto.MemberDTO;
+import kr.co.khedu.member.model.vo.Member;
 import kr.co.khedu.member.service.MemberService;
 import kr.co.khedu.member.service.MemberServiceImpl;
 
 //@WebServlet("/members/sign-in")
-@WebServlet(urlPatterns = {"/members/sign-in", "/auth/sign-in"})
-public class MemberLoginController extends HttpServlet{
-	
+@WebServlet(urlPatterns = { "/members/sign-in", "/auth/sign-in" })
+public class MemberLoginController extends HttpServlet {
+
 	private final MemberService memberService = new MemberServiceImpl();
-	
+
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// īī�� api ���� Ű��
+		request.setAttribute("kakaoScriptKey", KeyManager.get("kakao.scriptKey"));
+		request.setAttribute("kakaoRestKey", KeyManager.get("kakao.restkKey"));
+		request.setAttribute("kakaoClientSecret", KeyManager.get("kakao.clientSecret"));
+		request.setAttribute("kakaoRedirectUri", KeyManager.get("kakao.redirectUri"));
+		// ���� �α��� api ���� Ű��
+		request.setAttribute("googleClientId", KeyManager.get("google.clientId"));
+		request.setAttribute("googleClientSecret", KeyManager.get("google.clientSecret"));
+		request.setAttribute("googleRedirectUri", KeyManager.get("google.redirectUri"));
+
 		request.getRequestDispatcher("/WEB-INF/views/member/memberLogin.jsp").forward(request, response);
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
+
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
@@ -52,5 +66,5 @@ public class MemberLoginController extends HttpServlet{
 			 request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
         }
 	}
-	
+
 }

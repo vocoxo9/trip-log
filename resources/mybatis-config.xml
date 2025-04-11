@@ -7,7 +7,6 @@
 		프로젝트의 resources 폴더 내에 있는 environment.properties를 참조한다.
 	-->
     <properties resource="environment.properties" />
-    
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL" />
 	</settings>

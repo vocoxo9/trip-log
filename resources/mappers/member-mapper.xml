@@ -76,7 +76,7 @@
 		WHERE MEMBER_ID = #{memNo}
 	</update>
 	
-		<select id="socialMember" resultMap="memberDTOResultMap" parameterType="MemberDTO"> 
+	<select id="socialMember" resultMap="memberDTOResultMap" parameterType="MemberDTO"> 
 		SELECT *
  		FROM TB_MEMBER
 		WHERE EMAIL= #{email}  

@@ -9,6 +9,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link href="<%= rootPath %>/assets/css/reset.css" rel="stylesheet">
@@ -62,6 +63,7 @@
                     -->
                     <li>
                     	<a href="<%= rootPath %>/members/mypage" class="menu-list-item">
+                    	<a href="<%= rootPath %>/members/mypage" class="menu-list-item">
 	                        <i class="fa-solid fa-user"></i>
 	                        <span>My</span>
                     	</a>
@@ -92,13 +94,13 @@
                     </a>
                 </div>
                 <div class="nav-list-item">
-                    <a href="travelVote.do">
+                    <a href="/trip-log/travelVote.do">
                         <i class="fa-solid fa-check-to-slot"></i>
                         <span>여행지투표</span>
                     </a>
                 </div>
                 <div class="nav-list-item">
-                    <a href="tripCalculator.do">
+                    <a href="/trip-log/tripCalculator.do">
                         <i class="fa-solid fa-calculator"></i>
                         <span>여행경비계산기</span>
                     </a>
