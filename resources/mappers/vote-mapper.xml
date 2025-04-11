@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="voteMapper">
+    <resultMap type="kr.co.khedu.vote.model.dto.VoteDTO" id="votes">
+        <result column="TRAVEL_DESTINATION" property="travelDestination"/>
+        <result column="COUNT" property="count"/>
+    </resultMap>
+    <select id="getVotes" resultMap="votes">
+        SELECT
+            TRAVEL_DESTINATION,
+            COUNT(*) AS COUNT
+        FROM
+            TB_VOTE
+        GROUP BY
+            TRAVEL_DESTINATION
+    </select>
+</mapper>
