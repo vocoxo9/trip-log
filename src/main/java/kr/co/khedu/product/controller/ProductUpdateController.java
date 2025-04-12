@@ -20,7 +20,7 @@ import kr.co.khedu.product.service.ProductServiceImpl;
 /**
  * Servlet implementation class ProductUpdateController
  */
-@WebServlet("/products/auth/update")
+@WebServlet("/products/auth/update/*")
 @MultipartConfig(
 		fileSizeThreshold = 1024 * 1024 * 1,// 이 크기가 넘으면 디스크의 임시디렉터리에 저장됨 (기본값은 0 => 무조건 임시 디렉터리)
 		maxFileSize = 1024 * 1024 * 10,		// 파일의 최대 크기 (기본값은 -1L => 제한이 없음)
@@ -51,6 +51,13 @@ public class ProductUpdateController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		System.out.println("상품 수정 !!!");
+		// URL 경로에서 상품 아이디 추출
+		System.out.println("request.getPathInfo() : " + request.getPathInfo());
+		String pathInfo = request.getPathInfo();
+
+		int productId = ProductPath.getProductId(request, pathInfo);
+		System.out.println(productId);
+		
 		TripFileUtils uploadUtil = TripFileUtils.create(request.getServletContext());
 		String name = "";
 		String originFileName = "";
@@ -61,7 +68,7 @@ public class ProductUpdateController extends HttpServlet {
 		
 		Collection<Part> parts = request.getParts();
 		
-		parts.forEach(e -> System.out.println(e.getName()));
+		parts.forEach(e -> System.out.println("e.getName() : " + e.getName()));
 		
 		Iterator<Part> i = parts.iterator();
 		
@@ -104,7 +111,7 @@ public class ProductUpdateController extends HttpServlet {
 			}
 		}
 		
-		Product product = new Product(name, price, stock, description, originFileName, changeFileName);
+		Product product = new Product(productId, name, price, stock, description, originFileName, changeFileName);
 		System.out.println("update : " + product);
 		
 		int result = new ProductServiceImpl().updateProduct(product);

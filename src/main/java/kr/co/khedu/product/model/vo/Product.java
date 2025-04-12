@@ -27,6 +27,15 @@ public class Product {
 		this.originFileName = originFileName;
 		this.changeFileName = changeFileName;
 	}
-	
 
+	public Product(int productId, String name, int price, int stock, String description, String originFileName, String changeFileName) {
+		super();
+		this.productId = productId;
+		this.name = name;
+		this.price = price;
+		this.stock = stock;
+		this.description = description;
+		this.originFileName = originFileName;
+		this.changeFileName = changeFileName;
+	}
 }

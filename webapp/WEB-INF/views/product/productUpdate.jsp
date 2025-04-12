@@ -15,7 +15,7 @@
 	<jsp:include page="../common/header.jsp"></jsp:include>
         <div class="container">
             <div class="productUpdateForm">
-                <form action="products/auth/update" enctype="multipart/form-data" method="post">
+                <form action="/trip-log/products/auth/update/${productInfo.productId }" enctype="multipart/form-data" method="post">
                     <div class="mb-5">
                         <label for="productName" class="product-register-label">상품명을 작성하세요.</label>
                         <input type="text" class="form-control product-register-input" id="productName" name="name" value="${productInfo.name }" required />
@@ -38,7 +38,7 @@
                         <textarea class="form-control product-register-input" id="productDescription" name="description" rows="3" required>${productInfo.description }</textarea>
                     </div>
                     <div class="product-register-btn-group">
-                        <button type="submit" class="button">등록</button>
+                        <button type="submit" class="button">수정</button>
                         <button type="reset" class="button">초기화</button>
                     </div>
                 </form>

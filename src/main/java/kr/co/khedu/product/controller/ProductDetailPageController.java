@@ -32,7 +32,7 @@ public class ProductDetailPageController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println(request.getPathInfo());
+		// System.out.println(request.getPathInfo());
 		
 		// URL 경로에서 상품 아이디 추출
 		String pathInfo = request.getPathInfo();
@@ -45,7 +45,7 @@ public class ProductDetailPageController extends HttpServlet {
 		
 		if(product == null) {
 			// TODO: 에러 페이지로 이동
-			System.out.println("오류입니다.");
+			System.out.println("상품 상세 페이지 오류입니다.");
 			response.sendRedirect(request.getContextPath());
 			return;
 		}
