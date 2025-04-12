@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import kr.co.khedu.common.PageInfo;
 import kr.co.khedu.product.model.dto.ProductListDTO;
+import kr.co.khedu.product.model.dto.ProductReviewDTO;
 import kr.co.khedu.product.model.dto.ProductSearchDTO;
 import kr.co.khedu.product.model.vo.Product;
 import kr.co.khedu.product.model.vo.Review;
@@ -54,6 +55,11 @@ public class ProductDAO {
 	// 상품 리뷰 조회
 	public int selectProductReview(SqlSession sqlSession, int productId) {
 		return sqlSession.selectOne("productMapper.selectProductReview", productId);
+	}
+	
+	// 상품 리뷰 작성한 회원 목록
+	public List<ProductReviewDTO> selectProductReviewMemberList(SqlSession sqlSession, int productId) {
+		return sqlSession.selectList("productMapper.selectProductReviewMemberList", productId);
 	}
 
 	// 상품 수정

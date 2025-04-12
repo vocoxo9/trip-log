@@ -89,6 +89,18 @@
 		FROM TB_PRODUCT_REVIEW
 		WHERE PRODUCT_ID = #{productId}
 	</select>
+	
+	<!-- 해당 상품 리뷰 작성한 회원 조회 -->
+	<!-- 
+	<resultMap type="kr.co.khedu.product.model.dto.ProductReviewDTO" id="productReviewMemberResultMap">
+		<result column="MEMBER_ID" property="memberId" />
+	</resultMap>
+	<select id="selectProductReviewMemberList" resultMap="productReviewMemberResultMap">
+		SELECT MEMBER_ID
+		FROM TB_PRODUCT_REVIEW
+		WHERE PRODUCT_ID = #{productId}
+	</select>
+	 -->
   
   	<!-- 상품 등록 쿼리문 -->
 	<insert id="insertProduct" parameterType="Product">

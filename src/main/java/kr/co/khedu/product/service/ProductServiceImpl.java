@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import kr.co.khedu.common.PageInfo;
 import kr.co.khedu.product.model.dao.ProductDAO;
 import kr.co.khedu.product.model.dto.ProductListDTO;
+import kr.co.khedu.product.model.dto.ProductReviewDTO;
 import kr.co.khedu.product.model.dto.ProductSearchDTO;
 import kr.co.khedu.product.model.vo.Product;
 import kr.co.khedu.product.model.vo.Review;
@@ -14,6 +15,7 @@ import kr.co.khedu.template.Template;
 
 public class ProductServiceImpl implements ProductService {
 
+	// 상품 전체 조회
 	@Override
 	public List<Product> selectProductList() {
 		SqlSession sqlSession = Template.getSqlSession();
@@ -25,6 +27,7 @@ public class ProductServiceImpl implements ProductService {
 		return pList;
 	}
 
+	// 상품 아이디로 상품 조회
 	@Override
 	public Product selectProductByProductId(int productId) {
 		SqlSession sqlSession = Template.getSqlSession();
@@ -36,10 +39,7 @@ public class ProductServiceImpl implements ProductService {
 		return product;
 	}
 
-	/** 상품 전체 갯수 조회
-	 * @param productSearchDTO
-	 * @return
-	 */
+	// 상품 전체 갯수 조회
 	@Override
 	public int selectByProductNameCount(ProductSearchDTO productSearchDTO) {
 		SqlSession sqlSession = Template.getSqlSession();
@@ -51,12 +51,7 @@ public class ProductServiceImpl implements ProductService {
 		return listCount;
 	}
 
-	/** 페이지 정보와 키워드 값으로 상품 조회
-	 * 
-	 * @param productSearchDTO
-	 * @param pageInfo
-	 * @return
-	 */
+	// 페이지 정보와 키워드 값으로 상품 조회
 	@Override
 	public List<ProductListDTO> selectByProductName(ProductSearchDTO productSearchDTO, PageInfo pageInfo) {
 		SqlSession sqlSession = Template.getSqlSession();
@@ -68,9 +63,7 @@ public class ProductServiceImpl implements ProductService {
 		return productList;
 	}
 	
-	/**
-	 * 상품 등록 기능
-	 */
+	// 상품 등록 기능
 	@Override
 	public int insertProduct(Product product) {
 		SqlSession sqlSession = Template.getSqlSession();
@@ -86,11 +79,7 @@ public class ProductServiceImpl implements ProductService {
 		return result;
 	}
 
-	/**
-	 * 상품 삭제 기능
-	 * @param productId
-	 * @return
-	 */
+	// 상품 삭제 기능
 	@Override
 	public int deleteProduct(int productId) {
 		SqlSession sqlSession = Template.getSqlSession();
@@ -107,6 +96,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	// 상품 리뷰 등록 기능
+	@Override
 	public int insertProductReview(Review review) {
 		SqlSession sqlSession = Template.getSqlSession();
 		
@@ -121,6 +111,7 @@ public class ProductServiceImpl implements ProductService {
 		return result;
 	}
 
+	@Override
 	public int selectProductReview(int productId) {
 		SqlSession sqlSession = Template.getSqlSession();
 		
@@ -131,6 +122,7 @@ public class ProductServiceImpl implements ProductService {
 		return reviewScore;
 	}
 
+	@Override
 	public int updateProduct(Product product) {
 		SqlSession sqlSession = Template.getSqlSession();
 		
@@ -143,6 +135,21 @@ public class ProductServiceImpl implements ProductService {
 		sqlSession.close();
 		
 		return result;
+	}
+
+	@Override
+	public List<ProductReviewDTO> selectProductReviewMemberList(int productId) {
+		SqlSession sqlSession = Template.getSqlSession();
+		
+		List<ProductReviewDTO> productReviewMemberList = new ProductDAO().selectProductReviewMemberList(sqlSession, productId);
+		
+		for(ProductReviewDTO pr : productReviewMemberList) {
+			System.out.println("pr : " + pr);
+		}
+		
+		sqlSession.close();
+		
+		return productReviewMemberList;
 	}
 
 }

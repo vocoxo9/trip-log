@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import kr.co.khedu.country.model.dto.CountryDTO;
 import kr.co.khedu.country.service.CountryServiceImpl;
 import kr.co.khedu.product.common.ProductPath;
+import kr.co.khedu.product.model.dto.ProductReviewDTO;
 import kr.co.khedu.product.model.vo.Product;
 import kr.co.khedu.product.service.ProductServiceImpl;
 
@@ -42,9 +43,18 @@ public class ProductDetailPageController extends HttpServlet {
 
 		int productId = ProductPath.getProductId(request, pathInfo);
 		
-		// 추출한 상품 아이디로 상품 조회 후 request에 저장하기
+		// 추출한 상품 아이디로 상품 조회
 		Product product = new ProductServiceImpl().selectProductByProductId(productId);
+		
+		// 추출한 상품 아이디로 리뷰 평점 조회
 		int reviewScore = new ProductServiceImpl().selectProductReview(productId);
+		
+		// 추출한 상품 아이디로 리뷰 작성한 회원 조회
+//		List<ProductReviewDTO> productReviewMemberList = new ProductServiceImpl().selectProductReviewMemberList(productId);
+//		
+//		for(ProductReviewDTO pr : productReviewMemberList) {
+//			System.out.println("pr : " + pr);
+//		}
 		
 		if(product == null) {
 			// TODO: 에러 페이지로 이동
@@ -70,6 +80,7 @@ public class ProductDetailPageController extends HttpServlet {
 		request.setAttribute("productInfo", product);
 		request.setAttribute("reviewScore", reviewScore);
 		request.setAttribute("countryName", countryName);
+//		request.setAttribute("productReviewMemberList", productReviewMemberList);
 //		request.setAttribute("defaultPath", defaultPath);
 		request.getRequestDispatcher("/WEB-INF/views/product/productDetail.jsp").forward(request, response);
 	}

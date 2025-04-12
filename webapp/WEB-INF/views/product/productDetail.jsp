@@ -1,12 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="kr.co.khedu.member.model.vo.Member, kr.co.khedu.product.model.vo.Product"  %>
+<%@ page import="
+	kr.co.khedu.member.model.vo.Member, 
+	kr.co.khedu.product.model.vo.Product,
+	kr.co.khedu.product.model.dto.ProductReviewDTO,
+	java.util.List
+"  %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	String rootPath = request.getContextPath();
 	Member member = (Member) request.getSession().getAttribute("loginMember");
 	Product product = (Product) request.getAttribute("productInfo");
+	/*
+	List<ProductReviewDTO> reviewMemberList = (List<ProductReviewDTO>) request.getAttribute("productReviewMemberList");
+	
+	for(ProductReviewDTO prDTO : reviewMemberList) System.out.println(prDTO);
+	*/
 %>
 <!DOCTYPE html>
 <html>
@@ -91,35 +101,47 @@
 	        </div>
 	
 			<%-- TODO: 상품 리뷰 테이블에서 해당 상품의 별점 정보를 모두 조회해서 각 점수별로 계산해서 출력 --%>
-	        <div class="product-detail-review-area">
-	            <div class="product-detail-review-content">
-	                <div class="product-detail-review-score-area">
-	                    <div class="product-detail-review-header">
-	                        <span class="review-score"><i class="fa-solid fa-star"></i><span>${ reviewScore }</span></span>
-	                    </div>
-	                    <div class="product-detail-review-score progress" role="progressbar" aria-label="Success example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-	                        <div class="progress-bar" style="width:25%">25%</div>
-	                    </div>
-	                    <div class="product-detail-review-score progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-	                        <div class="progress-bar" style="width:35%">35%</div>
-	                    </div>
-	                    <div class="product-detail-review-score progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-	                        <div class="progress-bar" style="width:45%">45%</div>
-	                    </div>
-	                    <div class="product-detail-review-score progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-	                        <div class="progress-bar" style="width:60%">60%</div>
-	                    </div>
-	                    <div class="product-detail-review-score progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-	                        <div class="progress-bar" style="width:60%">60%</div>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
+			<%--
+		        <div class="product-detail-review-area">
+		            <div class="product-detail-review-content">
+		                <div class="product-detail-review-score-area">
+		                    <div class="product-detail-review-header">
+		                        <span class="review-score"><i class="fa-solid fa-star"></i><span>${ reviewScore }</span></span>
+		                    </div>
+		                    <div class="product-detail-review-score progress" role="progressbar" aria-label="Success example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+		                        <div class="progress-bar" style="width:25%">25%</div>
+		                    </div>
+		                    <div class="product-detail-review-score progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+		                        <div class="progress-bar" style="width:35%">35%</div>
+		                    </div>
+		                    <div class="product-detail-review-score progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+		                        <div class="progress-bar" style="width:45%">45%</div>
+		                    </div>
+		                    <div class="product-detail-review-score progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+		                        <div class="progress-bar" style="width:60%">60%</div>
+		                    </div>
+		                    <div class="product-detail-review-score progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+		                        <div class="progress-bar" style="width:60%">60%</div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+			 --%>
 	
 			<%-- TODO: 한번 평점을 남겼다면 아래 버튼을 안보이게 하기 --%>
 	        <div class="btn-area">
-	            <button data-bs-toggle="modal" data-bs-target="#productReviewBtn" class="product-review-btn">당신의 평점은?</button>
+				<button data-bs-toggle="modal" data-bs-target="#productReviewBtn" class="product-review-btn">당신의 평점은?</button>
 	        </div>
+	        <%--
+				<% for(int i = 0; i < reviewMemberList.size(); i++) { %>
+					<% System.out.println("1 : " + reviewMemberList.get(i).getMemberId());  %>
+					<% if(reviewMemberList.get(i).getMemberId() != member.getMemberId()) { %>
+		            	<button data-bs-toggle="modal" data-bs-target="#productReviewBtn" class="product-review-btn">당신의 평점은?</button>
+					<% } else {%>
+		            	<button class="product-review-btn">당신의 평점은?</button>
+					<% } %>
+				<% } %>
+	         --%>
 	    </div>
 	
 		<div class="modal fade" id="productReviewBtn" tabindex="-1"
