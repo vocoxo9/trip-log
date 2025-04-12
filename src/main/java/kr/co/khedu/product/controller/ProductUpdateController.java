@@ -65,6 +65,7 @@ public class ProductUpdateController extends HttpServlet {
 		int price = 0;
 		int stock = 0;
 		String description = "";
+		int memberId = Integer.parseInt(request.getParameter("memberId"));
 		
 		Collection<Part> parts = request.getParts();
 		

@@ -60,7 +60,7 @@ public class ProductListPageController extends HttpServlet {
 //		List<Product> pList = new ProductServiceImpl().selectByProductName(productSearchDTO, pageInfo);
 		List<ProductListDTO> pList = new ProductServiceImpl().selectByProductName(productSearchDTO, pageInfo);
 
-		for(ProductListDTO p : pList) System.out.println(p);
+		// for(ProductListDTO p : pList) System.out.println(p);
 		
 //		System.out.println(productSearchDTO.getKeyword());
 //		System.out.println(productSearchDTO.getSort());

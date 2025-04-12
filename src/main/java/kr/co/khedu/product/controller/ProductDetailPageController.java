@@ -1,6 +1,7 @@
 package kr.co.khedu.product.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.khedu.country.model.dto.CountryDTO;
+import kr.co.khedu.country.service.CountryServiceImpl;
 import kr.co.khedu.product.common.ProductPath;
 import kr.co.khedu.product.model.vo.Product;
 import kr.co.khedu.product.service.ProductServiceImpl;
@@ -52,10 +55,22 @@ public class ProductDetailPageController extends HttpServlet {
 		
 		System.out.println(product);
 		
+
+		// 국가 정보 가져오기
+		List<? extends CountryDTO> countryList = new CountryServiceImpl().selectCountryList();
+		String countryName = "Unknown";
+		
+		for(CountryDTO c : countryList) {
+			if(product.getCountryId() == c.getCountryId()) {
+				countryName = c.getName();
+				break;
+			}
+		}
+		
 		request.setAttribute("productInfo", product);
 		request.setAttribute("reviewScore", reviewScore);
+		request.setAttribute("countryName", countryName);
 //		request.setAttribute("defaultPath", defaultPath);
-		
 		request.getRequestDispatcher("/WEB-INF/views/product/productDetail.jsp").forward(request, response);
 	}
 

@@ -276,3 +276,26 @@ CREATE TABLE TB_VOTE (
 -- 2025/04/11소셜로그인 role에 추가 및 이전 제약조건 제거
 ALTER TABLE TB_MEMBER MODIFY ROLE CHECK(ROLE IN('ADMIN','MEMBER','SOCIAL'));
 ALTER TABLE TB_MEMBER DROP CONSTRAINT SYS_C0012394;
+
+--------------------------------------------------------------------------
+-- 상품 삭제 시 리뷰가 있는 상품일 경우 삭제가 안되는 오류가 발생
+-- 외래키에 ON DELETE CASCADE 옵션이 없는 것이 이유이므로
+-- 기존 외래키 삭제 후 해당 옵션 추가
+
+-- 제약조건 이름 확인
+SELECT constraint_name 
+FROM user_constraints 
+WHERE table_name = 'TB_PRODUCT_REVIEW' 
+    AND constraint_type = 'R'; -- R은 외래키
+    
+-- 제약조건 이름: SYS_C0012444
+ALTER TABLE TB_PRODUCT_REVIEW
+DROP CONSTRAINT SYS_C0012444;
+
+-- ON DELETE CASCADE 포함하여 외래키 다시 추가
+ALTER TABLE TB_PRODUCT_REVIEW
+ADD FOREIGN KEY (PRODUCT_ID)
+REFERENCES TB_PRODUCT(PRODUCT_ID)
+ON DELETE CASCADE;
+
+--------------------------------------------------------------------------

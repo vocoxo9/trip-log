@@ -18,7 +18,8 @@ public class Product {
 	private int memberId;
 	private int countryId;
 	
-	public Product(String name, int price, int stock, String description, String originFileName, String changeFileName) {
+	// 상품 등록
+	public Product(String name, int price, int stock, String description, String originFileName, String changeFileName, int memberId, int countryId) {
 		super();
 		this.name = name;
 		this.price = price;
@@ -26,6 +27,8 @@ public class Product {
 		this.description = description;
 		this.originFileName = originFileName;
 		this.changeFileName = changeFileName;
+		this.memberId = memberId;
+		this.countryId = countryId;
 	}
 
 	public Product(int productId, String name, int price, int stock, String description, String originFileName, String changeFileName) {

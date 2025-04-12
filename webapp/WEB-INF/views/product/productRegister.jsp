@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="kr.co.khedu.member.model.vo.Member" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	String rootPath = request.getContextPath();
+	Member member = (Member) request.getSession().getAttribute("loginMember");
 %>
 <!DOCTYPE html>
 <html>
@@ -16,12 +19,21 @@
         <div class="container">
             <div class="productEnrollForm">
                 <form action="products/auth/register" enctype="multipart/form-data" method="post">
+                	<input type="hidden" name="memberId" value="<%= member.getMemberId() %>" />
                     <div class="mb-5">
                         <label for="productName" class="product-register-label">상품명을 작성하세요.</label>
                         <input type="text" class="form-control product-register-input" id="productName" name="name" required />
                     </div>
                     <div class="mb-5">
-                        <label for="uploadFile" class="product-register-label">상품 이미지를 넣어주세요</label>
+                        <label for="productName" class="product-register-label">국가명을 선택해주세요.</label>
+                        <select name="countryId" class="form-select product-register-input">
+                        	<c:forEach var="country" items="${ countryInfo }">
+                        		<option value="${country.countryId }">${ country.name }</option>
+                        	</c:forEach>
+                        </select>
+                    </div>
+                    <div class="mb-5">
+                        <label for="uploadFile" class="product-register-label">상품 이미지를 넣어주세요.</label>
                         <input type="file" class="form-control product-register-input" id="uploadFile" name="uploadFile" />
                     </div>
                     <div class="mb-5">

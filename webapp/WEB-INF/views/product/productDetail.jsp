@@ -70,6 +70,7 @@
 	                </div>
 	                <div class="product-detail-header-etc-review">
 	                    <span class="review-score"><i class="fa-solid fa-star"></i><span>${reviewScore }</span></span>
+	                    <span><i class="fa-solid fa-location-dot"></i> ${ countryName }</span>
 	                    <span class="review-link"><a href="#">여행후기 <i class="fa-solid fa-arrow-right"></i></a></span>
 	                </div>
 	            </div>

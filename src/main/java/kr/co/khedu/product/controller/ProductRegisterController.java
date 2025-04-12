@@ -58,6 +58,8 @@ public class ProductRegisterController extends HttpServlet {
 		int price = 0;
 		int stock = 0;
 		String description = "";
+		int memberId = 0;
+		int countryId = 0;
 		
 		Collection<Part> parts = request.getParts();
 		
@@ -72,39 +74,45 @@ public class ProductRegisterController extends HttpServlet {
 			String formTypeName = p.getName();
 
 			switch (formTypeName) {
-			    case "name":
-			        name = request.getParameter(formTypeName);
-			        break;
-			    case "uploadFile":
-			    	if(!p.getSubmittedFileName().equals("")) {
-			    		String subFolder = uploadUtil.createFilePath(); // yyyy/MM/dd 폴더 경로
-			    		// System.out.println(subFolder);
-			    		changeFileName = TripFileUtils.changeFileName(p);
-			    		// System.out.println(changeFileName);
-			    		uploadUtil.saveFile(p, subFolder, changeFileName);
-			    		changeFileName = "/assets/resources/upload/" + subFolder + "/" + changeFileName;
-			    		
-				    	originFileName = p.getSubmittedFileName();
-			    	} else {
-						// 상품 이미지가 없는 경우 샘플 이미지로 대체
-						String sampleImgPath = ProductPath.sampleImg();
-						originFileName = sampleImgPath.substring(sampleImgPath.lastIndexOf("/") + 1);
-						changeFileName = sampleImgPath;
-			    	}
-			        break;
-			    case "description":
-			        description = request.getParameter(formTypeName);
-			        break;
-			    case "price":
-			        price = Integer.parseInt(request.getParameter(formTypeName));
-			        break;
-			    case "stock":
-			        stock = Integer.parseInt(request.getParameter(formTypeName));
-			        break;
+			case "memberId":
+				memberId = Integer.parseInt(request.getParameter("memberId"));
+				break;
+		    case "name":
+		        name = request.getParameter(formTypeName);
+		        break;
+		    case "uploadFile":
+		    	if(!p.getSubmittedFileName().equals("")) {
+		    		String subFolder = uploadUtil.createFilePath(); // yyyy/MM/dd 폴더 경로
+		    		// System.out.println(subFolder);
+		    		changeFileName = TripFileUtils.changeFileName(p);
+		    		// System.out.println(changeFileName);
+		    		uploadUtil.saveFile(p, subFolder, changeFileName);
+		    		changeFileName = "/assets/resources/upload/" + subFolder + "/" + changeFileName;
+		    		
+			    	originFileName = p.getSubmittedFileName();
+		    	} else {
+					// 상품 이미지가 없는 경우 샘플 이미지로 대체
+					String sampleImgPath = ProductPath.sampleImg();
+					originFileName = sampleImgPath.substring(sampleImgPath.lastIndexOf("/") + 1);
+					changeFileName = sampleImgPath;
+		    	}
+		        break;
+		    case "description":
+		        description = request.getParameter(formTypeName);
+		        break;
+		    case "price":
+		        price = Integer.parseInt(request.getParameter(formTypeName));
+		        break;
+		    case "stock":
+		        stock = Integer.parseInt(request.getParameter(formTypeName));
+		        break;
+		    case "countryId":
+		    	countryId = Integer.parseInt(request.getParameter("countryId"));
+				break;
 			}
 		}
 		
-		Product product = new Product(name, price, stock, description, originFileName, changeFileName);
+		Product product = new Product(name, price, stock, description, originFileName, changeFileName, memberId, countryId);
 		// System.out.println(product);
 		
 		int result = new ProductServiceImpl().insertProduct(product);
