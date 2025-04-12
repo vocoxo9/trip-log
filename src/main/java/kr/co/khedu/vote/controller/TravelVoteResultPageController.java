@@ -44,7 +44,7 @@ public class TravelVoteResultPageController extends HttpServlet {
 		// 입력받은 값 추출하기 (고른 여행지)
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		System.out.println(loginUser);
-		int userId = 2;
+		int userId = 1;
 		String tDestination = request.getParameter("travel");
 		System.out.println(tDestination);
 

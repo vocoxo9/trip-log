@@ -120,5 +120,13 @@
 		)
 	</select>
 	
+	<select id="selectPost" resultMap="postDetailResultMap" parameterType="PostDetailDto">
+		SELECT POST_ID, TITLE
+		FROM TB_POST
+		WHERE POST_ID = #{pNum}
+	</select>
+	
+
+	
 	
 </mapper>

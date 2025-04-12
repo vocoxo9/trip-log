@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ page
 	import="kr.co.khedu.post.model.vo.CommentDto,
-				java.util.ArrayList"%>
+			java.util.ArrayList,
+			kr.co.khedu.post.model.vo.PostDetailDto"%>
 <%
 String rootPath = request.getContextPath();
 %>
@@ -63,105 +64,7 @@ String rootPath = request.getContextPath();
 				<div class="board-detail-body">
 					<div class="content">
 						<textarea id="content" name="content" cols rows="100" readonly>
-                            <%--
-                            안녕하세요, 고객님
-                            
-                            스페인/북유럽팀입니다.
-                            
-                            여행의 여독이 채 가시지 않은 시점 소중하고도 정성스러운 후기와 아름다운 
-                            사진들과 함께 다시 찾아와주셔서 정말 감사드립니다.
-                            이번 여행을 통해서 즐거운 추억을 만드신 것 같아 같은 담당으로서 기쁘고 뿌듯한 순간입니다.
-                            
-                            여행이란 항상 일상의 활력소가 되는 느낌입니다. 다녀온 뒤의 추억을 통해 일상을 살아갈 힘을 얻고,
-                            다음 번 여행을 기다리며 설레는 행복감으로 하루 하루를 살아갈 수 있는 에너지를 주는 것이 
-                            바로 ' 여행 ' 이라고 생각합니다.
-                            
-                            아름답고 행복했던 여행의 순간 순간을 오래 간직하여 주시길 바라겠습니다. 
-                            수고해주신 인솔자님과 가이드님의 대한 칭찬의 말씀도 개별적으로 꼭 전달해드리도록 하겠습니다.
-                            
-                            다음 번에도 참좋은여행과 동행하여 주신다면 항상 더욱 더 발전된 모습으로,
-                            말 그대로 ' 참좋은 여행 ' 을 다시 선물해드릴 수 있도록 최선을 다하겠습니다.
-                            
-                            감사합니다.
-                            
-
-                            안녕하세요, 고객님
-                            
-                            스페인/북유럽팀입니다.
-                            
-                            여행의 여독이 채 가시지 않은 시점 소중하고도 정성스러운 후기와 아름다운 
-                            사진들과 함께 다시 찾아와주셔서 정말 감사드립니다.
-                            이번 여행을 통해서 즐거운 추억을 만드신 것 같아 같은 담당으로서 기쁘고 뿌듯한 순간입니다.
-                            
-                            여행이란 항상 일상의 활력소가 되는 느낌입니다. 다녀온 뒤의 추억을 통해 일상을 살아갈 힘을 얻고,
-                            다음 번 여행을 기다리며 설레는 행복감으로 하루 하루를 살아갈 수 있는 에너지를 주는 것이 
-                            바로 ' 여행 ' 이라고 생각합니다.
-                            
-                            아름답고 행복했던 여행의 순간 순간을 오래 간직하여 주시길 바라겠습니다. 
-                            수고해주신 인솔자님과 가이드님의 대한 칭찬의 말씀도 개별적으로 꼭 전달해드리도록 하겠습니다.
-                            
-                            다음 번에도 참좋은여행과 동행하여 주신다면 항상 더욱 더 발전된 모습으로,
-                            말 그대로 ' 참좋은 여행 ' 을 다시 선물해드릴 수 있도록 최선을 다하겠습니다.
-                            
-                            감사합니다.
-                            안녕하세요, 고객님
-                            
-                            스페인/북유럽팀입니다.
-                            
-                            여행의 여독이 채 가시지 않은 시점 소중하고도 정성스러운 후기와 아름다운 
-                            사진들과 함께 다시 찾아와주셔서 정말 감사드립니다.
-                            이번 여행을 통해서 즐거운 추억을 만드신 것 같아 같은 담당으로서 기쁘고 뿌듯한 순간입니다.
-                            
-                            여행이란 항상 일상의 활력소가 되는 느낌입니다. 다녀온 뒤의 추억을 통해 일상을 살아갈 힘을 얻고,
-                            다음 번 여행을 기다리며 설레는 행복감으로 하루 하루를 살아갈 수 있는 에너지를 주는 것이 
-                            바로 ' 여행 ' 이라고 생각합니다.
-                            
-                            아름답고 행복했던 여행의 순간 순간을 오래 간직하여 주시길 바라겠습니다. 
-                            수고해주신 인솔자님과 가이드님의 대한 칭찬의 말씀도 개별적으로 꼭 전달해드리도록 하겠습니다.
-                            
-                            다음 번에도 참좋은여행과 동행하여 주신다면 항상 더욱 더 발전된 모습으로,
-                            말 그대로 ' 참좋은 여행 ' 을 다시 선물해드릴 수 있도록 최선을 다하겠습니다.
-                            
-                            감사합니다.
-                            안녕하세요, 고객님
-                            
-                            스페인/북유럽팀입니다.
-                            
-                            여행의 여독이 채 가시지 않은 시점 소중하고도 정성스러운 후기와 아름다운 
-                            사진들과 함께 다시 찾아와주셔서 정말 감사드립니다.
-                            이번 여행을 통해서 즐거운 추억을 만드신 것 같아 같은 담당으로서 기쁘고 뿌듯한 순간입니다.
-                            
-                            여행이란 항상 일상의 활력소가 되는 느낌입니다. 다녀온 뒤의 추억을 통해 일상을 살아갈 힘을 얻고,
-                            다음 번 여행을 기다리며 설레는 행복감으로 하루 하루를 살아갈 수 있는 에너지를 주는 것이 
-                            바로 ' 여행 ' 이라고 생각합니다.
-                            
-                            아름답고 행복했던 여행의 순간 순간을 오래 간직하여 주시길 바라겠습니다. 
-                            수고해주신 인솔자님과 가이드님의 대한 칭찬의 말씀도 개별적으로 꼭 전달해드리도록 하겠습니다.
-                            
-                            다음 번에도 참좋은여행과 동행하여 주신다면 항상 더욱 더 발전된 모습으로,
-                            말 그대로 ' 참좋은 여행 ' 을 다시 선물해드릴 수 있도록 최선을 다하겠습니다.
-                            
-                            감사합니다.
-                            안녕하세요, 고객님
-                            
-                            스페인/북유럽팀입니다.
-                            
-                            여행의 여독이 채 가시지 않은 시점 소중하고도 정성스러운 후기와 아름다운 
-                            사진들과 함께 다시 찾아와주셔서 정말 감사드립니다.
-                            이번 여행을 통해서 즐거운 추억을 만드신 것 같아 같은 담당으로서 기쁘고 뿌듯한 순간입니다.
-                            
-                            여행이란 항상 일상의 활력소가 되는 느낌입니다. 다녀온 뒤의 추억을 통해 일상을 살아갈 힘을 얻고,
-                            다음 번 여행을 기다리며 설레는 행복감으로 하루 하루를 살아갈 수 있는 에너지를 주는 것이 
-                            바로 ' 여행 ' 이라고 생각합니다.
-                            
-                            아름답고 행복했던 여행의 순간 순간을 오래 간직하여 주시길 바라겠습니다. 
-                            수고해주신 인솔자님과 가이드님의 대한 칭찬의 말씀도 개별적으로 꼭 전달해드리도록 하겠습니다.
-                            
-                            다음 번에도 참좋은여행과 동행하여 주신다면 항상 더욱 더 발전된 모습으로,
-                            말 그대로 ' 참좋은 여행 ' 을 다시 선물해드릴 수 있도록 최선을 다하겠습니다.
-                            
-                            감사합니다.
-                            --%>
+                            <%-- 게시글 내용 --%>
                             ${ postDetail.content }
                             
                         </textarea>
@@ -214,12 +117,12 @@ String rootPath = request.getContextPath();
 												<div class="comment-date" id="registDate"><%=c.getRegistDate()%>일
 													전
 												</div>
-												<div class="update-delete-menu active">
+												<div class="update-delete-menu active" data-target="<%= c.getCommentId()%>">
 													<i class="fa-solid fa-ellipsis"></i>
 												</div>
-												<div class="comment-update-delete">
-													<i class="fa-solid fa-pen-to-square"></i> <i
-														class="fa-solid fa-trash-can"></i>
+												<div class="comment-update-delete" id="<%= c.getCommentId() %>">
+													<i class="fa-solid fa-pen-to-square"></i>
+													<i class="fa-solid fa-trash-can"></i>
 												</div>
 											</div>
 										</div>
@@ -270,13 +173,17 @@ String rootPath = request.getContextPath();
 					</div>
 				</div>
 				<div class="board-detail-footer" id="pageDown">
+				<% 
+					PostDetailDto beforePost = (PostDetailDto)request.getAttribute("beforePost");
+					PostDetailDto afterPost = (PostDetailDto)request.getAttribute("afterPost");
+				%>
 					<div class="before">
 						<div class="before-board">이전글</div>
-						<div class="board-title">제주 한달살이 2주차</div>
+						<div class="board-title"><a href="postDetail?pno=<%= beforePost.getPostId() %>"><%= beforePost.getTitle() %></a></div>
 					</div>
 					<div class="next">
 						<div class="next-board">다음글</div>
-						<div class="board-title">제주 한달살이 3주차</div>
+						<div class="board-title"><a href="postDetail?pno=<%= afterPost.getPostId() %>"><%= afterPost.getTitle() %></a></div>
 					</div>
 					<div class="end"></div>
 				</div>

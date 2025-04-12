@@ -22,5 +22,8 @@ public interface PostDetailService {
 
 	/* 댓글 작성 시 해당 댓글 조회 (비동기식) */
 	CommentDto selectLastComment(String postId);
+
+	/* 해당 게시글의 전,후 게시글의 정보 조회 */
+	PostDetailDto selectPost(int pNum);
 	
 }

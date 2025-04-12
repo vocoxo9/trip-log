@@ -98,22 +98,51 @@ replyCloseBtns.forEach(closeBtn => {
 	});
 });
 
-
+// ...버튼 누르면 수정버튼과 삭제버튼 나타내기
+// 댓글 버튼
+// const commentEtcBtns = document.querySelectorAll(".comment-view .update-delete-menu");
+// commentEtcBtns.forEach(etcBtn => {
+//     etcBtn.addEventListener("click", () => {
+//         const commentUDBtn = etcBtn.closest(".comment-view").querySelector(".comment-view .comment-update-delete");
+//         etcBtn.classList.toggle("active");
+//         commentUDBtn.classList.toggle("active");
+//     });
+// });
+// 
+// // 답글 버튼
+// const replyEtcBtns = document.querySelectorAll(".reply-view .update-delete-menu");
+// replyEtcBtns.forEach(etcBtn => {
+//     etcBtn.addEventListener("click", () => {
+//         const replyUDBtn = etcBtn.closest(".reply-view").querySelector(".reply-view .reply-update-delete");
+//         etcBtn.classList.toggle("active");
+//         replyUDBtn.classList.toggle("active");
+//     });
+// });
+// 댓글 버튼
 const commentEtcBtns = document.querySelectorAll(".comment-view .update-delete-menu");
-const commentUDBtn = document.querySelector(".comment-view .comment-update-delete");
 commentEtcBtns.forEach(etcBtn => {
-	etcBtn.addEventListener("click", () => {
-		etcBtn.classList.remove("active");
-		commentUDBtn.classList.add("active");
-	});
+    etcBtn.addEventListener("click", () => {
+		const targetId = etcBtn.getAttribute('data-target');
+		const targetElement = document.querySelector(`#${targetId}.comment-update-delete`);
+		
+		etcbtn.classList.remove("active");s
+		
+		if (targetElement) {
+			targetElement.classList.toggle("active");
+		}
+		
+    });
 });
+
+// 답글 버튼
 const replyEtcBtns = document.querySelectorAll(".reply-view .update-delete-menu");
-const replyUDBtn = document.querySelector(".reply-view .reply-update-delete");
 replyEtcBtns.forEach(etcBtn => {
-	etcBtn.addEventListener("click", () => {
-		etcBtn.classList.remove("active");
-		replyUDBtn.classList.add("active");
-	});
+    etcBtn.addEventListener("click", () => {
+        const parentReply = etcBtn.closest(".reply-view"); // 가장 가까운 부모 요소를 찾음
+        const replyUDBtn = parentReply.querySelector(".reply-update-delete");
+        etcBtn.classList.toggle("active");
+        replyUDBtn.classList.toggle("active");
+    });
 });
 
 

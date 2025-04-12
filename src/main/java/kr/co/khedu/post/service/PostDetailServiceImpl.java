@@ -88,6 +88,20 @@ public class PostDetailServiceImpl implements PostDetailService {
 		
 		return lastComment;
 	}
+
+
+	@Override
+	public PostDetailDto selectPost(int pNum) {
+		SqlSession sqlSession = Template.getSqlSession();
+		
+		PostDetailDto post = pdDao.selectPost(sqlSession, pNum);
+		
+		sqlSession.close();
+		
+		return post;
+	}
+	
+	
 	
 	
 

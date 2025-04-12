@@ -69,4 +69,11 @@ public class PostDetailDAO {
 		return lastComment;
 	}
 
+	public PostDetailDto selectPost(SqlSession sqlSession, int pNum) {
+		
+		PostDetailDto post = sqlSession.selectOne("postDetailMapper.selectPost", pNum);
+		
+		return post;
+	}
+
 }

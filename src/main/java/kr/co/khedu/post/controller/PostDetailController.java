@@ -35,13 +35,62 @@ public class PostDetailController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		// 게시글의 임의의 번호
-		int pNum = 1;
+//		int pNum = 1;
+		String pno = request.getParameter("pno");
+		
+		int pNum = Integer.parseInt(pno);
+		
+		System.out.println("전달받은 pNum의 값은 : " + pNum);
 		
 		// Service 객체에 전달받은 게시글번호의 게시글 정보(게시글 번호, 제목, 내용,  좋아요) 조회
 		PostDetailService pdService = new PostDetailServiceImpl();
 		PostDetailDto postDetail = pdService.selectPostDetail(pNum);
 		// => 조회된 결과가 있을 경우 PostDetail 객체 전달
 		// 				없을 경우 null이 전달
+		
+		// Service 객체에 전달받은 게시글 번호의 -1, +1의 게시글의 번호와 제목을 조회
+		// 게시글의 번호의 -1, +1 게시글 번호 변수에 저장
+		int beforePNum = pNum - 1;
+		int afterPNum = pNum + 1;
+		
+		// 이전글이 없을 경우나 다음글이 없을 경우 (+ 다음글도 마지막 길이 구해서 조건 넣기)
+		if (beforePNum < 1) {
+			PostDetailDto beforePost = new PostDetailDto(0, "글이 없습니다.");
+			PostDetailDto afterPost = pdService.selectPost(afterPNum);
+
+			if (beforePost == null) {
+				beforePost.setPostId(0);
+				beforePost.setTitle("이전글이 없습니다..");			
+			}
+			if (afterPost == null) {
+				afterPost.setPostId(0);
+				afterPost.setTitle("다음글이 없습니다..");			
+			}
+			System.out.println("Controller에서 beforePost : " + beforePost);
+			System.out.println("Controller에서 afterPost : " + afterPost);
+			
+			request.setAttribute("beforePost", beforePost);
+			request.setAttribute("afterPost", afterPost);
+		} else {
+			PostDetailDto beforePost = pdService.selectPost(beforePNum);			
+			PostDetailDto afterPost = pdService.selectPost(afterPNum);
+			
+			if (beforePost == null) {
+				beforePost.setPostId(0);
+				beforePost.setTitle("이전글이 없습니다..");			
+			}
+			if (afterPost == null) {
+				afterPost.setPostId(0);
+				afterPost.setTitle("다음글이 없습니다..");			
+			}
+			System.out.println("Controller에서 beforePost : " + beforePost);
+			System.out.println("Controller에서 afterPost : " + afterPost);
+			
+			request.setAttribute("beforePost", beforePost);
+			request.setAttribute("afterPost", afterPost);
+		}
+		
+		
 		
 		System.out.println("게시글 정보는 조회됨");
 		if (postDetail != null) {
