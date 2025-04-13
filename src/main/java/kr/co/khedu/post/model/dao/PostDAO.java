@@ -24,6 +24,16 @@ public final class PostDAO {
         return session.selectList("postMapper.getPostSummaries", offset);
     }
 
+    public List<? extends PostSummaryDTO>  getPostSummariesByMemberId(SqlSession session, int memberId, int offset) {
+        return session.selectList(
+                "postMapper.getPostSummariesByMemberId",
+                Map.of(
+                        "memberId", memberId,
+                        "offset", offset
+                )
+        );
+    }
+
     public Optional<PostEditDTO> searchFormById(SqlSession session, int postId) {
         return Optional.ofNullable(
                 session.selectOne("postMapper.searchFormById", postId)

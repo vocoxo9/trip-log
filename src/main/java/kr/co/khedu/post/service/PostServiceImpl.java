@@ -33,6 +33,17 @@ public final class PostServiceImpl implements PostService {
     }
 
     @Override
+    public List<? extends PostSummaryDTO> getPostSummariesByMemberId(int page, int memberId) {
+        page = Math.max(page, 1);
+        int offset = (page - 1) * 6;
+
+        SqlSession session = Template.getSqlSession();
+        List<? extends PostSummaryDTO> summaries = postDAO.getPostSummariesByMemberId(session, memberId, offset);
+        session.close();
+        return summaries;
+    }
+
+    @Override
     public Optional<PostEditDTO> searchFormById(int postId) {
         SqlSession session = Template.getSqlSession();
         Optional<PostEditDTO> optional = postDAO.searchFormById(session, postId);

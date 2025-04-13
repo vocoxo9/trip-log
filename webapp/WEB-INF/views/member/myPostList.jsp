@@ -2,9 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ page import="kr.co.khedu.member.model.dto.MemberDTO,
 					java.util.List,
-					kr.co.khedu.common.PageInfo" %>
-				<%-- ,
-					kr.co.khedu.post.model.vo.Post"  --%>	 
+					kr.co.khedu.common.PageInfo,
+					kr.co.khedu.post.model.dto.PostSummaryDTO" %>
 <% 
 	String rootPath = request.getContextPath();
 	MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
@@ -51,85 +50,37 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>글 번호</th>
                                 <th>글 제목</th>
-                                <th>작성자</th>
                                 <th>작성날짜</th>
                                 <th>조회수</th>
+                                <th>좋아요</th>
                                 <th>수정</th>
                                 <th>삭제</th>
                             </tr>
                         </thead>
                         <tbody>
-                        	<%-- 
-                        		List<Post> postList = (List<Post>)request.getAttribute("postList");
-                        	--%>
-                        	<%-- for ( Post p : postList ){ --%>
+                        	<%
+                        		List<? extends PostSummaryDTO> postList = (List<? extends PostSummaryDTO>) request.getAttribute("postList");
+                        	%>
+                        	<% for (PostSummaryDTO post : postList) { %>
                             <tr>
-                                <td><%--= p.getPostId() --%></td>
-                                <td><%--= p.getTitle() --%></td>
-                                <td><%--= p.getMemberId() --%></td>
-                                <td><%--= p.getCreatedAt() --%></td>
-                                <td><%--= p.getViews() --%></td>
+                                <td><%= post.getTitle() %></td>
+                                <td><%= post.getCreatedAt() %></td>
+                                <td><%= post.getLikes() %></td>
+                                <td><%= post.getComments() %></td>
                                 <td><a href="" id="edit"><i class="fa-solid fa-pen-to-square fa-lg"></i></a></td>
                                 <td><a href="" id="edit"><i class="fa-solid fa-trash-can fa-lg"></i></a></td>
                             </tr>
-                            <%-- } --%>
-                            <tr>
-                                <td>1</td>
-                                <td>글 제목입니다.</td>
-                                <td>관리자</td>
-                                <td>25.03.28</td>
-                                <td>99</td>
-                                <td><a href=""><i class="fa-solid fa-pen-to-square fa-lg"></i></a></td>
-                                <td><a href=""><i class="fa-solid fa-trash-can fa-lg"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>글 제목입니다.</td>
-                                <td>관리자</td>
-                                <td>25.03.28</td>
-                                <td>99</td>
-                                <td><a href=""><i class="fa-solid fa-pen-to-square fa-lg"></i></a></td>
-                                <td><a href=""><i class="fa-solid fa-trash-can fa-lg"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>글 제목입니다.</td>
-                                <td>관리자</td>
-                                <td>25.03.28</td>
-                                <td>99</td>
-                                <td><a href=""><i class="fa-solid fa-pen-to-square fa-lg"></i></a></td>
-                                <td><a href=""><i class="fa-solid fa-trash-can fa-lg"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>글 제목입니다.</td>
-                                <td>관리자</td>
-                                <td>25.03.28</td>
-                                <td>99</td>
-                                <td><a href=""><i class="fa-solid fa-pen-to-square fa-lg"></i></a></td>
-                                <td><a href=""><i class="fa-solid fa-trash-can fa-lg"></i></a></td>
-                            </tr>
+                            <% } %>
+                            <% if (postList.isEmpty()) { %>
+                                <div class="post-empty">
+                                    <h3>포스트가 없습니다.</h3>
+                                </div>
+                            <% } %>
                         </tbody>
                     </table>
                 </div>
-
-                <div id="pagingArea">
-                    <ul class="pagination">
-                        <li class="page-item"><a href="" class="page-link icon-paging"><i class="fa-solid fa-less-than"></i></a></li>
-                        <li class="page-item"><a href="" class="page-link">1</a></li>
-                        <li class="page-item"><a href="" class="page-link">2</a></li>
-                        <li class="page-item"><a href="" class="page-link">3</a></li>
-                        <li class="page-item"><a href="" class="page-link">4</a></li>
-                        <li class="page-item"><a href="" class="page-link">5</a></li>
-                        <li class="page-item"><a href="" class="page-link">6</a></li>
-                        <li class="page-item"><a href="" class="page-link">7</a></li>
-                        <li class="page-item"><a href="" class="page-link">8</a></li>
-                        <li class="page-item"><a href="" class="page-link">9</a></li>
-                        <li class="page-item"><a href="" class="page-link icon-paging"><i class="fa-solid fa-greater-than"></i></a></li>
-                    </ul>
-                </div>
+                <jsp:include page="../common/pageNation.jsp" />
             </div>
         </div>
 	<jsp:include page="../common/footer.jsp" />
@@ -138,7 +89,7 @@
 	<script>
 		window.addEventListener('load', function(){
 			const postTr = document.querySelectorAll(".mypost-right-detail tbody tr");
-			
+
 			for(const ele of postTr){
 				ele.onclick = function(){
 					location.href = "/trip-log/posts/detail?no=" + ele.children[0].innerText;
@@ -146,6 +97,26 @@
 				}
 			}
 		});
+
+		$(() => {
+            $('.page-item').click(function(event) {
+                event.preventDefault()
+
+                const number = $(this).text().trim()
+                if (!number) {
+                    return
+                }
+
+                let url = window.location.href
+                if (url.indexOf('?') > -1) {
+                    url = url.replace(/([?&])page=\d+/, '?page=' + number)
+                } else {
+                    url += '?page=' + number
+                }
+
+                window.location.href = url
+            })
+        })
 	</script>
 </body>
 

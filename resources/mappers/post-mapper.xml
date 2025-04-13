@@ -38,6 +38,29 @@
             P.POST_ID DESC
         OFFSET #{offset} ROWS FETCH NEXT 6 ROWS ONLY
     </select>
+    <select id="getPostSummariesByMemberId" resultMap="postSummaries">
+        SELECT
+            P.TITLE,
+            P.CONTENT,
+            P.CREATED_AT,
+            (
+                SELECT COUNT(*)
+                FROM TB_POST_LIKE L
+                WHERE L.POST_ID = P.POST_ID
+            ) AS LIKES,
+            (
+                SELECT COUNT(*)
+                FROM TB_COMMENT C
+                WHERE C.POST_ID = P.POST_ID
+            ) AS COMMENTS
+        FROM
+            TB_POST P
+        WHERE
+            P.MEMBER_ID = #{memberId}
+        ORDER BY
+            P.POST_ID DESC
+        OFFSET #{offset} ROWS FETCH NEXT 6 ROWS ONLY
+    </select>
     <select id="searchFormById" parameterType="int" resultMap="postEditForm">
         SELECT
             POST_ID,
