@@ -47,7 +47,7 @@ public class ProductDetailPageController extends HttpServlet {
 		Product product = new ProductServiceImpl().selectProductByProductId(productId);
 		
 		// 추출한 상품 아이디로 리뷰 평점 조회
-		int reviewScore = new ProductServiceImpl().selectProductReview(productId);
+		double reviewScore = new ProductServiceImpl().selectProductReview(productId);
 		
 		// 추출한 상품 아이디로 리뷰 작성한 회원 조회
 //		List<ProductReviewDTO> productReviewMemberList = new ProductServiceImpl().selectProductReviewMemberList(productId);

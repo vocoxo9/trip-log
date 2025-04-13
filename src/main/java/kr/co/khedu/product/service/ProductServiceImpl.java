@@ -112,10 +112,10 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public int selectProductReview(int productId) {
+	public double selectProductReview(int productId) {
 		SqlSession sqlSession = Template.getSqlSession();
 		
-		int reviewScore = new ProductDAO().selectProductReview(sqlSession, productId);
+		double reviewScore = new ProductDAO().selectProductReview(sqlSession, productId);
 		
 		sqlSession.close();
 		

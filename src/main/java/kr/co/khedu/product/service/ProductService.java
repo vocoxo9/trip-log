@@ -32,7 +32,7 @@ public interface ProductService {
 	int insertProductReview(Review review);
 
 	// 리뷰 조회
-	int selectProductReview(int productId);
+	double selectProductReview(int productId);
 
 	// 상품 수정
 	int updateProduct(Product product);

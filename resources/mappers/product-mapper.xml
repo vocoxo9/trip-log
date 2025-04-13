@@ -84,7 +84,7 @@
 	</select>
 	
 	<!-- 상품 리뷰 조회 쿼리문 -->
-	<select id="selectProductReview" resultType="_int">
+	<select id="selectProductReview" resultType="_double">
 		SELECT ROUND(NVL(AVG(SCORE), 0), 1) AS SCORE
 		FROM TB_PRODUCT_REVIEW
 		WHERE PRODUCT_ID = #{productId}

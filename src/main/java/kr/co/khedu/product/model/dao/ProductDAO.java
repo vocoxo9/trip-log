@@ -53,7 +53,7 @@ public class ProductDAO {
 	}
 
 	// 상품 리뷰 조회
-	public int selectProductReview(SqlSession sqlSession, int productId) {
+	public double selectProductReview(SqlSession sqlSession, int productId) {
 		return sqlSession.selectOne("productMapper.selectProductReview", productId);
 	}
 	
