@@ -3,7 +3,7 @@ package kr.co.khedu.product.service;
 import java.util.List;
 
 import kr.co.khedu.common.PageInfo;
-import kr.co.khedu.member.model.dto.MemberProductFavoriteDTO;
+import kr.co.khedu.member.model.dto.MemberFavoriteProductDTO;
 import kr.co.khedu.product.model.dto.ProductFavoriteDTO;
 import kr.co.khedu.product.model.dto.ProductListDTO;
 import kr.co.khedu.product.model.dto.ProductReviewDTO;
@@ -52,5 +52,9 @@ public interface ProductService {
 	int deleteProductFavoirte(ProductFavoriteDTO productFavoriteDTO);
 
 	// 내 상품 찜 목록 조회
-	List<MemberProductFavoriteDTO> selectMyProductFavorite(int memberId);
+	List<MemberFavoriteProductDTO> selectMyProductFavorite(int memberId, PageInfo pageInfo);
+
+	// 내 상품 찜 목록 수 조회
+	int selectMyProductFavoriteCount(int memberId);
+
 }

@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class MemberProductFavoriteDTO {
+public class MemberFavoriteProductDTO {
 	private int productId;
 	private String productName;
 	private int price;

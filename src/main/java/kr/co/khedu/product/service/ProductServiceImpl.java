@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import kr.co.khedu.common.PageInfo;
-import kr.co.khedu.member.model.dto.MemberProductFavoriteDTO;
+import kr.co.khedu.member.model.dto.MemberFavoriteProductDTO;
 import kr.co.khedu.product.model.dao.ProductDAO;
 import kr.co.khedu.product.model.dto.ProductFavoriteDTO;
 import kr.co.khedu.product.model.dto.ProductListDTO;
@@ -195,11 +195,23 @@ public class ProductServiceImpl implements ProductService {
 		return result;
 	}
 
+	// 내 상품 찜 데이터 수 조회
 	@Override
-	public List<MemberProductFavoriteDTO> selectMyProductFavorite(int memberId) {
+	public int selectMyProductFavoriteCount(int memberId) {
 		SqlSession sqlSession = Template.getSqlSession();
 		
-		List<MemberProductFavoriteDTO> myProductFavoriteList = new ProductDAO().selectMyProductFavorite(sqlSession, memberId);
+		int count = new ProductDAO().selectMyProductFavoriteCount(sqlSession, memberId);
+		
+		sqlSession.close();
+		
+		return count;
+	}
+
+	@Override
+	public List<MemberFavoriteProductDTO> selectMyProductFavorite(int memberId, PageInfo pageInfo) {
+		SqlSession sqlSession = Template.getSqlSession();
+		
+		List<MemberFavoriteProductDTO> myProductFavoriteList = new ProductDAO().selectMyProductFavorite(sqlSession, memberId, pageInfo);
 		
 		sqlSession.close();
 		
