@@ -76,7 +76,7 @@
                 <!-- 각 메뉴(li) 클릭 시 해당 페이지로 이동 -->
                 <div class="nav-list-item">
                 <%
-                	int pno = 2;
+                	int pno = 1;
                 %>
                     <a href="postDetail?pno=<%= pno %>">
                         <i class="fa-solid fa-users"></i>

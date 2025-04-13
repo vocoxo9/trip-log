@@ -34,7 +34,17 @@
 		<result column="REGIST_DATE" property="registDate"/>
 		<result column="CONTENT" property="content"/>
 		<result column="LIKE_COUNT" property="likeCount"/>
+		<result column="PARENT_ID" property="parentId"/>
 	</resultMap>
+	<resultMap type="PostLikeCountDto" id="PostLikeCountResultMap">
+		<result column="POST_ID" property="postId"/>
+		<result column="LIKE_COUNT" property="postLikeCount"/>
+	</resultMap>
+	<resultMap type="CommentLikeCountDto" id="CommentLikeCountResultMap">
+		<result column="COMMENT_ID" property="commentId"/>
+		<result column="LIKE_COUNT" property="commentLikeCount"/>
+	</resultMap>
+
 	
 	<select id="searchPostDetail" resultMap="postDetailResultMap" parameterType="postDetailDto">
 		SELECT 
@@ -45,7 +55,7 @@
 			COUNT(PL.POST_LIKE_ID) AS LIKE_COUNT
 		FROM TB_POST P
 		LEFT JOIN TB_POST_LIKE PL ON P.POST_ID = PL.POST_ID
-		WHERE P.POST_ID = #{ num }
+		WHERE P.POST_ID = #{ pNum }
 		GROUP BY P.POST_ID, P.TITLE, TO_CHAR(P.CONTENT), P.MEMBER_ID
 	</select>
 	
@@ -106,7 +116,7 @@
 		FROM TB_COMMENT C
 		LEFT JOIN TB_MEMBER M ON C.MEMBER_ID = M.MEMBER_ID
 		LEFT JOIN TB_COMMENT_LIKE CL ON C.COMMENT_ID = CL.COMMENT_ID
-		WHERE C.POST_ID = 1
+		WHERE C.POST_ID = #{postId}
 		GROUP BY 
 		    C.POST_ID,
 		    C.COMMENT_ID,
@@ -126,7 +136,91 @@
 		WHERE POST_ID = #{pNum}
 	</select>
 	
-
+	<delete id="deletePost">
+		DELETE FROM TB_POST
+		WHERE POST_ID = (
+		SELECT POST_ID
+		FROM TB_POST
+		WHERE POST_ID = 100
+		)
+	</delete>
+	
+	<insert id="insertPostLike">
+		INSERT INTO TB_POST_LIKE VALUES 
+			(SEQ_POST_LIKE_ID.NEXTVAL, SYSDATE, #{memberId}, #{postId})
+	</insert>
+	
+	<select id="selectPostLikeCount" resultMap="PostLikeCountResultMap" parameterType="PostLikeCountDto">
+		SELECT POST_ID, COUNT(*) AS LIKE_COUNT
+		FROM TB_POST_LIKE
+		WHERE POST_ID = #{postId}
+		GROUP BY POST_ID
+	</select>
+	
+	<select id="checkPostLike" resultMap="PostLikeCountResultMap" parameterType="PostLikeCountDto">
+		SELECT POST_ID, COUNT(*) AS LIKE_COUNT
+		FROM TB_POST_LIKE
+		WHERE MEMBER_ID = #{memberId} AND POST_ID = #{postId}
+		GROUP BY POST_ID
+	</select>
+	
+	<select id="checkCommentLike" resultMap="CommentLikeCountResultMap" parameterType="CommentLikeCountDto">
+		SELECT COMMENT_ID, COUNT(*) AS LIKE_COUNT
+		FROM TB_COMMENT_LIKE
+		WHERE MEMBER_ID = #{memberId} AND COMMENT_ID = #{commentId}
+		GROUP BY COMMENT_ID
+	</select>
+	
+	<insert id="insertCommentLike">
+		INSERT INTO TB_COMMENT_LIKE VALUES 
+			(SEQ_COM_LIKE_ID.NEXTVAL, SYSDATE, #{memberId}, #{commentId})
+	</insert>
+	
+	<select id="selectCommentLikeCount" resultMap="CommentLikeCountResultMap" parameterType="CommentLikeCountDto">
+		SELECT COMMENT_ID, COUNT(*) AS LIKE_COUNT
+		FROM TB_COMMENT_LIKE
+		WHERE COMMENT_ID = #{commentId}
+		GROUP BY COMMENT_ID
+	</select>
+	
+	<delete id="deleteCommentLike">
+		DELETE FROM TB_COMMENT_LIKE
+		WHERE COMMENT_ID = #{commentId} AND MEMBER_ID = #{memberId}
+	</delete>
+	
+	<delete id="deletePostLike">
+		DELETE FROM TB_POST_LIKE
+		WHERE POST_ID = #{postId} AND MEMBER_ID = #{memberId}
+	</delete>
+	
+	<update id="updateComment">
+		UPDATE TB_COMMENT
+			SET CONTENT = #{updatedContent}
+		WHERE COMMENT_ID = #{commentId} AND MEMBER_ID = #{memberId}
+	</update>
+	
+	<select id="selectUpdateComment" resultMap="postLastCommentResultMap" parameterType="commentDto">
+		SELECT 
+		    C.POST_ID,
+		    C.COMMENT_ID,
+		    SUBSTR(M.EMAIL, 1, INSTR(M.EMAIL, '@')-1) AS EMAIL,
+		    FLOOR(SYSDATE - C.CREATED_AT) AS REGIST_DATE,
+		    C.CONTENT,
+		    COUNT(CL.COMMENT_LIKE_ID) AS LIKE_COUNT,
+		    C.PARENT_ID
+		FROM TB_COMMENT C
+		LEFT JOIN TB_MEMBER M ON C.MEMBER_ID = M.MEMBER_ID
+		LEFT JOIN TB_COMMENT_LIKE CL ON C.COMMENT_ID = CL.COMMENT_ID
+		WHERE C.POST_ID = #{postId}
+		GROUP BY 
+		    C.POST_ID,
+		    C.COMMENT_ID,
+		    M.EMAIL,
+		    (SYSDATE - C.CREATED_AT),
+		    C.CONTENT,
+		    C.PARENT_ID
+		HAVING C.COMMENT_ID = #{commentId}
+	</select>
 	
 	
 </mapper>

@@ -39,18 +39,19 @@ public class CommentRegistController extends HttpServlet {
 		// 데이터 추출
 		String name = request.getParameter("name");
 		String commentView = request.getParameter("commentView");
-		String postId = request.getParameter("postId");
+		String pno = request.getParameter("postId");
+		int postId = Integer.parseInt(pno);
 		
 		System.out.println("name : " + name);
 		System.out.println("commentView : " + commentView);
 		System.out.println("postId : " + postId);
 		
 		// Service 객체에 전달받은 값들을 전달 - DB에 저장(insert)
-		PostDetailService bdService = new PostDetailServiceImpl();
-		int result = bdService.insertComment(name, commentView, postId);
+		PostDetailService pdService = new PostDetailServiceImpl();
+		int result = pdService.insertComment(name, commentView, postId);
 		
 		// 결과 데이터 추출
-		CommentDto lastComment = bdService.selectLastComment(postId);
+		CommentDto lastComment = pdService.selectLastComment(postId);
 		
 		System.out.println("Controller에서 lastComment : " + lastComment);
 		System.out.println("lastComment의 타입 : " + lastComment.getClass().getName());
@@ -63,7 +64,8 @@ public class CommentRegistController extends HttpServlet {
 		jsonObj.put("memberId", lastComment.getMemberId() );
 		jsonObj.put("postId", lastComment.getPostId() );
 		jsonObj.put("registDate", lastComment.getRegistDate() );
-		
+				
+		System.out.println("모든 처리 후 댓글등록 json의값 : " + jsonObj);
 		System.out.println(jsonObj.get("lastComment"));
 		
 		response.setContentType("application/json; charset=UTF-8");

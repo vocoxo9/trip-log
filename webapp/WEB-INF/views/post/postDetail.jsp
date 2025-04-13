@@ -71,9 +71,9 @@ String rootPath = request.getContextPath();
                         <input type="hidden" id="memberId" value="${ postDetail.memberId }"/> <%--  나중에 연결하면 loginUser의 memberId로 바꾸기!! --%>
 						<div class="nav-btn">
 							<nav>
-								<a href="#pageUp"><i class="fa-solid fa-circle-up"></i></a> <a
-									href="#pageDown"><i class="fa-solid fa-circle-down"></i></a> <a
-									href="#pageComment"><i class="fa-solid fa-pencil"></i></a>
+								<a href="#pageUp"><i class="fa-solid fa-circle-up"></i></a>
+								<a href="#pageDown"><i class="fa-solid fa-circle-down"></i></a> 
+								<a href="#pageComment"><i class="fa-solid fa-pencil"></i></a>
 							</nav>
 						</div>
 					</div>
@@ -81,9 +81,9 @@ String rootPath = request.getContextPath();
 						<div class="buttons">
 							<div class="update-delete-btn">
 								<input type="hidden" name="postId"
-									value="${ postDetail.postId }" /> <i
-									class="fa-solid fa-pen-to-square"></i> <i
-									class="fa-solid fa-trash-can"></i>
+									value="${ postDetail.postId }" />
+									<a href=""><i class="fa-solid fa-pen-to-square"></i></a>
+									<a href="post/delete?pno=${ postDetail.postId }"><i class="fa-solid fa-trash-can"></i></a>
 							</div>
 							<div class="board-like-count">
 								<i class="fa-regular fa-heart"></i> <span class="like-count">${ postDetail.likeCount }</span>
@@ -96,7 +96,6 @@ String rootPath = request.getContextPath();
 								<textarea id="comment"></textarea>
 								<i class="fa-regular fa-paper-plane"></i>
 							</div>
-							<div class="comment">
 								<%
 								ArrayList<CommentDto> comments = (ArrayList<CommentDto>) request.getAttribute("comments");
 								%>
@@ -106,21 +105,23 @@ String rootPath = request.getContextPath();
 								<%
 								for (CommentDto c : comments) {
 								%>
+							<div class="comment">
+								<input type="hidden" name="commentId" value="<%= c.getCommentId() %>" />
 								<div class="comment-views">
 									<div class="comment-user-profile">
 										<i class="fa-solid fa-user"></i>
 									</div>
-									<div class="comment-view">
+									<div class="comment-view" data-comment-target="<%= c.getCommentId() %>">
 										<div class="comment-view-header">
 											<div class="comment-user-name" id="userName"><%=c.getMemberId()%></div>
 											<div class="date-update-delete">
-												<div class="comment-date" id="registDate"><%=c.getRegistDate()%>일
-													전
+												<div class="comment-date" id="registDate">
+												<%=c.getRegistDate()%>일전
 												</div>
-												<div class="update-delete-menu active" data-target="<%= c.getCommentId()%>">
+												<div class="update-delete-menu active" data-etc-target="<%= c.getCommentId()%>">
 													<i class="fa-solid fa-ellipsis"></i>
 												</div>
-												<div class="comment-update-delete" id="<%= c.getCommentId() %>">
+												<div class="comment-update-delete" id="etc<%= c.getCommentId() %>">
 													<i class="fa-solid fa-pen-to-square"></i>
 													<i class="fa-solid fa-trash-can"></i>
 												</div>
@@ -131,23 +132,23 @@ String rootPath = request.getContextPath();
 										</div>
 										<div class="comment-view-footer">
 											<div class="reply-btn active"
-												data-target="<%=c.getCommentId()%>">
+												data-comment-target="<%=c.getCommentId()%>">
 												<i class="fa-solid fa-square-caret-down"></i> <span
 													id="replyWriter">댓글 달기</span>
 											</div>
 											<div class="reply-close-btn"
-												data-target="<%=c.getCommentId()%>">
+												data-comment-target="<%=c.getCommentId()%>">
 												<i class="fa-solid fa-square-caret-up"></i> <span
 													id="replyCloser">댓글 닫기</span>
 											</div>
-											<div class="comment-like">
+											<div class="comment-like" id="<%= c.getCommentId() %>">
 												<i class="fa-regular fa-heart"></i> <span class="like-count"><%=c.getLikeCount()%></span>
 											</div>
 										</div>
 									</div>
 								</div>
 
-								<div class="reply" id="<%=c.getCommentId()%>">
+								<div class="reply" id="reply<%=c.getCommentId()%>">
 									<div class="reply-input">
 										<!-- <input type="text" id="reply"> -->
 										<textarea id="reply"></textarea>

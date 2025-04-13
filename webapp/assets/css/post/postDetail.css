@@ -175,7 +175,7 @@
 	justify-content: space-around;
 }
 /* 댓글 공감 버튼 */
-.fa-regular.fa-heart {
+.fa-heart {
 	color: red;
 	font-size: 1.5rem;
 	padding: 0.3rem;
