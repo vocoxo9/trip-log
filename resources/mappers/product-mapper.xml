@@ -101,12 +101,34 @@
 		WHERE PRODUCT_ID = #{productId}
 	</select>
 	 -->
-  
+	 
+	<!-- 해당 회원이 해당 상품을 찜 했는지 조회 -->
+	<resultMap type="kr.co.khedu.product.model.dto.ProductFavoriteDTO" id="productFavoriteResultMap">
+		<result column="PRODUCT_ID" property="productId" />
+		<result column="MEMBER_ID" property="memberId" />
+	</resultMap>
+	<select id="selectProductFavoriteChecked" resultMap="productFavoriteResultMap">
+		SELECT PRODUCT_ID, MEMBER_ID
+		FROM TB_PRODUCT_FAVORITES
+		WHERE PRODUCT_ID = #{productId} AND MEMBER_ID = #{memberId}
+	</select>
+	
   	<!-- 상품 등록 쿼리문 -->
 	<insert id="insertProduct" parameterType="Product">
 		INSERT INTO TB_PRODUCT
 		VALUES (SEQ_PRODUCT_ID.NEXTVAL, #{name}, #{price}, #{stock}, #{description}, DEFAULT, #{memberId}, #{countryId}, #{originFileName}, #{changeFileName})
 	</insert>
+	
+	<!-- 상품 찜 하기 쿼리문 -->
+	<insert id="insertProductFavoirte" parameterType="kr.co.khedu.product.model.dto.ProductFavoriteDTO">
+		INSERT INTO TB_PRODUCT_FAVORITES
+		VALUES (SEQ_PRO_FAVOR_ID.NEXTVAL, DEFAULT, #{productId}, #{memberId})
+	</insert>
+	
+	<!-- 상품 찜 취소 쿼리문 -->
+	<delete id="deleteProductFavoirte">
+		DELETE FROM TB_PRODUCT_FAVORITES WHERE PRODUCT_ID = #{productId} AND MEMBER_ID = #{memberId}
+	</delete>
 	
 	<!-- 상품 삭제 쿼리문 -->
 	<delete id="deleteProduct">

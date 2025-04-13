@@ -53,10 +53,12 @@
 	            <!-- 상품 상단 제목 영역 -->
 	            <div class="product-detail-header-title">
 	                <p class="title">${productInfo.name }</p>
-	                
 					<div class="product-icon-area">
-						<span class="heart-icon">
-		                	<i class="fa-solid fa-heart"></i>
+						<span id="heartBtn" class="heart-icon">
+							<%--
+		                	<i class="fa-solid fa-heart" <c:if test="${ not empty productFavoriteInfo }"> style="color: var(--heart-color);" </c:if> ></i>
+		                	--%>
+		                	<i class="fa-solid fa-heart ${not empty productFavoriteInfo ? 'heart-active' : ''}"></i>
 		                </span>
 		                
 		                <% if(member.getMemberId() == product.getMemberId()) { %>

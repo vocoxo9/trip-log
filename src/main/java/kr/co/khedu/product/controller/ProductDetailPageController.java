@@ -11,8 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.co.khedu.country.model.dto.CountryDTO;
 import kr.co.khedu.country.service.CountryServiceImpl;
+import kr.co.khedu.member.model.vo.Member;
 import kr.co.khedu.product.common.ProductPath;
-import kr.co.khedu.product.model.dto.ProductReviewDTO;
+import kr.co.khedu.product.model.dto.ProductFavoriteDTO;
 import kr.co.khedu.product.model.vo.Product;
 import kr.co.khedu.product.service.ProductServiceImpl;
 
@@ -77,9 +78,16 @@ public class ProductDetailPageController extends HttpServlet {
 			}
 		}
 		
+		// 해당 상품을 찜 했는지 데이터 가져오기
+		Member member = (Member) request.getSession().getAttribute("loginMember");
+		int memberId = member.getMemberId();
+		
+		ProductFavoriteDTO productFavoriteInfo = new ProductServiceImpl().selectProductFavoriteChecked(new ProductFavoriteDTO(productId, memberId));
+		
 		request.setAttribute("productInfo", product);
 		request.setAttribute("reviewScore", reviewScore);
 		request.setAttribute("countryName", countryName);
+		request.setAttribute("productFavoriteInfo", productFavoriteInfo);
 //		request.setAttribute("productReviewMemberList", productReviewMemberList);
 //		request.setAttribute("defaultPath", defaultPath);
 		request.getRequestDispatcher("/WEB-INF/views/product/productDetail.jsp").forward(request, response);

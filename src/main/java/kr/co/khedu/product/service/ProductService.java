@@ -3,6 +3,7 @@ package kr.co.khedu.product.service;
 import java.util.List;
 
 import kr.co.khedu.common.PageInfo;
+import kr.co.khedu.product.model.dto.ProductFavoriteDTO;
 import kr.co.khedu.product.model.dto.ProductListDTO;
 import kr.co.khedu.product.model.dto.ProductReviewDTO;
 import kr.co.khedu.product.model.dto.ProductSearchDTO;
@@ -39,4 +40,13 @@ public interface ProductService {
 
 	// 리뷰 작성한 회원 조회
 	List<ProductReviewDTO> selectProductReviewMemberList(int productId);
+
+	// 상품 찜 기능
+	int insertProductFavoirte(ProductFavoriteDTO productFavoriteDTO);
+
+	// 해당 회원이 해당 상품을 찜 했는지 조회
+	ProductFavoriteDTO selectProductFavoriteChecked(ProductFavoriteDTO productFavoriteDTO);
+
+	// 상품 찜 취소
+	int deleteProductFavoirte(ProductFavoriteDTO productFavoriteDTO);
 }

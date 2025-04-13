@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import kr.co.khedu.common.PageInfo;
 import kr.co.khedu.product.model.dao.ProductDAO;
+import kr.co.khedu.product.model.dto.ProductFavoriteDTO;
 import kr.co.khedu.product.model.dto.ProductListDTO;
 import kr.co.khedu.product.model.dto.ProductReviewDTO;
 import kr.co.khedu.product.model.dto.ProductSearchDTO;
@@ -150,6 +151,47 @@ public class ProductServiceImpl implements ProductService {
 		sqlSession.close();
 		
 		return productReviewMemberList;
+	}
+
+	@Override
+	public int insertProductFavoirte(ProductFavoriteDTO productFavoriteDTO) {
+		SqlSession sqlSession = Template.getSqlSession();
+		
+		int result = new ProductDAO().insertProductFavoirte(sqlSession, productFavoriteDTO);
+
+		if(result > 0) {
+			sqlSession.commit();
+		}
+		
+		sqlSession.close();
+		
+		return result;
+	}
+
+	@Override
+	public ProductFavoriteDTO selectProductFavoriteChecked(ProductFavoriteDTO productFavoriteDTO) {
+		SqlSession sqlSession = Template.getSqlSession();
+		
+		ProductFavoriteDTO result = new ProductDAO().selectProductFavoriteChecked(sqlSession, productFavoriteDTO);
+		
+		sqlSession.close();
+		
+		return result;
+	}
+
+	@Override
+	public int deleteProductFavoirte(ProductFavoriteDTO productFavoriteDTO) {
+		SqlSession sqlSession = Template.getSqlSession();
+		
+		int result = new ProductDAO().deleteProductFavoirte(sqlSession, productFavoriteDTO);
+
+		if(result > 0) {
+			sqlSession.commit();
+		}
+		
+		sqlSession.close();
+		
+		return result;
 	}
 
 }
