@@ -56,7 +56,8 @@
 								<li class="product-list-card">
 									<a href="products/detail/${p.productId }">
 										<span class="product-list-card-header">
-											<span class="heart-icon"><i class="fa-solid fa-heart"></i></span>
+											<%-- <span class="heart-icon"><i class="fa-solid fa-heart"></i></span> --%>
+											<span class="location-text"><i class="fa-solid fa-location-dot"></i> ${ p.countryName } </span>
 										</span>
 										<%--
 										<c:choose>

@@ -21,5 +21,6 @@ public class ProductListDTO {
 	private int price;
 	private String changeFileName;
 	private Date createdAt;
+	private String countryName;
 	private double score;
 }

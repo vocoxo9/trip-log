@@ -112,6 +112,10 @@
     padding: 0 0.3rem;
 }
 
+.location-text {
+    font-size: 0.7rem;
+}
+
 .product-image {
     width: 100%;
     height: 10rem;

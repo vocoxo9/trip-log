@@ -54,31 +54,38 @@
 	
 	<!-- 상품의 전체 데이터 조회(키워드가 있을 검색 포함) -->
 	<resultMap type="kr.co.khedu.product.model.dto.ProductListDTO" id="productListKeywordResultMap">
-		<result column="PRODUCT_ID" property="productId" />
-		<result column="CHANGE_FILE_NAME" property="changeFileName" />
-		<result column="CREATED_AT" property="createdAt" />
+	    <result column="PRODUCT_ID" property="productId" />
+	    <result column="NAME" property="name" />
+	    <result column="PRICE" property="price" />
+	    <result column="CHANGE_FILE_NAME" property="changeFileName" />
+	    <result column="CREATED_AT" property="createdAt" />
+	    <result column="COUNTRY_NAME" property="countryName" />
+	    <result column="SCORE" property="score" />
 	</resultMap>
+
 	<select id="findByProductNameLike" resultMap="productListKeywordResultMap">
 		SELECT 
-		    PRODUCT_ID,
-		    NAME,
-		    PRICE,
-		    CHANGE_FILE_NAME,
-		    CREATED_AT,
-		    ROUND(NVL(AVG(SCORE), 0), 1) AS SCORE
-		FROM TB_PRODUCT
-			LEFT JOIN TB_PRODUCT_REVIEW USING(PRODUCT_ID)
-		WHERE 1 = 1 AND NAME LIKE '%${keyword}%'
-		GROUP BY PRODUCT_ID, NAME, PRICE, CHANGE_FILE_NAME, CREATED_AT
+		    TP.PRODUCT_ID,
+		    TP.NAME,
+		    TP.PRICE,
+		    TP.CHANGE_FILE_NAME,
+		    TP.CREATED_AT,
+		    TRC.NAME AS COUNTRY_NAME,
+		    ROUND(NVL(AVG(TPR.SCORE), 0), 1) AS SCORE
+		FROM TB_PRODUCT TP
+			LEFT JOIN TB_PRODUCT_REVIEW TPR ON TP.PRODUCT_ID = TPR.PRODUCT_ID
+			LEFT JOIN TR_COUNTRY TRC ON TP.COUNTRY_ID = TRC.COUNTRY_ID 
+		WHERE 1 = 1 AND TP.NAME LIKE '%${keyword}%'
+		GROUP BY TP.PRODUCT_ID, TP.NAME, TP.PRICE, TP.CHANGE_FILE_NAME, TRC.NAME, TP.CREATED_AT
 		<choose>
 			<when test="sort == 'reviewValue'">
-				ORDER BY SCORE DESC, CREATED_AT DESC
+				ORDER BY SCORE DESC, TP.CREATED_AT DESC
 			</when>
 			<when test="sort == 'priceValue'">
-				ORDER BY PRICE DESC, CREATED_AT DESC
+				ORDER BY TP.PRICE DESC, TP.CREATED_AT DESC
 			</when>
 			<otherwise>
-				ORDER BY CREATED_AT DESC
+				ORDER BY TP.CREATED_AT DESC
 			</otherwise>
 		</choose>
 	</select>
