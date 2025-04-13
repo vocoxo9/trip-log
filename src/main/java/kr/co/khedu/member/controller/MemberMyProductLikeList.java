@@ -1,6 +1,8 @@
 package kr.co.khedu.member.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.co.khedu.member.model.dto.MemberDTO;
+import kr.co.khedu.member.model.dto.MemberProductFavoriteDTO;
+import kr.co.khedu.product.service.ProductServiceImpl;
 
 /**
  * Servlet implementation class MemberMyProductLikeList
@@ -34,6 +38,15 @@ public class MemberMyProductLikeList extends HttpServlet {
 			response.sendRedirect(request.getContextPath());
 		}
 		int memberId = loginMember.getMemberId();
+		
+		// 내 상품 찜 정보 불러오기 - 성준
+		List<MemberProductFavoriteDTO> myProductFavoriteList = new ProductServiceImpl().selectMyProductFavorite(memberId);
+		
+		// for(MemberProductFavoriteDTO mpf : myProductFavoriteList) System.out.println(mpf);
+		
+		request.setAttribute("myProductFavoriteList", myProductFavoriteList);
+		
+		// 여기까지
 		
 		request.getRequestDispatcher("/WEB-INF/views/member/myProductLikeList.jsp").forward(request, response);
 	}

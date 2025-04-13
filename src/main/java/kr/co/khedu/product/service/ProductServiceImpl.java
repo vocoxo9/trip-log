@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import kr.co.khedu.common.PageInfo;
+import kr.co.khedu.member.model.dto.MemberProductFavoriteDTO;
 import kr.co.khedu.product.model.dao.ProductDAO;
 import kr.co.khedu.product.model.dto.ProductFavoriteDTO;
 import kr.co.khedu.product.model.dto.ProductListDTO;
@@ -192,6 +193,17 @@ public class ProductServiceImpl implements ProductService {
 		sqlSession.close();
 		
 		return result;
+	}
+
+	@Override
+	public List<MemberProductFavoriteDTO> selectMyProductFavorite(int memberId) {
+		SqlSession sqlSession = Template.getSqlSession();
+		
+		List<MemberProductFavoriteDTO> myProductFavoriteList = new ProductDAO().selectMyProductFavorite(sqlSession, memberId);
+		
+		sqlSession.close();
+		
+		return myProductFavoriteList;
 	}
 
 }

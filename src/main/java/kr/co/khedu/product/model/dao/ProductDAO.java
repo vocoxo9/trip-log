@@ -6,6 +6,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
 import kr.co.khedu.common.PageInfo;
+import kr.co.khedu.member.model.dto.MemberProductFavoriteDTO;
 import kr.co.khedu.product.model.dto.ProductFavoriteDTO;
 import kr.co.khedu.product.model.dto.ProductListDTO;
 import kr.co.khedu.product.model.dto.ProductReviewDTO;
@@ -81,5 +82,10 @@ public class ProductDAO {
 	// 상품 찜 취소
 	public int deleteProductFavoirte(SqlSession sqlSession, ProductFavoriteDTO productFavoriteDTO) {
 		return sqlSession.delete("productMapper.deleteProductFavoirte", productFavoriteDTO);
+	}
+
+	// 내 상품 찜 목록 조회
+	public List<MemberProductFavoriteDTO> selectMyProductFavorite(SqlSession sqlSession, int memberId) {
+		return sqlSession.selectList("productMapper.selectMyProductFavorite", memberId);
 	}
 }

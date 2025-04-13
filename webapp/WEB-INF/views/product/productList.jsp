@@ -73,7 +73,7 @@
 										<%--
 										<img src="<%= rootPath %>/resources/upload/${product.changeFileName}" alt="Product Image" class="product-image" />
 										 --%>
-										 <img src="/trip-log/${p.changeFileName}" alt="Product Image" class="product-image" />
+										 <img src="<%= rootPath %>/${p.changeFileName}" alt="Product Image" class="product-image" />
 										<span class="product-list-card-body">
 											<span class="product-item-title">${ p.name }</span>
 											<span><fmt:formatNumber value="${p.price}" type="number" groupingUsed="true" />원</span>

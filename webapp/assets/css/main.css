@@ -22,7 +22,7 @@
 	font-weight: 900;
 }
 
-.list-header p:nth-last-child(1) {
+.list-header p:nth-last-child(1) a {
 	font-size: 1rem;
 	color: var(--sub-strong-color);
 }

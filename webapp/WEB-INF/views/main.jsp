@@ -59,7 +59,9 @@
 	
 	                <!-- 더보기 p태그 자체를 클릭 시 여행 후기(커뮤니티) 목록 페이지로 이동 -->
 	                <p>
-	                    더보기 <i class="fa-solid fa-arrow-right"></i>
+	                    <a href="">
+	                    	더보기 <i class="fa-solid fa-arrow-right"></i>
+	                    </a>
 	                </p>
 	            </div>
 	            <div class="list-content">
@@ -167,7 +169,9 @@
 	                    이 기회를 놓치지 마세요!
 	                </p>
 	                <p>
-	                    더보기 <i class="fa-solid fa-arrow-right"></i>
+	                    <a href="<%= rootPath %>/products">
+	                    	더보기 <i class="fa-solid fa-arrow-right"></i>
+	                    </a>
 	                </p>
 	            </div>
 	            <div class="product-list-content">
@@ -243,7 +247,9 @@
 	                    이번 달은 여기다!
 	                </p>
 	                <p>
-	                    더보기 <i class="fa-solid fa-arrow-right"></i>
+	                    <a href="">
+	                    	더보기 <i class="fa-solid fa-arrow-right"></i>
+	                    </a>
 	                </p>
 	            </div>
 	            <div class="rank-content">

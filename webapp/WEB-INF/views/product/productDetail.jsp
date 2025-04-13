@@ -45,7 +45,7 @@
 						</c:otherwise>
 					</c:choose>
 	            	 --%>
-					<img src="/trip-log/${productInfo.changeFileName}" alt="Product Image" class="product-image" />
+					<img src="<%= rootPath %>/${productInfo.changeFileName}" alt="Product Image" class="product-image" />
 	            </div>
 	        </div>
 	        <!-- 상품 상단 영역 -->

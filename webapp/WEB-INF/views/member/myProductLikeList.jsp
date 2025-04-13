@@ -3,6 +3,7 @@
 <%@ page
 	import="kr.co.khedu.member.model.dto.MemberDTO,
 					java.util.List"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String rootPath = request.getContextPath();
 MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
@@ -66,49 +67,19 @@ MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
 								<th>상품명</th>
 								<th>가격</th>
 								<th>재고</th>
-								<th>상품 구매 날짜</th>
+								<%-- <th>상품 구매 날짜</th> --%>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>1</td>
-								<td>패키지</td>
-								<td>3000000원</td>
-								<td>3</td>
-								<td>2025.04.03</td>
-							</tr>
-
-							<tr>
-								<td>2</td>
-								<td>패키지</td>
-								<td>3000000원</td>
-								<td>3</td>
-								<td>2025.04.03</td>
-							</tr>
-
-							<tr>
-								<td>3</td>
-								<td>패키지</td>
-								<td>3000000원</td>
-								<td>3</td>
-								<td>2025.04.03</td>
-							</tr>
-
-							<tr>
-								<td>4</td>
-								<td>패키지</td>
-								<td>3000000원</td>
-								<td>3</td>
-								<td>2025.04.03</td>
-							</tr>
-
-							<tr>
-								<td>5</td>
-								<td>패키지</td>
-								<td>3000000원</td>
-								<td>3</td>
-								<td>2025.04.03</td>
-							</tr>
+							<c:forEach var="myFavoriteProduct" items="${myProductFavoriteList }">
+								<tr>
+									<td>${myFavoriteProduct.productId }</td>
+									<td>${myFavoriteProduct.productName }</td>
+									<td>${myFavoriteProduct.price }</td>
+									<td>${myFavoriteProduct.stock }</td>
+									<%-- <td>2025.04.03</td> --%>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
