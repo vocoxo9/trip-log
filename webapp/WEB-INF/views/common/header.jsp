@@ -63,13 +63,12 @@
                     -->
                     <li>
                     	<a href="<%= rootPath %>/members/mypage" class="menu-list-item">
-                    	<a href="<%= rootPath %>/members/mypage" class="menu-list-item">
 	                        <i class="fa-solid fa-user"></i>
 	                        <span>My</span>
                     	</a>
                     </li>
                     <li>
-                    	<a href="" class="menu-list-item">
+                    	<a href="<%= rootPath %>/members/productLikes" class="menu-list-item">
 	                        <i class="fa-solid fa-heart" style="color: var(--heart-color)"></i>
 	                        <span>찜</span>
                     	</a>

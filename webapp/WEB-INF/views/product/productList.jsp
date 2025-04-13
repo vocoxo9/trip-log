@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import='kr.co.khedu.common.PageInfo' %>
+<%@ page import="kr.co.khedu.common.PageInfo" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
@@ -37,30 +37,47 @@
 						</div>						
 					</form>
 				</div>
-				<div class="product-menu-area">
-					<div class="product-insert-btn-area">
-						<a href="register" class="product-insert-btn"> 
-							<i class="fa-solid fa-cart-plus"></i> <!-- 상품등록 -->
-						</a>
+				
+				<%-- 관리자일 경우에만 보이기 --%>
+				<c:if test="${ loginMember.getMemberId() == 1 }">
+					<div class="product-menu-area">
+						<div class="product-insert-btn-area">
+							<a href="register" class="product-insert-btn"> 
+								<i class="fa-solid fa-cart-plus"></i> <!-- 상품등록 -->
+							</a>
+						</div>
 					</div>
-				</div>
+				</c:if>
 
 				<ul class="product-list">
 					<c:choose>
 						<c:when test="${ not empty pList }">
 							<c:forEach var="p" items="${ pList }">
 								<li class="product-list-card">
-									<a href="products/detail/${p.productId }"> <%-- url 요청 주소 생각하기! + 상품의 찜 아이콘 우측 정렬하기! --%>
+									<a href="products/detail/${p.productId }">
 										<span class="product-list-card-header">
-											<span class="heart-icon"><i class="fa-solid fa-heart"></i></span>
+											<%-- <span class="heart-icon"><i class="fa-solid fa-heart"></i></span> --%>
+											<span class="location-text"><i class="fa-solid fa-location-dot"></i> ${ p.countryName } </span>
 										</span>
-										<img src="<%= rootPath %>/assets/images/product/sample-img.jpg"
-											class="product-image" />
+										<%--
+										<c:choose>
+											<c:when test="${p.changeFileName == defaultPath}">
+											${pageContext.request.contextPath}/${defaultPath}
+												<img src="${pageContext.request.contextPath}/${defaultPath}" alt="Product Image" class="product-image" />
+											</c:when>
+											<c:otherwise>
+												<img src="/trip-log${p.changeFileName}" alt="Product Image" class="product-image" />
+											</c:otherwise>
+										</c:choose>
+										 --%>
+										<%--
+										<img src="<%= rootPath %>/resources/upload/${product.changeFileName}" alt="Product Image" class="product-image" />
+										 --%>
+										 <img src="<%= rootPath %>/${p.changeFileName}" alt="Product Image" class="product-image" />
 										<span class="product-list-card-body">
 											<span class="product-item-title">${ p.name }</span>
 											<span><fmt:formatNumber value="${p.price}" type="number" groupingUsed="true" />원</span>
 											<span>
-												<!-- 평점 값으로 별 색상 채우기 -->
 												<i class="fa-solid fa-star"></i> ${ p.score }
 											</span>
 										</span>

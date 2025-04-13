@@ -102,6 +102,9 @@
 $(function() {
     reviewRegister();
     payment();
+    heartBtn();
+    productEditBtn();
+    productDeleteBtn();
 });
 // 결제 API
 const payment = () => {
@@ -209,5 +212,187 @@ const reviewRegister = () => {
     $reviewRegisterBtn.on("click", function () {
         const $starInputArr = $(".star-icon.filled");
         console.log($starInputArr.length / 2);
+        const score = $starInputArr.length / 2;
+        
+        // 리뷰 등록
+        $.ajax({
+            url: "/trip-log/products/review/" + productInfo.productId,
+            method: "post",
+            data: {
+                memberId: productInfo.memberId,
+                score: score
+            },
+            success: (data) => {
+                // console.log("통신 성공");
+                console.log(data);
+                Swal.fire({
+                    title: data.title,
+                    icon: data.icon,
+                    text: data.text
+                }).then((result) => {
+                    if(result.isConfirmed) {
+                        // 리뷰 등록 후 reload
+                        location.reload(true);
+                    } 
+                });
+            },
+            error: () => {
+                Swal.fire({
+                    title: "리뷰 등록",
+                    icon: "error",
+                    text: "리뷰 등록 오류",
+                    confirmButtonText: "확인"
+                }).then((result) => {
+                    if(result.isConfirmed) {
+                        location.href = "/trip-log/products/detail/" + productInfo.productId;
+                    }
+                });
+            }
+        });
     });
 };
+
+const productEditBtn = () => {
+    $(".product-edit-icon").click(() => {
+        Swal.fire({
+            title: "상품 수정",
+            icon: "question",
+            text: "상품을 수정하시겠습니까?",
+            confirmButtonColor: "#118C8C",
+            confirmButtonText: "수정",
+            confirmTextColor: "#FFF",
+            showCancelButton: true,
+            cancelButtonText: "취소"
+        }).then((result) => {
+            if(result.isConfirmed) {
+                // console.log(productInfo.productId);
+                location.href = "/trip-log/products/update/" + productInfo.productId;
+            }
+        });
+    })
+}
+
+const productDeleteBtn = () => {
+    $(".product-trash-icon").click(() => {
+        // console.log("click");
+        Swal.fire({
+            title: "상품 삭제",
+            icon: "question",
+            text: "상품을 삭제하시겠습니까?",
+            confirmButtonColor: "#F00",
+            confirmButtonText: "삭제",
+            showCancelButton: true,
+            cancelButtonText: "취소"
+        }).then((result) => {
+            if(result.isConfirmed) {
+                // console.log(productInfo.productId);
+                location.href = "/trip-log/products/auth/delete/" + productInfo.productId;
+            }
+        });
+    });
+}
+
+const heartBtn = () => {
+    $("#heartBtn").click((e) => {
+        const $icon = $(e.currentTarget).find("i"); // i 태그 선택
+
+        if (!$icon.hasClass("heart-active")) {
+            // 상품 찜 안했을 경우
+            Swal.fire({
+                title: "찜 하기",
+                icon: "question",
+                text: "상품을 찜 하시겠습니까?",
+                confirmButtonColor: "#118C8C",
+                confirmButtonText: "찜",
+                showCancelButton: true,
+                cancelButtonText: "취소"
+            }).then((result) => {
+                if(result.isConfirmed) {
+                    $.ajax({
+                        url: "/trip-log/products/auth/favorite",
+                        method: "post",
+                        data: {
+                            productId: productInfo.productId,
+                            memberId: productInfo.memberId
+                        },
+                        success: (data) => {
+                            // console.log(data);
+                            Swal.fire({
+                                title: data.title,
+                                icon: data.icon,
+                                text: data.text
+                            }).then((result) => {
+                                if(result.isConfirmed) {
+                                    location.reload(true);
+                                } 
+                            });
+                            $icon.addClass("heart-active");
+                        },
+                        error: (error) => {
+                            Swal.fire({
+                                title: "찜 하기",
+                                icon: "error",
+                                text: "찜 하기 오류",
+                                confirmButtonText: "확인"
+                            }).then((result) => {
+                                if(result.isConfirmed) {
+                                    console.log("error : " + error);
+                                    location.href = "/trip-log/products/detail/" + productInfo.productId;
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+            
+        } else {
+            // 상품 찜 했을 경우
+            Swal.fire({
+                title: "찜 취소",
+                icon: "question",
+                text: "상품 찜을 취소하시겠습니까?",
+                confirmButtonColor: "$colorValue",
+                confirmButtonText: "찜 취소",
+                showCancelButton: true,
+                cancelButtonText: "취소"
+            }).then((result) => {
+                if(result.isConfirmed) {
+                    $.ajax({
+                        url: "/trip-log/products/auth/delete/favorite",
+                        method: "post",
+                        data: {
+                            productId: productInfo.productId,
+                            memberId: productInfo.memberId
+                        },
+                        success: (data) => {
+                            // console.log(data);
+                            Swal.fire({
+                                title: data.title,
+                                icon: data.icon,
+                                text: data.text
+                            }).then((result) => {
+                                if(result.isConfirmed) {
+                                    location.reload(true);
+                                } 
+                            });
+                            $icon.removeClass("heart-active");
+                        },
+                        error: (error) => {
+                            Swal.fire({
+                                title: "찜 취소소",
+                                icon: "error",
+                                text: "찜 취소소 오류",
+                                confirmButtonText: "확인"
+                            }).then((result) => {
+                                if(result.isConfirmed) {
+                                    console.log("error : " + error);
+                                    location.href = "/trip-log/products/detail/" + productInfo.productId;
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+}

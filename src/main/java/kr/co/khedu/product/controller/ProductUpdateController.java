@@ -18,21 +18,21 @@ import kr.co.khedu.product.model.vo.Product;
 import kr.co.khedu.product.service.ProductServiceImpl;
 
 /**
- * Servlet implementation class ProductRegisterController
+ * Servlet implementation class ProductUpdateController
  */
-@WebServlet("/products/auth/register")
+@WebServlet("/products/auth/update/*")
 @MultipartConfig(
 		fileSizeThreshold = 1024 * 1024 * 1,// 이 크기가 넘으면 디스크의 임시디렉터리에 저장됨 (기본값은 0 => 무조건 임시 디렉터리)
 		maxFileSize = 1024 * 1024 * 10,		// 파일의 최대 크기 (기본값은 -1L => 제한이 없음)
 		maxRequestSize = 1024 * 1024 * 15	// 한 요청의 최대 크기, 여러 파일 및 전송값 등을 합한 최대 크기 (기본값은 -1L => 제한 없음)
 )
-public class ProductRegisterController extends HttpServlet {
+public class ProductUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductRegisterController() {
+    public ProductUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -49,8 +49,15 @@ public class ProductRegisterController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// System.out.println("test");
 		request.setCharacterEncoding("UTF-8");
+		System.out.println("상품 수정 !!!");
+		// URL 경로에서 상품 아이디 추출
+		System.out.println("request.getPathInfo() : " + request.getPathInfo());
+		String pathInfo = request.getPathInfo();
+
+		int productId = ProductPath.getProductId(request, pathInfo);
+		System.out.println(productId);
+		
 		TripFileUtils uploadUtil = TripFileUtils.create(request.getServletContext());
 		String name = "";
 		String originFileName = "";
@@ -58,12 +65,11 @@ public class ProductRegisterController extends HttpServlet {
 		int price = 0;
 		int stock = 0;
 		String description = "";
-		int memberId = 0;
-		int countryId = 0;
+		int memberId = Integer.parseInt(request.getParameter("memberId"));
 		
 		Collection<Part> parts = request.getParts();
 		
-		parts.forEach(e -> System.out.println(e.getName()));
+		parts.forEach(e -> System.out.println("e.getName() : " + e.getName()));
 		
 		Iterator<Part> i = parts.iterator();
 		
@@ -74,50 +80,44 @@ public class ProductRegisterController extends HttpServlet {
 			String formTypeName = p.getName();
 
 			switch (formTypeName) {
-			case "memberId":
-				memberId = Integer.parseInt(request.getParameter("memberId"));
-				break;
-		    case "name":
-		        name = request.getParameter(formTypeName);
-		        break;
-		    case "uploadFile":
-		    	if(!p.getSubmittedFileName().equals("")) {
-		    		String subFolder = uploadUtil.createFilePath(); // yyyy/MM/dd 폴더 경로
-		    		// System.out.println(subFolder);
-		    		changeFileName = TripFileUtils.changeFileName(p);
-		    		// System.out.println(changeFileName);
-		    		uploadUtil.saveFile(p, subFolder, changeFileName);
-		    		changeFileName = "/assets/resources/upload/" + subFolder + "/" + changeFileName;
-		    		
-			    	originFileName = p.getSubmittedFileName();
-		    	} else {
-					// 상품 이미지가 없는 경우 샘플 이미지로 대체
-					String sampleImgPath = ProductPath.sampleImg();
-					originFileName = sampleImgPath.substring(sampleImgPath.lastIndexOf("/") + 1);
-					changeFileName = sampleImgPath;
-		    	}
-		        break;
-		    case "description":
-		        description = request.getParameter(formTypeName);
-		        break;
-		    case "price":
-		        price = Integer.parseInt(request.getParameter(formTypeName));
-		        break;
-		    case "stock":
-		        stock = Integer.parseInt(request.getParameter(formTypeName));
-		        break;
-		    case "countryId":
-		    	countryId = Integer.parseInt(request.getParameter("countryId"));
-				break;
+			    case "name":
+			        name = request.getParameter(formTypeName);
+			        break;
+			    case "uploadFile":
+			    	if(!p.getSubmittedFileName().equals("")) {
+			    		String subFolder = uploadUtil.createFilePath(); // yyyy/MM/dd 폴더 경로
+			    		// System.out.println(subFolder);
+			    		changeFileName = TripFileUtils.changeFileName(p);
+			    		// System.out.println(changeFileName);
+			    		uploadUtil.saveFile(p, subFolder, changeFileName);
+			    		changeFileName = "/assets/resources/upload/" + subFolder + "/" + changeFileName;
+			    		
+				    	originFileName = p.getSubmittedFileName();
+			    	} else {
+						// 상품 이미지가 없는 경우 샘플 이미지로 대체
+						String sampleImgPath = ProductPath.sampleImg();
+						originFileName = sampleImgPath.substring(sampleImgPath.lastIndexOf("/") + 1);
+						changeFileName = sampleImgPath;
+			    	}
+			        break;
+			    case "description":
+			        description = request.getParameter(formTypeName);
+			        break;
+			    case "price":
+			        price = Integer.parseInt(request.getParameter(formTypeName));
+			        break;
+			    case "stock":
+			        stock = Integer.parseInt(request.getParameter(formTypeName));
+			        break;
 			}
 		}
 		
-		Product product = new Product(name, price, stock, description, originFileName, changeFileName, memberId, countryId);
-		// System.out.println(product);
+		Product product = new Product(productId, name, price, stock, description, originFileName, changeFileName);
+		System.out.println("update : " + product);
 		
-		int result = new ProductServiceImpl().insertProduct(product);
+		int result = new ProductServiceImpl().updateProduct(product);
 		
-		// System.out.println(result);
+		 System.out.println("update : " + result);
 		
 		if(result > 0) {
 			response.sendRedirect("/trip-log/products");
@@ -126,7 +126,6 @@ public class ProductRegisterController extends HttpServlet {
 			request.setAttribute("errorMsg", "로그인 정보가 잘못되었습니다");
 			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
 		}
-		
 	}
-		
+
 }

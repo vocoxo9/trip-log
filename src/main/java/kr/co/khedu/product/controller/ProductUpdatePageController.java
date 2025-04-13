@@ -11,18 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.co.khedu.country.model.dto.CountryDTO;
 import kr.co.khedu.country.service.CountryServiceImpl;
+import kr.co.khedu.product.common.ProductPath;
+import kr.co.khedu.product.model.vo.Product;
+import kr.co.khedu.product.service.ProductServiceImpl;
 
 /**
- * Servlet implementation class ProductRegisterPageController
+ * Servlet implementation class ProductUpdateController
  */
-@WebServlet("/register")
-public class ProductRegisterPageController extends HttpServlet {
+@WebServlet("/products/update/*")
+public class ProductUpdatePageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductRegisterPageController() {
+    public ProductUpdatePageController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,12 +39,24 @@ public class ProductRegisterPageController extends HttpServlet {
 		
 		for(CountryDTO c : countryList) System.out.println(c);
 		
-		if(countryList != null) {
-			request.setAttribute("countryInfo", countryList);
-			request.getRequestDispatcher("WEB-INF/views/product/productRegister.jsp").forward(request, response);
-		} else {
-			// 에러페이지 처리
+		// 상품 아이디 값 구하기
+		String pathInfo = request.getPathInfo();
+		int productId = ProductPath.getProductId(request, pathInfo);
+		
+		Product product = new ProductServiceImpl().selectProductByProductId(productId);
+		
+		if(product == null) {
+			// TODO: 에러 페이지로 이동
+			System.out.println("오류입니다.");
+			response.sendRedirect(request.getContextPath());
+			return;
 		}
+		
+		System.out.println(product);
+
+		request.setAttribute("countryInfo", countryList);
+		request.setAttribute("productInfo", product);
+		request.getRequestDispatcher("/WEB-INF/views/product/productUpdate.jsp").forward(request, response);
 	}
 
 	/**

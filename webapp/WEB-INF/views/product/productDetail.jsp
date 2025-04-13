@@ -1,9 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="
+	kr.co.khedu.member.model.vo.Member, 
+	kr.co.khedu.product.model.vo.Product,
+	kr.co.khedu.product.model.dto.ProductReviewDTO,
+	java.util.List
+"  %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	String rootPath = request.getContextPath();
+	Member member = (Member) request.getSession().getAttribute("loginMember");
+	Product product = (Product) request.getAttribute("productInfo");
+	/*
+	List<ProductReviewDTO> reviewMemberList = (List<ProductReviewDTO>) request.getAttribute("productReviewMemberList");
+	
+	for(ProductReviewDTO prDTO : reviewMemberList) System.out.println(prDTO);
+	*/
 %>
 <!DOCTYPE html>
 <html>
@@ -22,7 +35,17 @@
 	        <!-- 상품 이미지 영역 -->
 	        <div class="product-image-area">
 	            <div class="product-image">
-					<img src="<%= rootPath %>/assets/images/product/sample-img.jpg" class="product-image" />
+	            	<%--
+					<c:choose>
+						<c:when test="${productInfo.changeFileName == null}">
+							<img src="${pageContext.request.contextPath}/${defaultPath}" alt="Product Image" class="product-image" />
+						</c:when>
+						<c:otherwise>
+							<img src="/trip-log/${productInfo.changeFileName}" alt="Product Image" class="product-image" />
+						</c:otherwise>
+					</c:choose>
+	            	 --%>
+					<img src="<%= rootPath %>/${productInfo.changeFileName}" alt="Product Image" class="product-image" />
 	            </div>
 	        </div>
 	        <!-- 상품 상단 영역 -->
@@ -30,11 +53,23 @@
 	            <!-- 상품 상단 제목 영역 -->
 	            <div class="product-detail-header-title">
 	                <p class="title">${productInfo.name }</p>
-	                <span class="heart-icon"><i class="fa-solid fa-heart"></i></span>
-	                <!--
-	                    아이콘 클릭 시 아래로 변경
-	                    <i class="fa-solid fa-heart"></i>
-	                -->
+					<div class="product-icon-area">
+						<span id="heartBtn" class="heart-icon">
+							<%--
+		                	<i class="fa-solid fa-heart" <c:if test="${ not empty productFavoriteInfo }"> style="color: var(--heart-color);" </c:if> ></i>
+		                	--%>
+		                	<i class="fa-solid fa-heart ${not empty productFavoriteInfo ? 'heart-active' : ''}"></i>
+		                </span>
+		                
+		                <% if(member.getMemberId() == product.getMemberId()) { %>
+		                	<span class="product-edit-icon">
+			                	<i class="fa-solid fa-edit"></i>
+			                </span>
+			                <span class="product-trash-icon">
+			                	<i class="fa-solid fa-trash-can"></i>
+			                </span>
+		                <% } %>
+					</div>
 	            </div>
 	
 	            <!-- 상품 상단 기타 영역(가격 정보, 여행 후기 링크) -->
@@ -46,7 +81,8 @@
 	                    </p>
 	                </div>
 	                <div class="product-detail-header-etc-review">
-	                    <span class="review-score"><i class="fa-solid fa-star"></i><span>4.5</span></span>
+	                    <span class="review-score"><i class="fa-solid fa-star"></i><span>${reviewScore }</span></span>
+	                    <span><i class="fa-solid fa-location-dot"></i> ${ countryName }</span>
 	                    <span class="review-link"><a href="#">여행후기 <i class="fa-solid fa-arrow-right"></i></a></span>
 	                </div>
 	            </div>
@@ -66,34 +102,48 @@
 	            </div>
 	        </div>
 	
-	        <div class="product-detail-review-area">
-	            <div class="product-detail-review-content">
-	                <div class="product-detail-review-score-area">
-	                    <div class="product-detail-review-header">
-	                        <span class="review-score"><i class="fa-solid fa-star"></i><span>4.5</span></span>
-	                    </div>
-	                    <div class="product-detail-review-score progress" role="progressbar" aria-label="Success example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-	                        <div class="progress-bar" style="width:25%">25%</div>
-	                    </div>
-	                    <div class="product-detail-review-score progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-	                        <div class="progress-bar" style="width:35%">35%</div>
-	                    </div>
-	                    <div class="product-detail-review-score progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-	                        <div class="progress-bar" style="width:45%">45%</div>
-	                    </div>
-	                    <div class="product-detail-review-score progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-	                        <div class="progress-bar" style="width:60%">60%</div>
-	                    </div>
-	                    <div class="product-detail-review-score progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-	                        <div class="progress-bar" style="width:60%">60%</div>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
+			<%-- TODO: 상품 리뷰 테이블에서 해당 상품의 별점 정보를 모두 조회해서 각 점수별로 계산해서 출력 --%>
+			<%--
+		        <div class="product-detail-review-area">
+		            <div class="product-detail-review-content">
+		                <div class="product-detail-review-score-area">
+		                    <div class="product-detail-review-header">
+		                        <span class="review-score"><i class="fa-solid fa-star"></i><span>${ reviewScore }</span></span>
+		                    </div>
+		                    <div class="product-detail-review-score progress" role="progressbar" aria-label="Success example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+		                        <div class="progress-bar" style="width:25%">25%</div>
+		                    </div>
+		                    <div class="product-detail-review-score progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+		                        <div class="progress-bar" style="width:35%">35%</div>
+		                    </div>
+		                    <div class="product-detail-review-score progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+		                        <div class="progress-bar" style="width:45%">45%</div>
+		                    </div>
+		                    <div class="product-detail-review-score progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+		                        <div class="progress-bar" style="width:60%">60%</div>
+		                    </div>
+		                    <div class="product-detail-review-score progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+		                        <div class="progress-bar" style="width:60%">60%</div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+			 --%>
 	
+			<%-- TODO: 한번 평점을 남겼다면 아래 버튼을 안보이게 하기 --%>
 	        <div class="btn-area">
-	            <button data-bs-toggle="modal" data-bs-target="#productReviewBtn" class="product-review-btn">당신의 평점은?</button>
+				<button data-bs-toggle="modal" data-bs-target="#productReviewBtn" class="product-review-btn">당신의 평점은?</button>
 	        </div>
+	        <%--
+				<% for(int i = 0; i < reviewMemberList.size(); i++) { %>
+					<% System.out.println("1 : " + reviewMemberList.get(i).getMemberId());  %>
+					<% if(reviewMemberList.get(i).getMemberId() != member.getMemberId()) { %>
+		            	<button data-bs-toggle="modal" data-bs-target="#productReviewBtn" class="product-review-btn">당신의 평점은?</button>
+					<% } else {%>
+		            	<button class="product-review-btn">당신의 평점은?</button>
+					<% } %>
+				<% } %>
+	         --%>
 	    </div>
 	
 		<div class="modal fade" id="productReviewBtn" tabindex="-1"
@@ -161,12 +211,14 @@
 	
     <script>
         // 외부 JS 파일에서 상품 정보를 출력하기 위해 전역변수에 저장
-        const productInfo = {
-            productId: ${productInfo.productId},
-            name: "${productInfo.name}",
-            memberId: "test",
-            price: ${productInfo.price}
-        }
+        <% if(member != null) { %>
+	        const productInfo = {
+	            productId: ${productInfo.productId},
+	            name: "${productInfo.name}",
+	            memberId: "<%= member.getMemberId() %>",
+	            price: ${productInfo.price}
+	        }
+        <% } %>
     </script>
 	<script src="<%= rootPath %>/assets/js/product/productDetail.js"></script>
 </body>

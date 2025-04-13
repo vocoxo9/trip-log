@@ -1,6 +1,7 @@
 package kr.co.khedu.product.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.khedu.country.model.dto.CountryDTO;
+import kr.co.khedu.country.service.CountryServiceImpl;
+import kr.co.khedu.member.model.vo.Member;
+import kr.co.khedu.product.common.ProductPath;
+import kr.co.khedu.product.model.dto.ProductFavoriteDTO;
 import kr.co.khedu.product.model.vo.Product;
 import kr.co.khedu.product.service.ProductServiceImpl;
 
@@ -31,46 +37,59 @@ public class ProductDetailPageController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println(request.getPathInfo());
+		// System.out.println(request.getPathInfo());
 		
 		// URL 경로에서 상품 아이디 추출
 		String pathInfo = request.getPathInfo();
-		String path = "";
+
+		int productId = ProductPath.getProductId(request, pathInfo);
 		
-		if(pathInfo == null || pathInfo.equals("/")) {
-			String uri = request.getRequestURI(); // 웹 서버로 요청 시, 요청에 사용된 URL 로부터 URI 값을 리턴
-			path = uri.substring(uri.lastIndexOf("/") + 1);
-		} else {
-			path = pathInfo.substring(1);
-		}
-		
-		// 숫자인지 확인 후 변환
-		int productId = 0;
-		
-		if(path.matches("\\d+")) {
-			productId = Integer.parseInt(path);
-		} else {
-			// TODO: 에러 페이지 이동
-			System.out.println("오류입니다.");
-			response.sendRedirect(request.getContextPath());
-		}
-		
-		System.out.println(productId);
-		
-		// 추출한 상품 아이디로 상품 조회 후 request에 저장하기
+		// 추출한 상품 아이디로 상품 조회
 		Product product = new ProductServiceImpl().selectProductByProductId(productId);
+		
+		// 추출한 상품 아이디로 리뷰 평점 조회
+		double reviewScore = new ProductServiceImpl().selectProductReview(productId);
+		
+		// 추출한 상품 아이디로 리뷰 작성한 회원 조회
+//		List<ProductReviewDTO> productReviewMemberList = new ProductServiceImpl().selectProductReviewMemberList(productId);
+//		
+//		for(ProductReviewDTO pr : productReviewMemberList) {
+//			System.out.println("pr : " + pr);
+//		}
 		
 		if(product == null) {
 			// TODO: 에러 페이지로 이동
-			System.out.println("오류입니다.");
+			System.out.println("상품 상세 페이지 오류입니다.");
 			response.sendRedirect(request.getContextPath());
 			return;
 		}
 		
 		System.out.println(product);
 		
-		request.setAttribute("productInfo", product);
+
+		// 국가 정보 가져오기
+		List<? extends CountryDTO> countryList = new CountryServiceImpl().selectCountryList();
+		String countryName = "Unknown";
 		
+		for(CountryDTO c : countryList) {
+			if(product.getCountryId() == c.getCountryId()) {
+				countryName = c.getName();
+				break;
+			}
+		}
+		
+		// 해당 상품을 찜 했는지 데이터 가져오기
+		Member member = (Member) request.getSession().getAttribute("loginMember");
+		int memberId = member.getMemberId();
+		
+		ProductFavoriteDTO productFavoriteInfo = new ProductServiceImpl().selectProductFavoriteChecked(new ProductFavoriteDTO(productId, memberId));
+		
+		request.setAttribute("productInfo", product);
+		request.setAttribute("reviewScore", reviewScore);
+		request.setAttribute("countryName", countryName);
+		request.setAttribute("productFavoriteInfo", productFavoriteInfo);
+//		request.setAttribute("productReviewMemberList", productReviewMemberList);
+//		request.setAttribute("defaultPath", defaultPath);
 		request.getRequestDispatcher("/WEB-INF/views/product/productDetail.jsp").forward(request, response);
 	}
 

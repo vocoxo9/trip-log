@@ -253,6 +253,16 @@ DROP SEQUENCE SEQ_PAY_RECORD_ID;
 CREATE SEQUENCE SEQ_PAY_RECORD_ID;
 
 --------------------------------------------------------------------------
+-- 2025/04/10 상품 테이블 변경 사항
+
+-- 첨부파일 기능을 위한 컬럼 추가
+ALTER TABLE TB_PRODUCT ADD (ORIGIN_FILE_NAME VARCHAR2(100), CHANGE_FILE_NAME VARCHAR2(100));
+COMMENT ON COLUMN TB_PRODUCT.ORIGIN_FILE_NAME IS '첨부파일원래이름';
+COMMENT ON COLUMN TB_PRODUCT.CHANGE_FILE_NAME IS '첨부파일변경이름';
+
+-- 개발 중 상품 파일명 관련 컬럼 데이터 크기 변경 필요로 인해 크기 변경
+ALTER TABLE TB_PRODUCT MODIFY CHANGE_FILE_NAME VARCHAR2(255);
+--------------------------------------------------------------------------
 
 -- 2025/04/07 투표 테이블 추가
 DELETE FROM TB_VOTE;
@@ -266,3 +276,26 @@ CREATE TABLE TB_VOTE (
 -- 2025/04/11소셜로그인 role에 추가 및 이전 제약조건 제거
 ALTER TABLE TB_MEMBER MODIFY ROLE CHECK(ROLE IN('ADMIN','MEMBER','SOCIAL'));
 ALTER TABLE TB_MEMBER DROP CONSTRAINT SYS_C0012394;
+
+--------------------------------------------------------------------------
+-- 상품 삭제 시 리뷰가 있는 상품일 경우 삭제가 안되는 오류가 발생
+-- 외래키에 ON DELETE CASCADE 옵션이 없는 것이 이유이므로
+-- 기존 외래키 삭제 후 해당 옵션 추가
+
+-- 제약조건 이름 확인
+SELECT constraint_name 
+FROM user_constraints 
+WHERE table_name = 'TB_PRODUCT_REVIEW' 
+    AND constraint_type = 'R'; -- R은 외래키
+    
+-- 제약조건 이름: SYS_C0012444
+ALTER TABLE TB_PRODUCT_REVIEW
+DROP CONSTRAINT SYS_C0012444;
+
+-- ON DELETE CASCADE 포함하여 외래키 다시 추가
+ALTER TABLE TB_PRODUCT_REVIEW
+ADD FOREIGN KEY (PRODUCT_ID)
+REFERENCES TB_PRODUCT(PRODUCT_ID)
+ON DELETE CASCADE;
+
+--------------------------------------------------------------------------

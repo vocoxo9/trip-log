@@ -1,7 +1,6 @@
 package kr.co.khedu.product.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,20 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kr.co.khedu.country.model.dto.CountryDTO;
-import kr.co.khedu.country.service.CountryServiceImpl;
+import kr.co.khedu.product.service.ProductServiceImpl;
 
 /**
- * Servlet implementation class ProductRegisterPageController
+ * Servlet implementation class ProductDeleteController
  */
-@WebServlet("/register")
-public class ProductRegisterPageController extends HttpServlet {
+@WebServlet("/products/auth/delete/*")
+public class ProductDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductRegisterPageController() {
+    public ProductDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,16 +29,18 @@ public class ProductRegisterPageController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 국가 정보 가져오기
-		List<? extends CountryDTO> countryList = new CountryServiceImpl().selectCountryList();
+		// 상품 번호 추출하기
+		String path = request.getPathInfo();
+		// System.out.println(path.substring(1));
+		int productId = Integer.parseInt(path.substring(1));
+		// System.out.println("delete productId : " + productId);
 		
-		for(CountryDTO c : countryList) System.out.println(c);
+		int result = new ProductServiceImpl().deleteProduct(productId);
 		
-		if(countryList != null) {
-			request.setAttribute("countryInfo", countryList);
-			request.getRequestDispatcher("WEB-INF/views/product/productRegister.jsp").forward(request, response);
+		if(result > 0) {
+			response.sendRedirect("/trip-log/products");
 		} else {
-			// 에러페이지 처리
+			// 에러페이지 연동
 		}
 	}
 
