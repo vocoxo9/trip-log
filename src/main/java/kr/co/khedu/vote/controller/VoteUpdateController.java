@@ -24,6 +24,13 @@ public class VoteUpdateController extends HttpServlet {
         HttpSession session = request.getSession();
 
         Member loginUser = (Member) session.getAttribute("loginMember");
+        
+        if (loginUser == null) {
+            request.setAttribute("errorMsg", "로그인 후 투표할 수 있습니다.");
+            request.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(request, response);
+            return;
+        }
+        
         int userId = loginUser.getMemberId();
 
         String tDestination = request.getParameter("travel");

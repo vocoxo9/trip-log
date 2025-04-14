@@ -44,6 +44,8 @@ public class CommentDeleteController extends HttpServlet {
 			request.setAttribute("alertMsg", "댓글이 정상적으로 삭제되었습니다.");
 		} else {
 			request.setAttribute("errorMsg", "댓글이 삭제되지 않았습니다.");
+		    request.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(request, response);
+		    return;
 		}
 		
 	}

@@ -62,7 +62,8 @@ public class MemberLoginController extends HttpServlet {
         	session.setAttribute("loginMember", loginMember);
         	response.sendRedirect(request.getContextPath());
         }else {
-			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
+        	request.setAttribute("errorMsg", "로그인 정보가 없습니다.");
+			request.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(request, response);
         }
 	}
 

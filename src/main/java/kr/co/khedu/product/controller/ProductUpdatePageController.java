@@ -47,9 +47,9 @@ public class ProductUpdatePageController extends HttpServlet {
 		
 		if(product == null) {
 			// TODO: 에러 페이지로 이동
-			System.out.println("오류입니다.");
-			response.sendRedirect(request.getContextPath());
-			return;
+			request.setAttribute("errorMsg", "상품 정보를 불러올 수 없습니다.");
+		    request.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(request, response);
+		    return;
 		}
 		
 		System.out.println(product);

@@ -20,7 +20,13 @@ public final class VoteResultController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<? extends VoteDTO> votes = voteService.selectVoteList();
-
+        
+        if (votes == null) {
+            request.setAttribute("errorMsg", "투표 결과를 불러올 수 없습니다.");
+            request.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(request, response);
+            return;
+        }
+        
         request.setAttribute("votes", votes);
         request.getRequestDispatcher("/WEB-INF/views/vote/result.jsp").forward(request, response);
     }

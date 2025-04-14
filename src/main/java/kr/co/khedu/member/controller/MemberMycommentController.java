@@ -33,7 +33,9 @@ public class MemberMycommentController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		MemberDTO loginMember = (MemberDTO)request.getSession().getAttribute("loginMember");
 		if(loginMember == null) {
-			response.sendRedirect(request.getContextPath());
+			request.setAttribute("errorMsg", "로그인이 필요합니다.");
+		    request.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(request, response);
+		    return;
 		}
 		int memberId = loginMember.getMemberId();
 		

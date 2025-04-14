@@ -85,11 +85,11 @@ public class PostDetailController extends HttpServlet {
 			// request 영역에 요청 후 반환받은 값 저장
 			request.setAttribute("postDetail", postDetail);
 			System.out.println("Controller에서의 postDetail : " + postDetail);
-			request.getRequestDispatcher("WEB-INF/views/post/postDetail.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/views/post/postDetail.jsp").forward(request, response);
 		} else {
 			// 조회된 게시글이 없는 경우 error페이지로
 			request.setAttribute("errorMsg", "잘못된 접근입니다.");
-			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
+			request.getRequestDispatcher("/aWEB-INF/views/common/errorPage.jsp").forward(request, response);
 		}
 		
 		

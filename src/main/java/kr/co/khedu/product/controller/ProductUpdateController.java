@@ -123,8 +123,8 @@ public class ProductUpdateController extends HttpServlet {
 			response.sendRedirect("/trip-log/products");
 		} else {
 			// 추후 수정 예정
-			request.setAttribute("errorMsg", "로그인 정보가 잘못되었습니다");
-			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
+			request.setAttribute("errorMsg", "상품 수정에 실패했습니다.");
+			request.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(request, response);
 		}
 	}
 

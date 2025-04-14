@@ -41,6 +41,8 @@ public class ProductDeleteController extends HttpServlet {
 			response.sendRedirect("/trip-log/products");
 		} else {
 			// 에러페이지 연동
+			request.setAttribute("errorMsg", "상품 삭제에 실패했습니다.");
+		    request.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(request, response);
 		}
 	}
 

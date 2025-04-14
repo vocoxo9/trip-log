@@ -76,10 +76,10 @@ String rootPath = request.getContextPath();
 					<i class="fa-solid fa-triangle-exclamation"></i>
 				</div>
 				<div class="error-message">
-					<span>Something went wrong.</span>
+					<span><%= request.getAttribute("errorMsg") != null ? request.getAttribute("errorMsg") : "Something went wrong." %></span>
 				</div>
 				<div class="btn-area">
-					<button class="error-btn">Back to home</button>
+					<button class="error-btn" onclick="location.href='<%=rootPath %>'">Back to home</button>
 				</div>
 			</div>
 		</div>
