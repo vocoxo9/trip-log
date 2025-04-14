@@ -54,10 +54,10 @@ public class MemberKakaoLoginController extends HttpServlet {
                 String email = getKakaoEmail(accessToken);
                 processSocialLogin(email,request, response);
             } else {
-                response.getWriter().println("Ä«Ä«¿À ·Î±×ÀÎ ÅäÅ« ¹ß±Ş ½ÇÆĞ");
+                response.getWriter().println("ì¹´ì¹´ì˜¤ ë¡œê·¸ì¸ í† í° ë°œê¸‰ ì‹¤íŒ¨");
             }
         } else {
-            response.getWriter().println("Ä«Ä«¿À ·Î±×ÀÎ ÀÎ°¡ ÄÚµå°¡ ¾ø½À´Ï´Ù.");
+            response.getWriter().println("ì¹´ì¹´ì˜¤ ë¡œê·¸ì¸ ì¸ê°€ ì½”ë“œê°€ ì—†ìŠµë‹ˆë‹¤.");
         }
 	}
 
@@ -118,7 +118,7 @@ public class MemberKakaoLoginController extends HttpServlet {
 		MemberDTO loginMember = memberService.socialMember(m);
 
         if (loginMember == null) {
-            String tempPassword = "social_" + System.currentTimeMillis(); // ¿¹½Ã: "social_" + ÇöÀç ½Ã°£, ÀÓÀÇÀÇ ºñ¹Ğ¹øÈ£°ª ÁöÁ¤¿ë
+            String tempPassword = "social_" + System.currentTimeMillis(); // ì˜ˆì‹œ: "social_" + í˜„ì¬ ì‹œê°„, ì„ì˜ì˜ ë¹„ë°€ë²ˆí˜¸ê°’ ì§€ì •ìš©
             m.setPassword(tempPassword);
             try {
             	memberService.insertSocialMember(m);

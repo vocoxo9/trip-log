@@ -8,12 +8,33 @@
 }
 
 .login-container {
+	position: relative;
 	width: 35rem;
 	padding: 80px;
 	background: #f9f9f9;
 	border-radius: 15px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 	text-align: center;
+}
+
+.close-btn {
+	position: absolute;
+	top: 30px;
+	right: 30px;
+	font-size: 28px;
+	text-decoration: none;
+	z-index: 1000;
+	width: 45px;
+	height: 45px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	transition: background-color 0.2s ease;
+}
+
+.close-btn:hover{
+	background-color: lightgray;
 }
 
 h2 {
