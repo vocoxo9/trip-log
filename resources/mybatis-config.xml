@@ -6,7 +6,7 @@
 	<!-- 
 		프로젝트의 resources 폴더 내에 있는 environment.properties를 참조한다.
 	-->
-    <properties resource="environment.properties" />
+    <properties resource="/environment.properties" />
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL" />
 	</settings>
@@ -20,6 +20,12 @@
 		<typeAlias alias="Post" type="kr.co.khedu.post.model.vo.Post" />
 		<typeAlias alias="Vote" type="kr.co.khedu.vote.model.vo.Vote" />
 		<typeAlias alias="Review" type="kr.co.khedu.product.model.vo.Review" />
+		<typeAlias alias="PostDetailDto" type="kr.co.khedu.post.model.vo.PostDetailDto" />
+		<typeAlias alias="CommentDto" type="kr.co.khedu.post.model.vo.CommentDto" />
+		<typeAlias alias="ReplyDto" type="kr.co.khedu.post.model.vo.ReplyDto" />
+		<typeAlias alias="TravelVote" type="kr.co.khedu.vote.model.vo.TravelVote" />
+		<typeAlias alias="PostLikeCountDto" type="kr.co.khedu.post.model.vo.PostLikeCountDto" />
+		<typeAlias alias="CommentLikeCountDto" type="kr.co.khedu.post.model.vo.CommentLikeCountDto" />
 	</typeAliases>
 
 	<environments default="develop">
@@ -34,7 +40,7 @@
 		</environment>
 	</environments>
 
-	<mappers>
+	 <mappers>
 		<!-- mapper 목록 -->
 		<mapper resource="/mappers/country-mapper.xml" />
 		<mapper resource="/mappers/product-mapper.xml" />

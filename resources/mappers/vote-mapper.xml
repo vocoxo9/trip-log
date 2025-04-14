@@ -16,4 +16,26 @@
         GROUP BY
             TRAVEL_DESTINATION
     </select>
+
+	<select id="selectVote" resultType="TravelVote">
+		SELECT VOTE_NO "voteNo"
+		      , TRAVEL_DESTINATION "travelDestination"
+		      , USER_ID "userId"
+		      , VOTING_DATE "votingDate"
+		FROM TB_VOTE
+		WHERE USER_ID = #{userId}
+	</select>
+
+	<insert id="insertVote">
+		INSERT INTO TB_VOTE VALUES (
+		SEQ_VOTE_NO.NEXTVAL, #{tDestination}, #{userId},
+		SYSDATE
+		)
+	</insert>
+
+	<update id="updateVote">
+		UPDATE TB_VOTE
+			SET TRAVEL_DESTINATION = #{tDestination}
+		WHERE USER_ID = #{userId}
+	</update>
 </mapper>
