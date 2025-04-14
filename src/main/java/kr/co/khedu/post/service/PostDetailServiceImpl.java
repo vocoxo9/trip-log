@@ -2,14 +2,10 @@ package kr.co.khedu.post.service;
 
 import java.util.ArrayList;
 
+import kr.co.khedu.post.model.dto.*;
 import org.apache.ibatis.session.SqlSession;
 
 import kr.co.khedu.post.model.dao.PostDetailDAO;
-import kr.co.khedu.post.model.vo.CommentDto;
-import kr.co.khedu.post.model.vo.CommentLikeCountDto;
-import kr.co.khedu.post.model.vo.PostDetailDto;
-import kr.co.khedu.post.model.vo.PostLikeCountDto;
-import kr.co.khedu.post.model.vo.ReplyDto;
 import kr.co.khedu.template.Template;
 
 public class PostDetailServiceImpl implements PostDetailService {
@@ -17,14 +13,14 @@ public class PostDetailServiceImpl implements PostDetailService {
 	PostDetailDAO pdDao = new PostDetailDAO();
 	
 	@Override
-	public PostDetailDto selectPostDetail(int pNum) {
+	public PostDetailDTO selectPostDetail(int pNum) {
 		
 		System.out.println("조회하는 service에서 pNum : " + pNum);
 		
 		SqlSession sqlSession = Template.getSqlSession();
 		
 		
-		PostDetailDto postDetail = pdDao.selectPostDetail(sqlSession, pNum);
+		PostDetailDTO postDetail = pdDao.selectPostDetail(sqlSession, pNum);
 
 		
 		sqlSession.close();
@@ -35,13 +31,13 @@ public class PostDetailServiceImpl implements PostDetailService {
 
 	
 	@Override
-	public ArrayList<CommentDto> selectCommentList(int pNum) {
+	public ArrayList<CommentDTO> selectCommentList(int pNum) {
 		System.out.println("서비스로 요청은 들어옴");
 		
 		SqlSession sqlSession = Template.getSqlSession();
 		System.out.println("sqlSession 객체 생성까지 함");
 
-		ArrayList<CommentDto> comments = pdDao.selectCommentList(sqlSession, pNum);
+		ArrayList<CommentDTO> comments = pdDao.selectCommentList(sqlSession, pNum);
 		System.out.println("DAO로 요청후 반환받음");
 		
 		sqlSession.close();
@@ -49,13 +45,24 @@ public class PostDetailServiceImpl implements PostDetailService {
 		return comments;
 	}
 
-	
 	@Override
-	public ArrayList<ReplyDto> selectReplyList(int parentNum, int postNum) {
+	public PostPairDTO getPostPair(int postId) {
+		SqlSession session = Template.getSqlSession();
+
+		var result = pdDao.getPostPair(session, postId);
+
+		session.close();
+
+		return result;
+	}
+
+
+	@Override
+	public ArrayList<ReplyDTO> selectReplyList(int parentNum, int postNum) {
 
 		SqlSession sqlSession = Template.getSqlSession();
 		
-		ArrayList<ReplyDto> replys = pdDao.selectReplyList(sqlSession, parentNum, postNum);
+		ArrayList<ReplyDTO> replys = pdDao.selectReplyList(sqlSession, parentNum, postNum);
 
 		sqlSession.close();
 		
@@ -69,6 +76,9 @@ public class PostDetailServiceImpl implements PostDetailService {
 		SqlSession sqlSession = Template.getSqlSession();
 		
 		int result = pdDao.insertComment(sqlSession, name, commentView, postId);
+		if (result > 0) {
+			sqlSession.commit();
+		}
 		
 		sqlSession.close();
 		
@@ -78,12 +88,12 @@ public class PostDetailServiceImpl implements PostDetailService {
 
 
 	@Override
-	public CommentDto selectLastComment(int postId) {
+	public CommentDTO selectLastComment(int postId) {
 		SqlSession sqlSession = Template.getSqlSession();
 		
 		System.out.println("Service요청 들어왔구여");
 
-		CommentDto lastComment = pdDao.selectLastComment(sqlSession, postId);
+		CommentDTO lastComment = pdDao.selectLastComment(sqlSession, postId);
 		
 		System.out.println("반환받았구여");
 		
@@ -94,13 +104,13 @@ public class PostDetailServiceImpl implements PostDetailService {
 
 
 	@Override
-	public PostDetailDto selectPost(int pNum) {
+	public PostDetailDTO selectPost(int pNum) {
 		SqlSession sqlSession = Template.getSqlSession();
 		
-		PostDetailDto post = pdDao.selectPost(sqlSession, pNum);
+		PostDetailDTO post = pdDao.selectPost(sqlSession, pNum);
 		
 		if (post == null) {
-			post = new PostDetailDto(0, "글이 없습니다@@@.", "---", 0, 0);
+			post = new PostDetailDTO(0, "글이 없습니다.", "---", 0, 0);
 		}
 		
 		sqlSession.close();
@@ -156,11 +166,11 @@ public class PostDetailServiceImpl implements PostDetailService {
 
 
 	@Override
-	public PostLikeCountDto selectPostLikeCount(int postId) {
+	public PostLikeCountDTO selectPostLikeCount(int postId) {
 
 		SqlSession sqlSession = Template.getSqlSession();
 		
-		PostLikeCountDto postLikeCount = pdDao.selectPostLikeCount(sqlSession, postId);
+		PostLikeCountDTO postLikeCount = pdDao.selectPostLikeCount(sqlSession, postId);
 		
 		sqlSession.close();
 		
@@ -170,11 +180,11 @@ public class PostDetailServiceImpl implements PostDetailService {
 
 
 	@Override
-	public PostLikeCountDto checkPostLike(int memberId, int postId) {
+	public PostLikeCountDTO checkPostLike(int memberId, int postId) {
 
 		SqlSession sqlSession = Template.getSqlSession();
 		
-		PostLikeCountDto check = pdDao.checkPostLike(sqlSession, memberId, postId);
+		PostLikeCountDTO check = pdDao.checkPostLike(sqlSession, memberId, postId);
 		
 		sqlSession.close();
 		
@@ -207,11 +217,11 @@ public class PostDetailServiceImpl implements PostDetailService {
 
 
 	@Override
-	public CommentLikeCountDto checkCommentLike(int memberId, int commentId) {
+	public CommentLikeCountDTO checkCommentLike(int memberId, int commentId) {
 
 		SqlSession sqlSession = Template.getSqlSession();
 		
-		CommentLikeCountDto check = pdDao.checkCommentLike(sqlSession, memberId, commentId);
+		CommentLikeCountDTO check = pdDao.checkCommentLike(sqlSession, memberId, commentId);
 		
 		sqlSession.close();
 		
@@ -245,11 +255,11 @@ public class PostDetailServiceImpl implements PostDetailService {
 
 
 	@Override
-	public CommentLikeCountDto selectCommentLikeCount(int commentId) {
+	public CommentLikeCountDTO selectCommentLikeCount(int commentId) {
 
 		SqlSession sqlSession = Template.getSqlSession();
 		
-		CommentLikeCountDto commentLikeCount = pdDao.selectCommentLikeCount(sqlSession, commentId);
+		CommentLikeCountDTO commentLikeCount = pdDao.selectCommentLikeCount(sqlSession, commentId);
 		
 		
 		
@@ -306,11 +316,11 @@ public class PostDetailServiceImpl implements PostDetailService {
 
 
 	@Override
-	public CommentDto selectUpdateComment(int commentId, int postId) {
+	public CommentDTO selectUpdateComment(int commentId, int postId) {
 
 		SqlSession sqlSession = Template.getSqlSession();
 		
-		CommentDto updateComment = pdDao.selectUpdateComment(sqlSession, commentId, postId);
+		CommentDTO updateComment = pdDao.selectUpdateComment(sqlSession, commentId, postId);
 		
 		sqlSession.close();
 		

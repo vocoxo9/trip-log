@@ -3,183 +3,187 @@ package kr.co.khedu.post.model.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import kr.co.khedu.post.model.dto.*;
 import org.apache.ibatis.session.SqlSession;
-
-import kr.co.khedu.post.model.vo.CommentDto;
-import kr.co.khedu.post.model.vo.CommentLikeCountDto;
-import kr.co.khedu.post.model.vo.PostDetailDto;
-import kr.co.khedu.post.model.vo.PostLikeCountDto;
-import kr.co.khedu.post.model.vo.ReplyDto;
 
 public class PostDetailDAO {
 
-	public PostDetailDto selectPostDetail(SqlSession sqlSession, int pNum) {
-		
+	public PostDetailDTO selectPostDetail(SqlSession sqlSession, int pNum) {
+
 		System.out.println("조회하는 DAO에서 pNum : " + pNum);
-		
-		PostDetailDto postDetail = sqlSession.selectOne("postDetailMapper.searchPostDetail", pNum);
-		
-		
+
+		PostDetailDTO postDetail = sqlSession.selectOne("postMapper.searchPostDetail", pNum);
+
+
 		return postDetail;
-		
+
 	}
 
-	public ArrayList<CommentDto> selectCommentList(SqlSession sqlSession, int pNum) {
+	public PostPairDTO getPostPair(SqlSession sqlSession, int postId) {
+
+		return sqlSession.selectOne("postMapper.getPostPair", postId);
+	}
+
+	public ArrayList<CommentDTO> selectCommentList(SqlSession sqlSession, int pNum) {
 		System.out.println("DAO로 요청은 들어옴");
 
-		ArrayList<CommentDto> comments = (ArrayList)sqlSession.selectList("postDetailMapper.selectCommentList", pNum);
-		
+		ArrayList<CommentDTO> comments = (ArrayList)sqlSession.selectList("postMapper.selectCommentList", pNum);
+
 		return comments;
 	}
 
-	public ArrayList<ReplyDto> selectReplyList(SqlSession sqlSession, int parentNum, int postNum) {
+	public ArrayList<ReplyDTO> selectReplyList(SqlSession sqlSession, int parentNum, int postNum) {
 
 		HashMap hashMap = new HashMap();
 		hashMap.put("parentNum", parentNum);
 		hashMap.put("postNum", postNum);
-		
-		ArrayList<ReplyDto> replys = (ArrayList)sqlSession.selectList("postDetailMapper.selectReplyList", hashMap);
-		
-		
+
+		ArrayList<ReplyDTO> replys = (ArrayList)sqlSession.selectList("postMapper.selectReplyList", hashMap);
+
+
 		return replys;
 	}
 
-	public int insertComment(SqlSession sqlSession, String name, String commentView, int postId) {
-		
+	public int insertComment(SqlSession sqlSession, String name, String content, int postId) {
+
 		HashMap hashMap = new HashMap();
 		hashMap.put("name", name);
-		hashMap.put("commentView", commentView);
+		hashMap.put("content", content);
 		hashMap.put("postId", postId);
-		
-		int result = sqlSession.insert("postDetailMapper.insertComment", hashMap);
-		
+
+		System.out.println("memberId: " + name);
+		System.out.println("content: " + content);
+		System.out.println("postId:" + postId);
+
+		int result = sqlSession.insert("postMapper.insertComment", hashMap);
+
 		System.out.println("@@DAO에서 요청 후 서비스에서 반환받긴함");
-		
+
 		if (result > 0) {
 			sqlSession.commit();
 		} else {
 			sqlSession.rollback();
 		}
-		
+
 		return result;
 	}
 
-	public CommentDto selectLastComment(SqlSession sqlSession, int postId) {
-		
-		CommentDto lastComment = sqlSession.selectOne("postDetailMapper.selectLastComment", postId);
+	public CommentDTO selectLastComment(SqlSession sqlSession, int postId) {
+
+		CommentDTO lastComment = sqlSession.selectOne("postMapper.selectLastComment", postId);
 		System.out.println("DAO에서 전달받은 postId" + postId);
 		System.out.println("DAO에서 DB처리 후 : " + lastComment);
-		
+
 		return lastComment;
 	}
 
-	public PostDetailDto selectPost(SqlSession sqlSession, int pNum) {
-		
-		PostDetailDto post = sqlSession.selectOne("postDetailMapper.selectPost", pNum);
-		
+	public PostDetailDTO selectPost(SqlSession sqlSession, int pNum) {
+
+		PostDetailDTO post = sqlSession.selectOne("postMapper.selectPost", pNum);
+
 		return post;
 	}
 
 	public int deletePost(SqlSession sqlSession, int postId) {
 
-		int result = sqlSession.delete("postDetailMapper.deletePost", postId);
-		
+		int result = sqlSession.delete("postMapper.deletePost", postId);
+
 		return result;
 	}
-	
+
 	public int insertPostLike(SqlSession sqlSession, int memberId, int postId) {
-		
+
 		HashMap hashMap = new HashMap();
 		hashMap.put("memberId", memberId);
 		hashMap.put("postId", postId);
 		System.out.println("공감등록에서 DAO memberId : " + memberId);
 		System.out.println("공감등록에서 DAO postId : " + postId);
-		
-		int result = sqlSession.insert("postDetailMapper.insertPostLike", hashMap);
-		
+
+		int result = sqlSession.insert("postMapper.insertPostLike", hashMap);
+
 		return result;
-		
+
 	}
-	
-	public PostLikeCountDto selectPostLikeCount(SqlSession sqlSession, int postId) {
-		
-		PostLikeCountDto postLikeCount = (PostLikeCountDto)sqlSession.selectOne("postDetailMapper.selectPostLikeCount", postId);
-		
+
+	public PostLikeCountDTO selectPostLikeCount(SqlSession sqlSession, int postId) {
+
+		PostLikeCountDTO postLikeCount = (PostLikeCountDTO)sqlSession.selectOne("postMapper.selectPostLikeCount", postId);
+
 		return postLikeCount;
-		
+
 	}
-	
-	public PostLikeCountDto checkPostLike(SqlSession sqlSession, int memberId, int postId) {
-		
+
+	public PostLikeCountDTO checkPostLike(SqlSession sqlSession, int memberId, int postId) {
+
 		HashMap hashMap = new HashMap();
 		hashMap.put("memberId", memberId);
 		hashMap.put("postId", postId);
-		
-		PostLikeCountDto check = (PostLikeCountDto)sqlSession.selectOne("postDetailMapper.checkPostLike", hashMap);
-		
+
+		PostLikeCountDTO check = (PostLikeCountDTO)sqlSession.selectOne("postMapper.checkPostLike", hashMap);
+
 		return check;
-		
+
 	}
-	
-	public CommentLikeCountDto checkCommentLike(SqlSession sqlSession, int memberId, int commentId) {
-		
+
+	public CommentLikeCountDTO checkCommentLike(SqlSession sqlSession, int memberId, int commentId) {
+
 		HashMap hashMap = new HashMap();
 		hashMap.put("memberId", memberId);
 		hashMap.put("commentId", commentId);
-		
-		CommentLikeCountDto check = (CommentLikeCountDto)sqlSession.selectOne("postDetailMapper.checkCommentLike", hashMap);
-		
+
+		CommentLikeCountDTO check = (CommentLikeCountDTO)sqlSession.selectOne("postMapper.checkCommentLike", hashMap);
+
 		return check;
 	}
-	
+
 	public int deletePostLike(SqlSession sqlSession, int memberId, int postId) {
-		
+
 		HashMap hashMap = new HashMap();
 		hashMap.put("memberId", memberId);
 		hashMap.put("postId", postId);
 		System.out.println("게시글공감 삭제에서 DAO memberId : " + memberId);
 		System.out.println("게시글공감 삭제에서 DAO postId : " + postId);
-		
-		int result = sqlSession.insert("postDetailMapper.deletePostLike", hashMap);
-		
+
+		int result = sqlSession.insert("postMapper.deletePostLike", hashMap);
+
 		return result;
-		
+
 	}
-	
+
 	public int insertCommentLike(SqlSession sqlSession, int memberId, int commentId) {
-		
+
 		HashMap hashMap = new HashMap();
 		hashMap.put("memberId", memberId);
 		hashMap.put("commentId", commentId);
 		System.out.println("공감등록에서 DAO memberId : " + memberId);
 		System.out.println("공감등록에서 DAO postId : " + commentId);
-		
-		int result = sqlSession.insert("postDetailMapper.insertCommentLike", hashMap);
-		
+
+		int result = sqlSession.insert("postMapper.insertCommentLike", hashMap);
+
 		return result;
-		
+
 	}
-	
-	public CommentLikeCountDto selectCommentLikeCount(SqlSession sqlSession, int commentId) {
-		
-		CommentLikeCountDto commentLikeCount = (CommentLikeCountDto)sqlSession.selectOne("postDetailMapper.selectCommentLikeCount", commentId);
-		
+
+	public CommentLikeCountDTO selectCommentLikeCount(SqlSession sqlSession, int commentId) {
+
+		CommentLikeCountDTO commentLikeCount = (CommentLikeCountDTO)sqlSession.selectOne("postMapper.selectCommentLikeCount", commentId);
+
 		return commentLikeCount;
-		
+
 	}
-	
+
 	public int deleteCommentLike(SqlSession sqlSession, int memberId, int commentId) {
-		
+
 		HashMap hashMap = new HashMap();
 		hashMap.put("memberId", memberId);
 		hashMap.put("commentId", commentId);
 		System.out.println("공감삭제에서 DAO memberId : " + memberId);
 		System.out.println("공감삭제에서 DAO commentId : " + commentId);
-		
-		int result = sqlSession.insert("postDetailMapper.deleteCommentLike", hashMap);
-		
+
+		int result = sqlSession.insert("postMapper.deleteCommentLike", hashMap);
+
 		return result;
-		
+
 	}
 
 	public int updateComment(SqlSession sqlSession, int memberId, int commentId, String updatedContent) {
@@ -191,32 +195,32 @@ public class PostDetailDAO {
 		System.out.println("댓글수정에서 DAO memberId : " + memberId);
 		System.out.println("댓글수정에서 DAO commentId : " + commentId);
 		System.out.println("댓글수정에서 DAO updatedContent : " + updatedContent);
-		
-		int result = sqlSession.update("postDetailMapper.updateComment", hashMap);
-		
+
+		int result = sqlSession.update("postMapper.updateComment", hashMap);
+
 		return result;
-		
+
 	}
 
-	public CommentDto selectUpdateComment(SqlSession sqlSession, int commentId, int postId) {
+	public CommentDTO selectUpdateComment(SqlSession sqlSession, int commentId, int postId) {
 
 		HashMap hashMap = new HashMap();
 		hashMap.put("commentId", commentId);
 		hashMap.put("postId", postId);
-		
-		CommentDto updateComment = sqlSession.selectOne("postDetailMapper.selectUpdateComment", hashMap);
-		
+
+		CommentDTO updateComment = sqlSession.selectOne("postMapper.selectUpdateComment", hashMap);
+
 		return updateComment;
-		
+
 	}
 
 	public int deleteComment(SqlSession sqlSession, int commentId) {
 
-		int result = sqlSession.delete("postDetailMapper.deleteComment", commentId);
-		
+		int result = sqlSession.delete("postMapper.deleteComment", commentId);
+
 		return result;
 	}
-	
-	
+
+
 
 }

@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kr.co.khedu.post.model.vo.CommentDto;
-import kr.co.khedu.post.model.vo.PostDetailDto;
+import kr.co.khedu.post.model.dto.CommentDTO;
+import kr.co.khedu.post.model.dto.PostDetailDTO;
 import kr.co.khedu.post.service.PostDetailService;
 import kr.co.khedu.post.service.PostDetailServiceImpl;
 
@@ -45,30 +45,32 @@ public class PostDetailController extends HttpServlet {
 		System.out.println("전달받은 pNum의 값은 : " + pNum);
 		
 		// Service 객체에 전달받은 게시글번호의 게시글 정보(게시글 번호, 제목, 내용,  좋아요) 조회
-		PostDetailDto postDetail = pdService.selectPostDetail(pNum);
+		PostDetailDTO postDetail = pdService.selectPostDetail(pNum);
 		// => 조회된 결과가 있을 경우 PostDetail 객체 전달
 		// 				없을 경우 null이 전달
+
+		var pair = pdService.getPostPair(pNum);
 		
 		// 게시글의 번호의 -1, +1 게시글 번호 변수에 저장
-		int beforePNum = pNum - 1;
-		int afterPNum = pNum + 1;
+		int beforePNum = pair.getPrevious();
+		int afterPNum = pair.getNext();
 		
 		// Service 객체에 전달받은 게시글 번호의 -1, +1의 게시글의 번호와 제목을 조회
-		PostDetailDto beforePost = pdService.selectPost(beforePNum);			
-		PostDetailDto afterPost = pdService.selectPost(afterPNum);
-		
+		PostDetailDTO beforePost = pdService.selectPost(beforePNum);
+		PostDetailDTO afterPost = pdService.selectPost(afterPNum);
+
 		System.out.println("Controller에서 beforePost : " + beforePost);
 		System.out.println("Controller에서 afterPost : " + afterPost);
-		
+
 		// request 영역에 이전글/다음글 저장
 		request.setAttribute("beforePost", beforePost);
 		request.setAttribute("afterPost", afterPost);
-		
+
 		
 		System.out.println("게시글 정보는 조회됨");
 
 		// Service 객체에 전달받은 게시글 번호의 댓글 리스트 조회(댓글번호, 사용자명, 작성일, 댓글 내용, 댓글 좋아요 수, 게시글 번호)
-		ArrayList<CommentDto> comments = pdService.selectCommentList(pNum);
+		ArrayList<CommentDTO> comments = pdService.selectCommentList(pNum);
 		System.out.println("comments controller에서 반환받음 : " + comments);
 		
 		

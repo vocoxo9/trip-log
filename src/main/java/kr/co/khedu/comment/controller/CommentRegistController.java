@@ -1,6 +1,7 @@
 package kr.co.khedu.comment.controller;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,9 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.khedu.member.model.vo.Member;
 import org.json.simple.JSONObject;
 
-import kr.co.khedu.post.model.vo.CommentDto;
+import kr.co.khedu.post.model.dto.CommentDTO;
 import kr.co.khedu.post.service.PostDetailService;
 import kr.co.khedu.post.service.PostDetailServiceImpl;
 
@@ -35,9 +37,20 @@ public class CommentRegistController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		System.out.println("비동기 식 요청옴@@");
-		
+
+		Optional<Integer> optionalMemberId = Optional
+				.ofNullable(request.getSession(false))
+				.flatMap(session -> Optional.ofNullable(session.getAttribute("loginMember")))
+				.map(member -> ((Member) member).getMemberId());
+
+		if (optionalMemberId.isEmpty()) {
+			request.setAttribute("errorMsg", "회원이 아닙니다.");
+			request.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(request, response);
+			return;
+		}
+
 		// 데이터 추출
-		String name = request.getParameter("name");
+		String name = String.valueOf(optionalMemberId.get());
 		String commentView = request.getParameter("commentView");
 		String pno = request.getParameter("postId");
 		int postId = Integer.parseInt(pno);
@@ -51,14 +64,14 @@ public class CommentRegistController extends HttpServlet {
 		int result = pdService.insertComment(name, commentView, postId);
 		
 		// 결과 데이터 추출
-		CommentDto lastComment = pdService.selectLastComment(postId);
+		CommentDTO lastComment = pdService.selectLastComment(postId);
 		
 		System.out.println("Controller에서 lastComment : " + lastComment);
 		System.out.println("lastComment의 타입 : " + lastComment.getClass().getName());
 		
 		// 일반 객체 (JSONObject)에 담아 응답
 		JSONObject jsonObj = new JSONObject();
-		jsonObj.put("commentId", lastComment.getCommentId() );
+		jsonObj.put("nickname", lastComment.getNickname() );
 		jsonObj.put("content", lastComment.getContent() );
 		jsonObj.put("likeCount", lastComment.getLikeCount() );		
 		jsonObj.put("memberId", lastComment.getMemberId() );

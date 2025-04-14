@@ -10,8 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 
-import kr.co.khedu.post.model.vo.CommentLikeCountDto;
-import kr.co.khedu.post.model.vo.PostLikeCountDto;
+import kr.co.khedu.post.model.dto.CommentLikeCountDTO;
 import kr.co.khedu.post.service.PostDetailService;
 import kr.co.khedu.post.service.PostDetailServiceImpl;
 
@@ -52,7 +51,7 @@ public class CommentLikeRegistController extends HttpServlet {
 		System.out.println("공감등록Controller에서 추출한 commentId: " + commentId);
 		
 		// 해당 회원으로 해당 댓글의 좋아요정보가 있는지 확인 (한사람당 각 게시글의 좋아요 한번 조건)
-		CommentLikeCountDto check = pdService.checkCommentLike(memberId, commentId);
+		CommentLikeCountDTO check = pdService.checkCommentLike(memberId, commentId);
 		
 		System.out.println("전달받은 check : " + check);
 		
@@ -66,12 +65,12 @@ public class CommentLikeRegistController extends HttpServlet {
 			System.out.println("delete 함");
 		}
 		
-		CommentLikeCountDto check2 = pdService.checkCommentLike(memberId, commentId);
-		CommentLikeCountDto check3 = pdService.selectCommentLikeCount(commentId);
+		CommentLikeCountDTO check2 = pdService.checkCommentLike(memberId, commentId);
+		CommentLikeCountDTO check3 = pdService.selectCommentLikeCount(commentId);
 		
 		// 해당 댓글의 번호와 좋아요 수 조회
 		if (check2 == null) {
-			CommentLikeCountDto commentLikeCount = new CommentLikeCountDto();
+			CommentLikeCountDTO commentLikeCount = new CommentLikeCountDTO();
 			// commentLikeCount.setCommentId(commentId);
 			if (check3 ==null) {
 				// CommentLikeCountDto commentLikeCount = new CommentLikeCountDto(commentId, 0);
@@ -81,7 +80,7 @@ public class CommentLikeRegistController extends HttpServlet {
 				// CommentLikeCountDto commentLikeCount = new CommentLikeCountDto(commentId, check3.getCommentLikeCount() );
 				commentLikeCount.setCommentId(commentId);
 				commentLikeCount.setCommentLikeCount( check3.getCommentLikeCount() );
-				
+
 			}
 			System.out.println("댓글 delete후 commentLikeCount : " + commentLikeCount.getCommentLikeCount());
 			// 일반 객체 (JSONObject)에 담아 응답
@@ -91,7 +90,7 @@ public class CommentLikeRegistController extends HttpServlet {
 			response.setContentType("application/json; charset=UTF-8");
 			response.getWriter().print(jsonObj);
 		} else {
-			CommentLikeCountDto commentLikeCount = pdService.selectCommentLikeCount(commentId);
+			CommentLikeCountDTO commentLikeCount = pdService.selectCommentLikeCount(commentId);
 			// 일반 객체 (JSONObject)에 담아 응답
 			JSONObject jsonObj = new JSONObject();
 			jsonObj.put( "commentId", commentLikeCount.getCommentId() );

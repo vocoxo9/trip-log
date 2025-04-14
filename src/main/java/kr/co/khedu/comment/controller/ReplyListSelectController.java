@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import kr.co.khedu.post.model.vo.ReplyDto;
+import kr.co.khedu.post.model.dto.ReplyDTO;
 import kr.co.khedu.post.service.PostDetailService;
 import kr.co.khedu.post.service.PostDetailServiceImpl;
 
@@ -39,7 +39,7 @@ public class ReplyListSelectController extends HttpServlet {
 		int postNum = Integer.parseInt(request.getParameter("postNum"));
 		
 		PostDetailService bdService = new PostDetailServiceImpl();
-		ArrayList<ReplyDto> replys = (ArrayList<ReplyDto>)bdService.selectReplyList(parentNum, postNum);
+		ArrayList<ReplyDTO> replys = (ArrayList<ReplyDTO>)bdService.selectReplyList(parentNum, postNum);
 		// => 조회된 결과가 있을 경우 ArrayList<ReplyDto> 전달
 		//				없을 경우 null이 전달
 		System.out.println("controller에서의 replys : " + replys);

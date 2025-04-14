@@ -53,7 +53,7 @@ replyBtns.forEach(replyBtn => {
 						+ '</div>'
 						+ '<div class="reply-view">'
 						+ '<div class="reply-view-header">'
-						+ '<div class="reply-user-name">' + i.userName + '</div>'
+						+ '<div class="reply-user-name">' + i.nickname + '</div>'
 						+ '<div class="date-update-delete">'
 						+ '<div class="reply-date">' + i.registDate + '일 전 </div>'
 						+ '<div class="update-delete-menu active">'
@@ -219,7 +219,6 @@ commentRegistBtn.addEventListener("click", () => {
 		url: 'comment/regist',
 		type: "post",
 		data: {
-			name: $("#memberId").val(),	// => 나중에 연결하면 loginUser의 memberId로 바꾸기
 			postId: postId,
 			commentView: $("#comment").val()
 		},
@@ -237,7 +236,7 @@ commentRegistBtn.addEventListener("click", () => {
 				+ "</div>"
 				+ "<div class='comment-view'>"
 				+ "<div class='comment-view-header'>"
-				+ "<div class='comment-user-name'>" + result.memberId + "</div>"
+				+ "<div class='comment-user-name'>" + result.nickname + "</div>"
 				+ "<div class='date-update-delete'>"
 				+ "<div class='comment-date'>" + result.registDate + "일전</div>"
 				+ "<div class='update-delete-menu active' data-etc-target='" + result.commentId + "'>"
@@ -442,7 +441,7 @@ updateBtns.forEach(updateBtn => {
 					console.log(`${commentId}`);
 					console.log("** Ajax 통신 성공@@ **");
 					const element = "<div class='comment-view-header'>"
-						+ "<div class='comment-user-name'>" + result.memberId + "</div>"
+						+ "<div class='comment-user-name'>" + result.nickname + "</div>"
 						+ "<div class='date-update-delete'>"
 						+ "<div class='comment-date'>" + result.registDate + " 일전</div>"
 						+ "<div class='update-delete-menu active' data-etc-target='" + result.commentId + "'>"

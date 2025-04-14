@@ -10,8 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 
-import kr.co.khedu.post.model.vo.CommentLikeCountDto;
-import kr.co.khedu.post.model.vo.PostLikeCountDto;
+import kr.co.khedu.post.model.dto.PostLikeCountDTO;
 import kr.co.khedu.post.service.PostDetailService;
 import kr.co.khedu.post.service.PostDetailServiceImpl;
 
@@ -47,7 +46,7 @@ public class PostLikeRegistController extends HttpServlet {
 		System.out.println("공감등록Controller에서 추출한 postId: " + postId);
 		
 		// 해당 회원으로 해당 게시글의 좋아요정보가 있는지 확인 (한사람당 각 게시글의 좋아요 한번 조건)
-		PostLikeCountDto check = pdService.checkPostLike(memberId, postId);
+		PostLikeCountDTO check = pdService.checkPostLike(memberId, postId);
 		
 		System.out.println("전달받은 check : " + check);
 		
@@ -58,12 +57,12 @@ public class PostLikeRegistController extends HttpServlet {
 			int result = pdService.deletePostLike(memberId, postId);
 		}
 		
-		PostLikeCountDto check2 = pdService.checkPostLike(memberId, postId);
-		PostLikeCountDto check3 = pdService.selectPostLikeCount(postId);
+		PostLikeCountDTO check2 = pdService.checkPostLike(memberId, postId);
+		PostLikeCountDTO check3 = pdService.selectPostLikeCount(postId);
 		
 		// 해당 게시글의 번호와 좋아요 수 조회
 		if (check2 == null) {
-			PostLikeCountDto postLikeCount = new PostLikeCountDto();
+			PostLikeCountDTO postLikeCount = new PostLikeCountDTO();
 			if (check3 ==null) {
 				postLikeCount.setPostId(postId);
 				postLikeCount.setPostLikeCount(0);
@@ -79,7 +78,7 @@ public class PostLikeRegistController extends HttpServlet {
 			response.setContentType("application/json; charset=UTF-8");
 			response.getWriter().print(jsonObj);
 		} else {
-			PostLikeCountDto postLikeCount = pdService.selectPostLikeCount(postId);
+			PostLikeCountDTO postLikeCount = pdService.selectPostLikeCount(postId);
 			// 일반 객체 (JSONObject)에 담아 응답
 			JSONObject jsonObj = new JSONObject();
 			jsonObj.put( "postId", postLikeCount.getPostId() );

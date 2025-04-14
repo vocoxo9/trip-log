@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page
-	import="kr.co.khedu.post.model.vo.CommentDto,
+	import="kr.co.khedu.post.model.dto.CommentDTO,
 			java.util.ArrayList,
-			kr.co.khedu.post.model.vo.PostDetailDto"%>
+			kr.co.khedu.post.model.dto.PostDetailDTO"%>
 <%
 String rootPath = request.getContextPath();
 %>
@@ -38,9 +38,20 @@ String rootPath = request.getContextPath();
 
 <style>
 </style>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"
-	integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-	crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+        crossorigin="anonymous">
+    </script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/15.0.7/marked.min.js"
+	        integrity="sha512-rPuOZPx/WHMHNx2RoALKwiCDiDrCo4ekUctyTYKzBo8NGA79NcTW2gfrbcCL2RYL7RdjX2v9zR0fKyI4U4kPew=="
+	        crossorigin="anonymous"
+	        referrerpolicy="no-referrer">
+	</script>
+	<link rel="stylesheet"
+	      href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.8.1/github-markdown.min.css"
+	      integrity="sha512-BrOPA520KmDMqieeM7XFe6a3u3Sb3F1JBaQnrIAmWg3EYrciJ+Qqe6ZcKCdfPv26rGcgTrJnZ/IdQEct8h3Zhw=="
+	      crossorigin="anonymous"
+	      referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -63,11 +74,15 @@ String rootPath = request.getContextPath();
 				</div>
 				<div class="board-detail-body">
 					<div class="content">
-						<textarea id="content" name="content" cols rows="100" readonly>
-                            <%-- 게시글 내용 --%>
-                            ${ postDetail.content }
-                            
-                        </textarea>
+						<div class="markdown-body"
+						     id="content"
+						     name="content"
+						     readonly
+						>${ postDetail.content }</div>
+                        <script>
+                            const element = document.getElementById('content')
+                            element.innerHTML = marked.parse(element.innerHTML)
+                        </script>
                         <input type="hidden" id="memberId" value="${ postDetail.memberId }"/> <%--  나중에 연결하면 loginUser의 memberId로 바꾸기!! --%>
 						<div class="nav-btn">
 							<nav>
@@ -97,13 +112,13 @@ String rootPath = request.getContextPath();
 								<i class="fa-regular fa-paper-plane"></i>
 							</div>
 								<%
-								ArrayList<CommentDto> comments = (ArrayList<CommentDto>) request.getAttribute("comments");
+								ArrayList<CommentDTO> comments = (ArrayList<CommentDTO>) request.getAttribute("comments");
 								%>
 								<%
 								if (comments != null) {
 								%>
 								<%
-								for (CommentDto c : comments) {
+								for (CommentDTO c : comments) {
 								%>
 							<div class="comment">
 								<input type="hidden" name="commentId" value="<%= c.getCommentId() %>" />
@@ -113,7 +128,7 @@ String rootPath = request.getContextPath();
 									</div>
 									<div class="comment-view" data-comment-target="<%= c.getCommentId() %>">
 										<div class="comment-view-header">
-											<div class="comment-user-name" id="userName"><%=c.getMemberId()%></div>
+											<div class="comment-user-name" id="userName"><%=c.getNickname()%></div>
 											<div class="date-update-delete">
 												<div class="comment-date" id="registDate">
 												<%=c.getRegistDate()%>일전
@@ -154,17 +169,17 @@ String rootPath = request.getContextPath();
 										<textarea id="reply"></textarea>
 										<i class="fa-regular fa-paper-plane"></i>
 									</div>
-									
+
 								</div>
-								<%
-								}
-								%>
-								<%
-								}
-								%>
+							</div>
+							<%
+							}
+							%>
+							<%
+							}
+							%>
 							</div>
 						</div>
-					</div>
 
 					<script>
 						
@@ -175,8 +190,8 @@ String rootPath = request.getContextPath();
 				</div>
 				<div class="board-detail-footer" id="pageDown">
 				<% 
-					PostDetailDto beforePost = (PostDetailDto)request.getAttribute("beforePost");
-					PostDetailDto afterPost = (PostDetailDto)request.getAttribute("afterPost");
+					PostDetailDTO beforePost = (PostDetailDTO)request.getAttribute("beforePost");
+					PostDetailDTO afterPost = (PostDetailDTO)request.getAttribute("afterPost");
 				%>
 					<div class="before">
 						<div class="before-board">이전글</div>

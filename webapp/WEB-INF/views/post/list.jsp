@@ -201,7 +201,7 @@
 
                             <header class="post-header">
                                 <h2 class="post-title">
-                                    <a href="#">
+                                    <a href='${pageContext.request.contextPath}/postDetail?pno=${post.postId}'>
                                         ${
                                             post.title.length() > 25 ?
                                                 post.title.substring(0, 25).concat('...') :

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 
-import kr.co.khedu.post.model.vo.CommentDto;
+import kr.co.khedu.post.model.dto.CommentDTO;
 import kr.co.khedu.post.service.PostDetailService;
 import kr.co.khedu.post.service.PostDetailServiceImpl;
 
@@ -49,7 +49,7 @@ public class CommentUpdateController extends HttpServlet {
 		// service 객체로 전달받은 값 전달하여 update
 		int result = pdService.updateComment(memberId, commentId, updatedContent);
 		
-		CommentDto updateComment = pdService.selectUpdateComment(commentId, postId);
+		CommentDTO updateComment = pdService.selectUpdateComment(commentId, postId);
 		
 		// 일반 객체 (JSONObject)에 담아 응답
 				JSONObject jsonObj = new JSONObject();

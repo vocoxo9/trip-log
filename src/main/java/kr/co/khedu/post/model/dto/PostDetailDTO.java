@@ -1,20 +1,16 @@
-package kr.co.khedu.post.model.vo;
+package kr.co.khedu.post.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-public class ReplyDto {
-
+public final class PostDetailDTO {
 	private int postId;
-	private int commentId;
-	private String userName;
-	private int registDate;
+	private String title;
 	private String content;
+	private int memberId;
 	private int likeCount;
-	private int parentId;
-	
 }
