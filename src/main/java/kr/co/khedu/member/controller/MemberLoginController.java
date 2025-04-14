@@ -24,12 +24,12 @@ public class MemberLoginController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// īī�� api ���� Ű��
+		// 카카오 api 키값
 		request.setAttribute("kakaoScriptKey", KeyManager.get("kakao.scriptKey"));
 		request.setAttribute("kakaoRestKey", KeyManager.get("kakao.restkKey"));
 		request.setAttribute("kakaoClientSecret", KeyManager.get("kakao.clientSecret"));
 		request.setAttribute("kakaoRedirectUri", KeyManager.get("kakao.redirectUri"));
-		// ���� �α��� api ���� Ű��
+		// 구글 api 키값
 		request.setAttribute("googleClientId", KeyManager.get("google.clientId"));
 		request.setAttribute("googleClientSecret", KeyManager.get("google.clientSecret"));
 		request.setAttribute("googleRedirectUri", KeyManager.get("google.redirectUri"));

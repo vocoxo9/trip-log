@@ -19,9 +19,10 @@ import javax.servlet.http.HttpSession;
 public class AccessFilter implements Filter{
 
 	// 접근 허용할 url들
-	private static final List<String> EXCLUDED_URLS = 
-			Arrays.asList("/trip-log/", "/trip-log/members/sign-in","/trip-log/members/sign-up",
-					"/trip-log/products", "/trip-log/auth/sign-in", "/trip-log/google-login/callback?" );
+	   private static final List<String> EXCLUDED_URLS = 
+		         Arrays.asList("/trip-log/", "/trip-log/members/sign-in","/trip-log/members/sign-up",
+		               "/trip-log/products", "/trip-log/auth/sign-in", "/trip-log/google-login/callback", "/trip-log/kakao-login"  );
+
 	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -44,14 +45,15 @@ public class AccessFilter implements Filter{
 		// 로그인 없이 접근 가능한 uri인지 확인
 		//boolean isLoggedIn = session != null && session.getAttribute("loginMember") != null;
 		boolean isExcluded = EXCLUDED_URLS.stream().anyMatch(uri::equals);
-
-		System.out.println("--------------------1");
+		//boolean isExcluded = EXCLUDED_URLS.stream().anyMatch(uri::startsWith);
+		
+		System.out.println("--------------------doFilter");
 		if(isExcluded) {
 			chain.doFilter(request, response);
 			return;
 		}
 		
-		System.out.println("--------------------2");
+		//System.out.println("--------------------2");
 		if (session == null || session.getAttribute("loginMember") == null) {
 			res.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = res.getWriter();
