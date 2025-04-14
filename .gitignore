@@ -20,3 +20,6 @@
 # 기타 파일 예외
 /webapp/META-INF/
 /webapp/WEB-INF/classes/
+
+# 소셜로그인 key 값 제외
+keys.properties
