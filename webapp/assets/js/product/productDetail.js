@@ -116,9 +116,19 @@ const payment = () => {
     console.log("상품 정보 : " + productInfo.price);
     console.log("상품 정보 : " + productInfo.productId);  
 
+    /*
     $paymentBtn.on("click", $.ajax({
         // 결제 API
     }));
+    */
+
+    $paymentBtn.on("click", () => {
+        Swal.fire({
+            title: "상품 결제",
+            icon: "warning",
+            text: "아직 개발 중 입니다...ㅠ"
+        });
+    });
 };
 
 // 리뷰 등록
