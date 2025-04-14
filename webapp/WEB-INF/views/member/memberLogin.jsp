@@ -19,6 +19,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 	crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 <link href="<%=rootPath%>/assets/css/reset.css" rel="stylesheet">
 <link href="<%=rootPath%>/assets/css/member/memberLogin.css"
 	rel="stylesheet" />
@@ -35,7 +36,9 @@
 		<div class="container">
 			<div class="login-container">
 				<h2>로그인</h2>
-
+				<a href="<%=rootPath%>" class="close-btn">
+					<i class="fa-solid fa-reply" style="color:#0E6973;"></i>
+				</a>
 				<form action="<%=rootPath%>/auth/sign-in" method="post">
 					<label for="email">이메일</label> <input type="email" id="email"
 						name="email" placeholder="이메일" required /> <label for="password">비밀번호</label>
