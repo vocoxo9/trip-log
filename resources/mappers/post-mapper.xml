@@ -285,11 +285,7 @@
 
 	<delete id="deletePost">
 		DELETE FROM TB_POST
-		WHERE POST_ID = (
-		SELECT POST_ID
-		FROM TB_POST
-		WHERE POST_ID = 100
-		)
+		WHERE POST_ID = #{postId}
 	</delete>
 
 	<insert id="insertPostLike">

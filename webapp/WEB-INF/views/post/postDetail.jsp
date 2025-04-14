@@ -97,8 +97,8 @@ String rootPath = request.getContextPath();
 							<div class="update-delete-btn">
 								<input type="hidden" name="postId"
 									value="${ postDetail.postId }" />
-									<a href=""><i class="fa-solid fa-pen-to-square"></i></a>
-									<a href="post/delete?pno=${ postDetail.postId }"><i class="fa-solid fa-trash-can"></i></a>
+									<a href="${pageContext.request.contextPath}/post/edit?postId=${ postDetail.postId }"><i class="fa-solid fa-pen-to-square"></i></a>
+									<a href="${pageContext.request.contextPath}/post/delete?pno=${ postDetail.postId }"><i class="fa-solid fa-trash-can"></i></a>
 							</div>
 							<div class="board-like-count">
 								<i class="fa-regular fa-heart"></i> <span class="like-count">${ postDetail.likeCount }</span>
