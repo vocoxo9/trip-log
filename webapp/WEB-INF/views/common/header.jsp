@@ -84,25 +84,25 @@
                 <%
                 	int pno = 1;
                 %>
-                    <a href="postDetail?pno=<%= pno %>">
+                    <a href="${pageContext.request.contextPath}/postDetail?pno=<%= pno %>">
                         <i class="fa-solid fa-users"></i>
                         <span>커뮤니티</span>
                     </a>
                 </div>
                 <div class="nav-list-item">
-                    <a href="/trip-log/products">
+                    <a href="${pageContext.request.contextPath}/products">
                         <i class="fa-solid fa-cart-shopping"></i>
                         <span>여행상품</span>
                     </a>
                 </div>
                 <div class="nav-list-item">
-                    <a href="travelVote">
+                    <a href="${pageContext.request.contextPath}/vote/choose">
                         <i class="fa-solid fa-check-to-slot"></i>
                         <span>여행지투표</span>
                     </a>
                 </div>
                 <div class="nav-list-item">
-                    <a href="tripCalculator">
+                    <a href="${pageContext.request.contextPath}/tripCalculator">
                         <i class="fa-solid fa-calculator"></i>
                         <span>여행경비계산기</span>
                     </a>

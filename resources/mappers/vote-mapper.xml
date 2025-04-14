@@ -17,7 +17,7 @@
             TRAVEL_DESTINATION
     </select>
 
-	<select id="selectVote" resultType="TravelVote">
+	<select id="selectVote" resultType="Vote">
 		SELECT VOTE_NO "voteNo"
 		      , TRAVEL_DESTINATION "travelDestination"
 		      , USER_ID "userId"

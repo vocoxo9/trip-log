@@ -23,7 +23,6 @@
 		<typeAlias alias="PostDetailDto" type="kr.co.khedu.post.model.vo.PostDetailDto" />
 		<typeAlias alias="CommentDto" type="kr.co.khedu.post.model.vo.CommentDto" />
 		<typeAlias alias="ReplyDto" type="kr.co.khedu.post.model.vo.ReplyDto" />
-		<typeAlias alias="TravelVote" type="kr.co.khedu.vote.model.vo.TravelVote" />
 		<typeAlias alias="PostLikeCountDto" type="kr.co.khedu.post.model.vo.PostLikeCountDto" />
 		<typeAlias alias="CommentLikeCountDto" type="kr.co.khedu.post.model.vo.CommentLikeCountDto" />
 	</typeAliases>

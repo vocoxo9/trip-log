@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="EUC-KR"%>
+	pageEncoding="UTF-8"%>
 <%
 String rootPath = request.getContextPath();
 %>
@@ -9,7 +9,7 @@ String rootPath = request.getContextPath();
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>¿©Çà°æºñ °è»ê±â ÆäÀÌÁö</title>
+<title>ì—¬í–‰ê²½ë¹„ ê³„ì‚°ê¸° íŽ˜ì´ì§€</title>
 
 <%--
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -25,7 +25,7 @@ String rootPath = request.getContextPath();
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     --%>
 <link rel="stylesheet"
-	href="<%=rootPath%>/assets/css/vote/travelVote.css" />
+	href="<%=rootPath%>/assets/css/vote/choose.css" />
 <style>
 </style>
 
@@ -37,112 +37,112 @@ String rootPath = request.getContextPath();
 		<div class="container">
 			<div class="vote-header">
 				<div class="vote-header-title">
-					<h2 class="title">ÀÌ¹ø´ÞÀº ¿ì¸® ¾îµð·Î °¥·¡?</h2>
+					<h2 class="title">ì´ë²ˆë‹¬ì€ ìš°ë¦¬ ì–´ë””ë¡œ ê°ˆëž˜?</h2>
 				</div>
 				<div class="vote-header-subtitle">
-					<h6>°¡Àå °¡°í½ÍÀº ¿©ÇàÁö¸¦ °ñ¶óÁÖ¼¼¿ä.</h6>
+					<h6>ê°€ìž¥ ê°€ê³ ì‹¶ì€ ì—¬í–‰ì§€ë¥¼ ê³¨ë¼ì£¼ì„¸ìš”.</h6>
 				</div>
 			</div>
-			<form action="vote/result" method="get">
+			<form action="${pageContext.request.contextPath}/vote/update" method="get">
 				<input type="hidden" name="userId" value="${ loginUser.userId }"/>
 				<div class="vote-body">
 					<div class="vote-lists">
 						<div class="vote-list">
 							<div class="vote-list-image">
-								<img src="<%=rootPath%>/assets/images/vote/°¡Æò.png" alt="">
+								<img src="<%=rootPath%>/assets/images/vote/ê°€í‰.png" alt="">
 							</div>
 							<div class="vote-list-name">
-								<!-- ºñ¾îÀÖ´Â ¿ø -->
-								<input type="radio" name="travel" id="°¡Æò" value="°¡Æò"> <label
-									for="°¡Æò">°¡Æò</label>
+								<!-- ë¹„ì–´ìžˆëŠ” ì› -->
+								<input type="radio" name="travel" id="ê°€í‰" value="ê°€í‰"> <label
+									for="ê°€í‰">ê°€í‰</label>
 							</div>
 						</div>
 						<div class="vote-list">
 							<div class="vote-list-image">
-								<img src="<%=rootPath%>/assets/images/vote/°­¸ª.png" alt="">
+								<img src="<%=rootPath%>/assets/images/vote/ê°•ë¦‰.png" alt="">
 							</div>
 							<div class="vote-list-name">
-								<!-- ºñ¾îÀÖ´Â ¿ø -->
-								<input type="radio" name="travel" id="°­¸ª" value="°­¸ª"> <label
-									for="°­¸ª">°­¸ª</label>
+								<!-- ë¹„ì–´ìžˆëŠ” ì› -->
+								<input type="radio" name="travel" id="ê°•ë¦‰" value="ê°•ë¦‰"> <label
+									for="ê°•ë¦‰">ê°•ë¦‰</label>
 							</div>
 						</div>
 						<div class="vote-list">
 							<div class="vote-list-image">
-								<img src="<%=rootPath%>/assets/images/vote/¼ÓÃÊ.png" alt="">
+								<img src="<%=rootPath%>/assets/images/vote/ì†ì´ˆ.png" alt="">
 							</div>
 							<div class="vote-list-name">
-								<!-- ºñ¾îÀÖ´Â ¿ø -->
-								<input type="radio" name="travel" id="¼ÓÃÊ" value="¼ÓÃÊ"> <label
-									for="¼ÓÃÊ">¼ÓÃÊ</label>
+								<!-- ë¹„ì–´ìžˆëŠ” ì› -->
+								<input type="radio" name="travel" id="ì†ì´ˆ" value="ì†ì´ˆ"> <label
+									for="ì†ì´ˆ">ì†ì´ˆ</label>
 							</div>
 						</div>
 						<div class="vote-list">
 							<div class="vote-list-image">
-								<img src="<%=rootPath%>/assets/images/vote/¿©¼ö.png" alt="">
+								<img src="<%=rootPath%>/assets/images/vote/ì—¬ìˆ˜.png" alt="">
 							</div>
 							<div class="vote-list-name">
-								<!-- ºñ¾îÀÖ´Â ¿ø -->
-								<input type="radio" name="travel" id="¿©¼ö" value="¿©¼ö"> <label
-									for="¿©¼ö">¿©¼ö</label>
+								<!-- ë¹„ì–´ìžˆëŠ” ì› -->
+								<input type="radio" name="travel" id="ì—¬ìˆ˜" value="ì—¬ìˆ˜"> <label
+									for="ì—¬ìˆ˜">ì—¬ìˆ˜</label>
 							</div>
 						</div>
 					</div>
 					<div class="vote-lists">
 						<div class="vote-list">
 							<div class="vote-list-image">
-								<img src="<%=rootPath%>/assets/images/vote/ÃáÃµ.png" alt="">
+								<img src="<%=rootPath%>/assets/images/vote/ì¶˜ì²œ.png" alt="">
 							</div>
 							<div class="vote-list-name">
-								<!-- ºñ¾îÀÖ´Â ¿ø -->
-								<input type="radio" name="travel" id="ÃáÃµ" value="ÃáÃµ"> <label
-									for="ÃáÃµ">ÃáÃµ</label>
+								<!-- ë¹„ì–´ìžˆëŠ” ì› -->
+								<input type="radio" name="travel" id="ì¶˜ì²œ" value="ì¶˜ì²œ"> <label
+									for="ì¶˜ì²œ">ì¶˜ì²œ</label>
 							</div>
 						</div>
 						<div class="vote-list">
 							<div class="vote-list-image">
-								<img src="<%=rootPath%>/assets/images/vote/ÀüÁÖ.png" alt="">
+								<img src="<%=rootPath%>/assets/images/vote/ì „ì£¼.png" alt="">
 							</div>
 							<div class="vote-list-name">
-								<!-- ºñ¾îÀÖ´Â ¿ø -->
-								<input type="radio" name="travel" id="ÀüÁÖ" value="ÀüÁÖ"> <label
-									for="ÀüÁÖ">ÀüÁÖ</label>
+								<!-- ë¹„ì–´ìžˆëŠ” ì› -->
+								<input type="radio" name="travel" id="ì „ì£¼" value="ì „ì£¼"> <label
+									for="ì „ì£¼">ì „ì£¼</label>
 							</div>
 						</div>
 						<div class="vote-list">
 							<div class="vote-list-image">
-								<img src="<%=rootPath%>/assets/images/vote/ºÎ»ê.png" alt="">
+								<img src="<%=rootPath%>/assets/images/vote/ë¶€ì‚°.png" alt="">
 							</div>
 							<div class="vote-list-name">
-								<!-- ºñ¾îÀÖ´Â ¿ø -->
-								<input type="radio" name="travel" id="ºÎ»ê" value="ºÎ»ê"> <label
-									for="ºÎ»ê">ºÎ»ê</label>
+								<!-- ë¹„ì–´ìžˆëŠ” ì› -->
+								<input type="radio" name="travel" id="ë¶€ì‚°" value="ë¶€ì‚°"> <label
+									for="ë¶€ì‚°">ë¶€ì‚°</label>
 							</div>
 						</div>
 						<div class="vote-list">
 							<div class="vote-list-image">
-								<img src="<%=rootPath%>/assets/images/vote/Á¦ÁÖµµ.png" alt="">
+								<img src="<%=rootPath%>/assets/images/vote/ì œì£¼ë„.png" alt="">
 							</div>
 							<div class="vote-list-name">
-								<!-- ºñ¾îÀÖ´Â ¿ø -->
-								<input type="radio" name="travel" id="Á¦ÁÖµµ" value="Á¦ÁÖµµ"> <label
-									for="Á¦ÁÖµµ">Á¦ÁÖµµ</label>
+								<!-- ë¹„ì–´ìžˆëŠ” ì› -->
+								<input type="radio" name="travel" id="ì œì£¼ë„" value="ì œì£¼ë„"> <label
+									for="ì œì£¼ë„">ì œì£¼ë„</label>
 							</div>
 						</div>
 					</div>
 				</div>
 
 				<div class="vote-footer">
-					<button class="vote-btn">ÅõÇ¥ÇÏ±â</button>
+					<button class="vote-btn">íˆ¬í‘œí•˜ê¸°</button>
 				</div>
 			</form>
 		</div>
 		<jsp:include page="../common/footer.jsp"></jsp:include>
 	</div>
 </body>
-<!-- 
-1) »çÁø¸¸ Ãß°¡ÇÏ¸é ³¡ÀÓ**
-2) Ã¼Å© Ä­ ´Ù½Ã¹Ù²Ù±â input À¸·Î (µ¥ÀÌÅÍ¸¦ DB·Î Àü´ÞÇØ¾ßµÇ±â ¶§¹®¿¡)
+<!--
+1) ì‚¬ì§„ë§Œ ì¶”ê°€í•˜ë©´ ëìž„**
+2) ì²´í¬ ì¹¸ ë‹¤ì‹œë°”ê¾¸ê¸° input ìœ¼ë¡œ (ë°ì´í„°ë¥¼ DBë¡œ ì „ë‹¬í•´ì•¼ë˜ê¸° ë•Œë¬¸ì—)
 -->
 
 </html>
