@@ -209,6 +209,13 @@ public class PostDetailDAO {
 		return updateComment;
 		
 	}
+
+	public int deleteComment(SqlSession sqlSession, int commentId) {
+
+		int result = sqlSession.delete("postDetailMapper.deleteComment", commentId);
+		
+		return result;
+	}
 	
 	
 

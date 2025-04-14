@@ -222,5 +222,10 @@
 		HAVING C.COMMENT_ID = #{commentId}
 	</select>
 	
+	<delete id="deleteComment">
+		DELETE FROM TB_COMMENT
+		WHERE COMMENT_ID = #{commentId}
+	</delete>
+	
 	
 </mapper>

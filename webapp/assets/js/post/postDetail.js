@@ -173,28 +173,7 @@ replyCloseBtns.forEach(closeBtn => {
 	});
 });
 
-// ...버튼 누르면 수정버튼과 삭제버튼 나타내기
-// 댓글 버튼
-// const commentEtcBtns = document.querySelectorAll(".comment-view .update-delete-menu");
-// commentEtcBtns.forEach(etcBtn => {
-//     etcBtn.addEventListener("click", () => {
-//         const commentUDBtn = etcBtn.closest(".comment-view").querySelector(".comment-view .comment-update-delete");
-//         etcBtn.classList.toggle("active");
-//         commentUDBtn.classList.toggle("active");
-//     });
-// });
-// 
-// // 답글 버튼
-// const replyEtcBtns = document.querySelectorAll(".reply-view .update-delete-menu");
-// replyEtcBtns.forEach(etcBtn => {
-//     etcBtn.addEventListener("click", () => {
-//         const replyUDBtn = etcBtn.closest(".reply-view").querySelector(".reply-view .reply-update-delete");
-//         etcBtn.classList.toggle("active");
-//         replyUDBtn.classList.toggle("active");
-//     });
-// });
 
-// -----------댓글 달기 후 다시 수정해야됨!!
 // 댓글의 etc버튼
 const commentEtcBtns = document.querySelectorAll(".comment-view .update-delete-menu");
 commentEtcBtns.forEach(etcBtn => {
@@ -260,7 +239,7 @@ commentRegistBtn.addEventListener("click", () => {
 				+ "<div class='comment-view-header'>"
 				+ "<div class='comment-user-name'>" + result.memberId + "</div>"
 				+ "<div class='date-update-delete'>"
-				+ "<div class='comment-date'>" + result.registDate + "</div>"
+				+ "<div class='comment-date'>" + result.registDate + "일전</div>"
 				+ "<div class='update-delete-menu active' data-etc-target='" + result.commentId + "'>"
 				+ "<i class='fa-solid fa-ellipsis'>" + "</i>"
 				+ "</div>"
@@ -288,43 +267,49 @@ commentRegistBtn.addEventListener("click", () => {
 				+ "</div>"
 				+ "<div class='reply' id='" + result.commentId + "'>"
 				+ "<div class='reply-input'>"
-				+ "<!-- " + "<input type='text' id='reply'>" + " -->"
 				+ "<textarea id='reply'>" + "</textarea>"
 				+ "<i class='fa-regular fa-paper-plane'>" + "</i>"
-				+ "</div>"
-				+ "<div class='reply-views'>"
-				+ "<div class='reply-user-profile'>"
-				+ "<i class='fa-solid fa-user'>" + "</i>"
-				+ "</div>"
-				+ "<div class='reply-view'>"
-				+ "<div class='reply-view-header'>"
-				+ "<div class='reply-user-name'>사용자 이름</div>"
-				+ "<div class='date-update-delete'>"
-				+ "<div class='reply-date'>작성날짜</div>"
-				+ "<div class='update-delete-menu active'>"
-				+ "<i class='fa-solid fa-ellipsis'>" + "</i>"
-				+ "</div>"
-				+ "<div class='reply-update-delete'>"
-				+ "<i class='fa-solid fa-pen-to-square'>" + "</i>" + "<i class='fa-solid fa-trash-can'>" + "</i>"
-				+ "</div>"
-				+ "</div>"
-				+ "</div>"
-				+ "<div class='reply-view-body'>"
-				+ "<textarea id='replyView' name='reply' readonly>		감사합니다.^*</textarea>"
-				+ "</div>"
-				+ "<div class='reply-view-footer'>"
-				+ "<div>"
-				+ "<i class='fa-regular fa-heart'>" + "</i>" + "<span class='like-count'>0</span>"
-				+ "</div>"
-				+ "</div>"
-				+ "</div>"
 				+ "</div>"
 				+ "</div>"
 			$(".comment-input").after(element);
 
 			// ------- 여기까지 댓글 등록 비동기처리 ------------
 			// ======== 밑으로는 비동기 된 댓글의 기능들 붙여넣기 =========
+			// 댓글 좋아요 기능
+			const commentLikeBtns = document.querySelectorAll(".comment .comment-like .fa-regular.fa-heart");
+			commentLikeBtns.forEach(commentLikeBtn => {
+				commentLikeBtn.addEventListener("click", (event) => {
+					const comment = event.target.closest(".comment");
+					const commentId = comment.querySelector('input[name="commentId"]').value;
+					// const commentId = document.querySelector('input[type="hidden"][name="commentId"]').value;
+					console.log("commentId : " + commentId);
+					$.ajax({
+						url: "commentLike/regist",
+						type: "post",
+						data: {
+							memberId: $("#memberId").val(),	// => 나중에 연결하면 loginUser의 memberId로 바꾸기
+							commentId: commentId
+						},
+						success: function(result) {
+							console.log(`${commentId}`);
+							console.log("** Ajax 통신 성공@@ **");
+							const element = '<i class="fa-regular fa-heart"></i>'
+								+ '<span class="like-count">' + result.commentLikeCount + '</span>';
+							$(`.comment #${commentId}.comment-like`).html(element);
+						},
+						error: function(err) {
+							console.log("** Ajax 통신 실패 ㅠㅜ **");
+							console.log(err);
+						},
+						complete: function() {
+							console.log("** Ajax 통신 완료!! **");
+						}
 
+					});
+
+				});
+
+			});
 		},
 		error: function(err) {
 			console.log("** Ajax 통신 실패 ㅠㅜ **");
@@ -507,36 +492,33 @@ updateBtns.forEach(updateBtn => {
 
 // -------------
 
-const comment = event.target.closest(".comment");
-const commentId = comment.querySelector('input[name="commentId"]').value;
-console.log("commentId : " + commentId);
+// 댓글 삭제 기능
+const deleteBtns = document.querySelectorAll(".comments .comment-update-delete .fa-solid fa-trash-can");
+deleteBtns.forEach(deleteBtn => {
+	deleteBtn.addEventListener("click", (event) => {
+		const comment = event.target.closest(".comment");
+		const commentId = comment.querySelector('input[name="commentId"]').value;
 
-$.ajax({
-	url: "comment/update",
-	type: "post",
-	data: {
-		memberId: $("#memberId").val(),	// => 나중에 연결하면 loginUser의 memberId로 바꾸기
-		commentId: commentId
-	},
-	success: function(result) {
-		console.log(`${commentId}`);
-		console.log("** Ajax 통신 성공@@ **");
-		const element = '<i class="fa-regular fa-heart"></i>'
-			+ '<span class="like-count">' + result.commentLikeCount + '</span>';
-		$(`.comment #${commentId}.comment-like`).html(element);
-	},
-	error: function(err) {
-		console.log("** Ajax 통신 실패 ㅠㅜ **");
-		console.log(err);
-	},
-	complete: function() {
-		console.log("** Ajax 통신 완료!! **");
-	}
+		$.ajax({
+			url: "comment/delete",
+			type: "post",
+			data: {
+				commentId: commentId
+			},
+			success: function(result) {
+				console.log("전달받은 데이터 commentId : " + commentId);
+				console.log("** Ajax 통신 성공!@!@ **");
+			},
+			error: function(err) {
+				console.log("** Ajax 통신 실패 **");
 
+			},
+			complete: function() {
+				console.log("** Ajax 통신 완료!! **");
+			}
+		});
+	});
 });
-
-
-
 
 
 

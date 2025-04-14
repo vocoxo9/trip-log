@@ -61,5 +61,8 @@ public interface PostDetailService {
 	/* 댓글 수정 후 조회 */
 	CommentDto selectUpdateComment(int commentId, int postId);
 
+	/* 댓글 삭제 (DELETE) */
+	int deleteComment(int commentId);
+
 	
 }

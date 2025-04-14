@@ -317,6 +317,27 @@ public class PostDetailServiceImpl implements PostDetailService {
 		return updateComment;
 		
 	}
+
+
+	@Override
+	public int deleteComment(int commentId) {
+		
+		SqlSession sqlSession = Template.getSqlSession();
+		
+		int result = pdDao.deleteComment(sqlSession, commentId);
+		
+		if (result > 0) {
+			// 삭제 성공
+			sqlSession.commit();
+		} else {
+			// 삭제 실패
+			sqlSession.rollback();			
+		}
+				
+		sqlSession.close();
+				
+		return result;
+	}
 	
 	
 	
