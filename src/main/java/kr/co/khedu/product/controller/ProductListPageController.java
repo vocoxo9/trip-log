@@ -51,7 +51,7 @@ public class ProductListPageController extends HttpServlet {
 		int pageLimit = 10;
 		
 		// 현재 페이지 번호
-		int currentPageNo = request.getParameter("cpage") != null ? Integer.parseInt(request.getParameter("cpage")) : 1;
+		int currentPageNo = request.getParameter("currentPage") != null ? Integer.parseInt(request.getParameter("currentPage")) : 1;
 		
 		PageInfo pageInfo = new PageInfo(listCount, currentPageNo, pageLimit, itemLimit);
 		

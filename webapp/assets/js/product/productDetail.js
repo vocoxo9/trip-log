@@ -389,9 +389,9 @@ const heartBtn = () => {
                         },
                         error: (error) => {
                             Swal.fire({
-                                title: "찜 취소소",
+                                title: "찜 취소",
                                 icon: "error",
-                                text: "찜 취소소 오류",
+                                text: "찜 취소 오류",
                                 confirmButtonText: "확인"
                             }).then((result) => {
                                 if(result.isConfirmed) {

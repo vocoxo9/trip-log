@@ -64,7 +64,7 @@ PageInfo pageInfo = (PageInfo) request.getAttribute("pageInfo");
 					<div id="title">상품 찜 목록</div>
 				</div>
 				<div class="mypage-right-detail">
-					<table class="table table-hover">
+					<table id="myFavoriteProductList" class="table table-hover">
 						<thead>
 							<tr>
 								<th>상품 번호</th>
@@ -80,7 +80,7 @@ PageInfo pageInfo = (PageInfo) request.getAttribute("pageInfo");
 									<c:forEach var="myFavoriteProduct" items="${myProductFavoriteList }">
 										<tr>
 											<td>${myFavoriteProduct.productId }</td>
-											<td>${myFavoriteProduct.productName }</td>
+											<td><a href="/trip-log/products/detail/${myFavoriteProduct.productId }">${myFavoriteProduct.productName }</a></td>
 											<td>${myFavoriteProduct.price }</td>
 											<td>${myFavoriteProduct.stock }</td>
 											<%-- <td>2025.04.03</td> --%>

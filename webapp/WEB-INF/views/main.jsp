@@ -25,13 +25,13 @@
 	        </div>
 	        <div class="carousel-inner">
 	            <div class="carousel-item active">
-	                <img src="assets/images/board/board-img1.jpg" class="d-block w-100 banner" alt="...">
+	                <img src="<%= rootPath %>/assets/images/product/sample/product-sample-1.png" class="d-block w-100 banner" alt="...">
 	            </div>
 	            <div class="carousel-item">
-	                <img src="assets/images/board/board-img2.jpg" class="d-block w-100 banner" alt="...">
+	                <img src="<%= rootPath %>/assets/images/product/sample/product-sample-2.png" class="d-block w-100 banner" alt="...">
 	            </div>
 	            <div class="carousel-item">
-	                <img src="assets/images/board/board-img3.jpg" class="d-block w-100 banner" alt="...">
+	                <img src="<%= rootPath %>/assets/images/product/sample/product-sample-3.png" class="d-block w-100 banner" alt="...">
 	            </div>
 	        </div>
 	        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
@@ -59,7 +59,7 @@
 	
 	                <!-- 더보기 p태그 자체를 클릭 시 여행 후기(커뮤니티) 목록 페이지로 이동 -->
 	                <p>
-	                    <a href="">
+	                    <a href="post/list">
 	                    	더보기 <i class="fa-solid fa-arrow-right"></i>
 	                    </a>
 	                </p>
@@ -67,7 +67,7 @@
 	            <div class="list-content">
 	                <div class="list-item">
 	                    <div class="list-item-image">
-	                        <img src="assets/images/board/board-img1.jpg">
+	                        <img src="<%= rootPath %>/assets/images/product/sample/product-sample-1.png">
 	                        <span class="list-item-text">
 	                            <span class="list-item-text-title">
 	                                <span>Title</span><span>25.04.02~25.04.02(00일)</span>
@@ -90,7 +90,7 @@
 	                </div>
 	                <div class="list-item">
 	                    <div class="list-item-image">
-	                        <img src="assets/images/board/board-img1.jpg">
+	                        <img src="<%= rootPath %>/assets/images/product/sample/product-sample-2.png">
 	                        <span class="list-item-text">
 	                            <span class="list-item-text-title">
 	                                <span>Title</span><span>25.04.02~25.04.02(00일)</span>
@@ -113,7 +113,7 @@
 	                </div>
 	                <div class="list-item">
 	                    <div class="list-item-image">
-	                        <img src="assets/images/board/board-img1.jpg">
+	                        <img src="<%= rootPath %>/assets/images/product/sample/product-sample-3.png">
 	                        <span class="list-item-text">
 	                            <span class="list-item-text-title">
 	                                <span>Title</span><span>25.04.02~25.04.02(00일)</span>
@@ -136,7 +136,7 @@
 	                </div>
 	                <div class="list-item">
 	                    <div class="list-item-image">
-	                        <img src="assets/images/board/board-img1.jpg">
+	                        <img src="<%= rootPath %>/assets/images/product/sample/product-sample-4.png">
 	                        <span class="list-item-text">
 	                            <span class="list-item-text-title">
 	                                <span>Title</span><span>25.04.02~25.04.02(00일)</span>
@@ -177,7 +177,7 @@
 	            <div class="product-list-content">
 	                <div class="product-list-item">
 	                    <div class="product-list-item-image">
-	                        <img src="assets/images/board/board-img1.jpg">
+	                        <img src="<%= rootPath %>/assets/images/product/sample/product-sample-1.png">
 	                    </div>
 	                    <div class="product-list-item-info">
 	                        <p class="product-list-item-name">상품명</p>
@@ -192,7 +192,7 @@
 	                </div>
 	                <div class="product-list-item">
 	                    <div class="product-list-item-image">
-	                        <img src="assets/images/board/board-img2.jpg">
+	                        <img src="<%= rootPath %>/assets/images/product/sample/product-sample-2.png">
 	                    </div>
 	                    <div class="product-list-item-info">
 	                        <p class="product-list-item-name">상품명</p>
@@ -207,7 +207,7 @@
 	                </div>
 	                <div class="product-list-item">
 	                    <div class="product-list-item-image">
-	                        <img src="assets/images/board/board-img3.jpg">
+	                        <img src="<%= rootPath %>/assets/images/product/sample/product-sample-3.png">
 	                    </div>
 	                    <div class="product-list-item-info">
 	                        <p class="product-list-item-name">상품명</p>
@@ -222,7 +222,7 @@
 	                </div>
 	                <div class="product-list-item">
 	                    <div class="product-list-item-image">
-	                        <img src="assets/images/board/board-img4.jpg">
+	                        <img src="<%= rootPath %>/assets/images/product/sample/product-sample-4.png">
 	                    </div>
 	                    <div class="product-list-item-info">
 	                        <p class="product-list-item-name">상품명</p>
@@ -247,7 +247,7 @@
 	                    이번 달은 여기다!
 	                </p>
 	                <p>
-	                    <a href="">
+	                    <a href="products/">
 	                    	더보기 <i class="fa-solid fa-arrow-right"></i>
 	                    </a>
 	                </p>

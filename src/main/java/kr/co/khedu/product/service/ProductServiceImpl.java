@@ -155,7 +155,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public int insertProductFavoirte(ProductFavoriteDTO productFavoriteDTO) {
+	public int insertProductFavorite(ProductFavoriteDTO productFavoriteDTO) {
 		SqlSession sqlSession = Template.getSqlSession();
 		
 		int result = new ProductDAO().insertProductFavoirte(sqlSession, productFavoriteDTO);
