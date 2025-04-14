@@ -105,7 +105,7 @@
 
                         <div class="singup-button">
                             <button type="submit" id="signupButton" onclick="return pwdCheck();" disabled>가입하기</button>
-                            <button type="button" id="cancelButton" onclick="main();">취소</button>
+                            <button type="button" id="cancelButton">취소</button>
                         </div>
                     </form>
                 </div>
@@ -114,9 +114,9 @@
         <jsp:include page="../common/footer.jsp" />
 		<script src="<%= rootPath %>/assets/js/member/signUp.js"></script>
 		<script>
-			function main(){
-				location.href = <%= rootPath %>;
-			}
+			document.getElementById("cancelButton").addEventListener("click", function () {
+				location.href = "/trip-log/";
+			})
 		</script>
     </div> 
 </body>
