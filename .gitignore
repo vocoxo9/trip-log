@@ -16,7 +16,7 @@
 
 # DB 연결 정보 파일 예외
 /resources/environment.properties
-
+/resources/keys.properties
 # 기타 파일 예외
 /webapp/META-INF/
 /webapp/WEB-INF/classes/
