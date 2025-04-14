@@ -43,7 +43,7 @@ public interface ProductService {
 	List<ProductReviewDTO> selectProductReviewMemberList(int productId);
 
 	// 상품 찜 기능
-	int insertProductFavoirte(ProductFavoriteDTO productFavoriteDTO);
+	int insertProductFavorite(ProductFavoriteDTO productFavoriteDTO);
 
 	// 해당 회원이 해당 상품을 찜 했는지 조회
 	ProductFavoriteDTO selectProductFavoriteChecked(ProductFavoriteDTO productFavoriteDTO);

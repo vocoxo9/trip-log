@@ -8,7 +8,7 @@ const pagingFun = function() {
     // 페이징
     for(let pa of $pagingArr) {
         
-        let requestUrl = "productLikes?cpage=" + pa.getAttribute("data-current");
+        let requestUrl = "productLikes?currentPage=" + pa.getAttribute("data-current");
 
         // console.log(requestUrl);
 

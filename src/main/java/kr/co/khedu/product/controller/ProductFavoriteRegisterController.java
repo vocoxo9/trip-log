@@ -48,7 +48,7 @@ public class ProductFavoriteRegisterController extends HttpServlet {
 		System.out.println("productId : " + productId);
 		System.out.println("memberId : " + memberId);
 		
-		int result = new ProductServiceImpl().insertProductFavoirte(new ProductFavoriteDTO(productId, memberId));
+		int result = new ProductServiceImpl().insertProductFavorite(new ProductFavoriteDTO(productId, memberId));
 		
 		if(result > 0) {
 			JSONObject jsonObj = new JSONObject();
