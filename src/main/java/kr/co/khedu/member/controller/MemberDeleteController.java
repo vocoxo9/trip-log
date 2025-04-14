@@ -33,7 +33,8 @@ public class MemberDeleteController extends HttpServlet {
 			request.getSession().invalidate();
 			response.getWriter().write("deleted");
 		} else {
-			response.getWriter().write("fail");		
+			request.setAttribute("errorMsg", "회원 탈퇴에 실패했습니다.");
+		    request.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(request, response);	
 		}
 		
 	}

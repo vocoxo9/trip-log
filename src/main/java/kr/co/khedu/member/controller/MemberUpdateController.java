@@ -43,7 +43,8 @@ public class MemberUpdateController extends HttpServlet {
 			request.getSession().setAttribute("loginMember", updateMember);
 			response.getWriter().write("updated");
 		} else {
-			response.getWriter().write("fail");
+			request.setAttribute("errorMsg", "회원정보 수정에 실패하였습니다.");
+		    request.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(request, response);
 		}
 	}
 

@@ -41,6 +41,8 @@ public class ProductRegisterPageController extends HttpServlet {
 			request.getRequestDispatcher("WEB-INF/views/product/productRegister.jsp").forward(request, response);
 		} else {
 			// 에러페이지 처리
+			request.setAttribute("errorMsg", "국가 정보를 불러올 수 없습니다.");
+		    request.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(request, response);
 		}
 	}
 

@@ -54,10 +54,12 @@ package kr.co.khedu.member.controller;
                  String email = getGoogleEmail(accessToken);
                  processSocialLogin(email, request, response);
              } else {
-                 response.getWriter().println("구글 로그인 토큰 발급 실패");
+            	 request.setAttribute("errorMsg", "구글 로그인 토큰 발급 실패");
+                 request.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(request, response);
              }
          } else {
-             response.getWriter().println("구글 로그인 인가 코드가 없습니다.");
+        	 request.setAttribute("errorMsg", "구글 로그인 인가 코드가 없습니다.");
+        	 request.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(request, response);
          }
  	}
  
