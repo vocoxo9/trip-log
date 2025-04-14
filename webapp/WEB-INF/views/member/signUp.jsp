@@ -112,7 +112,12 @@
             </div>
         </div>
         <jsp:include page="../common/footer.jsp" />
-		<script src="<%= rootPath %>/assets/js/member/signUp.js"></script> 
+		<script src="<%= rootPath %>/assets/js/member/signUp.js"></script>
+		<script>
+			document.getElementById("cancelButton").addEventListener("click", function () {
+				location.href = "/trip-log/";
+			})
+		</script>
     </div> 
 </body>
 
