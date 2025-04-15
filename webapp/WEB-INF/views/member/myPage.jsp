@@ -234,7 +234,7 @@
 					      <% } else { %>
 					      		<div class="mb-3">
 					            <label for="password" class="col-form-label" id="title">비밀번호</label>
-					            <input type="password" class="form-control" name="password" id="password" value="${loginMember.password}" />
+					            <input type="password" class="form-control" name="password" id="password" />
 					          </div>
 					          <div class="mb-3">
 					            <label for="passwordCheck" class="col-form-label" id="title">비밀번호 확인</label>
