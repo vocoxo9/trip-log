@@ -29,4 +29,4 @@
 
 ## CSS 및 JavaScript 파일 분리
 
-`JSP` 파일 내 `CSS`와 `JavaScript` 부분은 `/webapp/assets` 아래에 두어 구현 간 의존성을 줄였습니다.
+`JSP` 파일 내 `CSS`와 `JavaScript` 부분은 `/webapp/assets` 아래에 두어 서로 간 의존성을 줄였습니다.
