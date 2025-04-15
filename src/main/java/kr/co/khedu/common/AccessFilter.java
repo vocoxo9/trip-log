@@ -21,7 +21,7 @@ public class AccessFilter implements Filter{
 	// 접근 허용할 url들
 	   private static final List<String> EXCLUDED_URLS = 
 		         Arrays.asList("/trip-log/", "/trip-log/members/sign-in","/trip-log/members/sign-up",
-		               "/trip-log/products", "/trip-log/auth/sign-in", "/trip-log/google-login/callback", "/trip-log/kakao-login"  );
+		               "/trip-log/products", "/trip-log/auth/sign-in", "/trip-log/google-login/callback", "/trip-log/kakao-login", "/trip-log/members/email-check"  );
 
 	
 	@Override
