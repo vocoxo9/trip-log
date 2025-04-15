@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="countryMapper">
+    <resultMap type="kr.co.khedu.country.model.dto.CountryDTO" id="countryListResultMap">
+        <result column="COUNTRY_ID" property="countryId"/>
+        <result column="NAME" property="name"/>
+    </resultMap>
+    <select id="selectCountryList" resultMap="countryListResultMap">
+        SELECT COUNTRY_ID, NAME
+        FROM TR_COUNTRY
+        ORDER BY COUNTRY_ID
+    </select>
+</mapper>

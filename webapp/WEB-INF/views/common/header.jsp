@@ -1,35 +1,46 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="kr.co.khedu.member.model.dto.MemberDTO" %>
 <% 
 	String rootPath = request.getContextPath();
+	MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
 %>    
-    
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Trip:Log</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link href="<%= rootPath %>/assets/css/reset.css" rel="stylesheet">
 <link href="<%= rootPath %>/assets/css/common.css" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.all.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.min.css" rel="stylesheet">
+ -->
 <%-- 추가 정적 파일은 이 주석 아래에 추가!! --%>
-</head>
 <body>
+	<%
+		System.out.println(rootPath);
+	%>
 	<header>
         <div class="quick">
-            <button type="button" class="btn btn-sm user-btn">로그인/로그아웃</button>
+            <%-- <button type="button" class="btn btn-sm user-btn">로그인/로그아웃</button>--%>
+            <% if (loginMember == null) { %>
+        		<button type="button" onclick="location.href='<%= rootPath %>/members/sign-in'" class="btn btn-sm user-btn">로그인</button>
+    		<% } else { %>
+        		<button type="button" onclick="location.href='<%= rootPath %>/members/logout'" class="btn btn-sm user-btn">로그아웃</button>
+    		<% } %>
         </div>
         <div class="header-top">
             <div class="team-logo">
-                <div class="logo-t-image-area"><div class="logo-t"></div></div>
-                <span class="logo-text">rip:L</span>
-                <div class="logo-o-image-area"><div class="logo-o"></div></div>
-                <span class="logo-text">g</span>
+            	<a href="<%= rootPath %>">
+	                <span class="logo-t-image-area"><span class="logo-t"></span></span>
+	                <span class="logo-text">rip:L</span>
+	                <span class="logo-o-image-area"><span class="logo-o"></span></span>
+	                <span class="logo-text">g</span>
+            	</a>
             </div>
             <div class="user-menu">
                 <ul class="menu-list">
@@ -50,39 +61,49 @@
 
                         ===> 결론으로 우리 프로젝트 특성상 커뮤니티가 메인이므로 로그인 여부가 중요!! 그래서 꼭 표시해줘야함
                     -->
-                    <li data-url="">
-                        <i class="fa-solid fa-user"></i>
-                        <p>My</p>
+                    <li>
+                    	<a href="<%= rootPath %>/members/mypage" class="menu-list-item">
+	                        <i class="fa-solid fa-user"></i>
+	                        <span>My</span>
+                    	</a>
                     </li>
-                    <li data-url="">
-                        <i class="fa-solid fa-heart" style="color: var(--heart-color)"></i>
-                        <p>찜</p>
+                    <li>
+                    	<a href="<%= rootPath %>/members/productLikes" class="menu-list-item">
+	                        <i class="fa-solid fa-heart" style="color: var(--heart-color)"></i>
+	                        <span>찜</span>
+                    	</a>
                     </li>
                 </ul>
             </div>
         </div>
 
         <nav>
-            <ul class="nav-list">
+            <div class="nav-list">
                 <!-- 각 메뉴(li) 클릭 시 해당 페이지로 이동 -->
-                <li data-url="">
-                    <i class="fa-solid fa-users"></i>
-                    <p>커뮤니티</p>
-                </li>
-                <li data-url="">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <p>여행상품</p>
-                </li>
-                <li data-url="">
-                    <i class="fa-solid fa-check-to-slot"></i>
-                    <p>여행지투표</p>
-                </li>
-                <li data-url="">
-                    <i class="fa-solid fa-calculator"></i>
-                    <p>여행경비계산기</p>
-                </li>
-            </ul>
+                <div class="nav-list-item">
+                    <a href="${pageContext.request.contextPath}/post/list">
+                        <i class="fa-solid fa-users"></i>
+                        <span>커뮤니티</span>
+                    </a>
+                </div>
+                <div class="nav-list-item">
+                    <a href="${pageContext.request.contextPath}/products">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span>여행상품</span>
+                    </a>
+                </div>
+                <div class="nav-list-item">
+                    <a href="${pageContext.request.contextPath}/vote/choose">
+                        <i class="fa-solid fa-check-to-slot"></i>
+                        <span>여행지투표</span>
+                    </a>
+                </div>
+                <div class="nav-list-item">
+                    <a href="${pageContext.request.contextPath}/tripCalculator">
+                        <i class="fa-solid fa-calculator"></i>
+                        <span>여행경비계산기</span>
+                    </a>
+                </div>
+            </div>
         </nav>
     </header>
-</body>
-</html>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberMapper">
+
+	<resultMap id="memberDTOResultMap" type="kr.co.khedu.member.model.dto.MemberDTO"> 
+		<result column="NAME" property="countryName"/>
+		<result column="MEMBER_ID" property="memberId"/>
+		<result column="CREATED_AT" property="createdAt"/>
+		<result column="DELETED_AT" property="deletedAt"/>
+		<result column="COUNTRY_ID" property="countryId"/>
+	</resultMap>
+	
+	<resultMap id="memberResultMap" type="kr.co.khedu.member.model.vo.Member">
+		<result column="MEMBER_ID" property="memberId"/>
+		<result column="EMAIL" property="email"/>
+		<result column="PASSWORD" property="password"/>
+		<result column="ROLE" property="role"/>
+		<result column="NICKNAME" property="nickname"/>
+		<result column="BIRTHDAY" property="birthday"/>
+		<result column="PHONE" property="phone"/>
+		<result column="CREATED_AT" property="createdAt"/>
+		<result column="DELETED_AT" property="deletedAt"/>
+		<result column="COUNTRY_ID" property="countryId"/>
+	</resultMap>
+	
+
+	<select id="loginMember" resultMap="memberDTOResultMap" parameterType="MemberDTO"> 
+		SELECT *
+ 		FROM TB_MEMBER
+ 		LEFT JOIN TR_COUNTRY USING(COUNTRY_ID)
+		WHERE EMAIL= #{email} 
+		AND PASSWORD= #{password}  
+		AND DELETED_AT IS NULL
+	</select>
+
+<!-- 	
+	<select id="dtoTest" resultMap="memberDTOResultMap" parameterType="kr.co.khedu.member.model.dto.MemberDTO"> 
+		SELECT *
+		FROM TB_MEMBER
+		JOIN TR_COUNTRY USING(COUNTRY_ID)
+		WHERE EMAIL= #{email} 
+		AND PASSWORD= #{password} 
+		AND DELETED_AT IS NULL 
+	</select>
+ -->
+ 	<select id="selectMember" resultMap="memberDTOResultMap" resultType="MemberDTO">
+        SELECT *
+ 		FROM TB_MEMBER
+ 		LEFT JOIN TR_COUNTRY USING(COUNTRY_ID)
+ 		WHERE MEMBER_ID = #{memNo}
+ 	</select>
+ 	
+    <insert id="insertMember" parameterType="Member">
+		INSERT INTO TB_MEMBER(MEMBER_ID, EMAIL, PASSWORD, ROLE, NICKNAME, BIRTHDAY, PHONE, COUNTRY_ID) 
+		VALUES (SEQ_MEM_ID.NEXTVAL , #{email}, #{password}, 'MEMBER', #{nickname}, #{birthday}, #{phone}, #{countryId})
+	</insert>
+	
+	<select id="countMemberByEmail" resultType="_int">
+		SELECT COUNT(*) FROM TB_MEMBER WHERE EMAIL = #{email}
+	</select>
+
+	<update id="updateMember" parameterType="MemberDTO">
+		UPDATE TB_MEMBER
+		SET PASSWORD = #{ password },
+			PHONE = #{ phone },
+		    NICKNAME = #{ nickname },
+		    COUNTRY_ID = #{ countryId }
+		WHERE MEMBER_ID = #{memberId} AND DELETED_AT IS NULL
+	</update>
+	
+	<update id="deleteMember" >
+		UPDATE TB_MEMBER
+		SET DELETED_AT = SYSDATE
+		WHERE MEMBER_ID = #{memNo}
+	</update>
+	
+	<select id="socialMember" resultMap="memberDTOResultMap" parameterType="MemberDTO"> 
+		SELECT *
+ 		FROM TB_MEMBER
+		WHERE EMAIL= #{email}  
+		AND DELETED_AT IS NULL
+	</select>
+	
+	<insert id="insertSocialMember" parameterType="MemberDTO">
+		INSERT INTO TB_MEMBER(MEMBER_ID, EMAIL, PASSWORD, ROLE)
+		VALUES (SEQ_MEM_ID.NEXTVAL , #{email}, #{password}, 'SOCIAL')
+	</insert>
+</mapper>

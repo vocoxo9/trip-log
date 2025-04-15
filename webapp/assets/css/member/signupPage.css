@@ -1,0 +1,177 @@
+
+.signup-title {
+    font-size: 2.7rem;
+    font-weight: bold;
+    color: var(--sub-strong-color);
+    text-align: center;
+    margin : 7rem 0 4rem 0;
+}
+
+/* 좌측 */
+.signup-left {
+    float: left;
+    width: 50%;
+    height: 100%;
+    position: relative;
+}
+.signup-left .img-box {
+    width : 100%;
+    height : 100%;
+    display : flex;
+}
+.signup-left img {
+    height : 100%;
+    margin : 5rem 0 0 8rem;
+    /* opacity : 0.7; */
+}
+.img-text {
+    z-index: 1;
+    position: absolute;
+    top : 15rem;
+    left : 10rem;
+}
+.img-text p {
+    font-size: 1.8rem;
+    text-align: center;
+    line-height: 3.5rem;
+}
+.img-text strong {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: var(--sub-strong-color);
+}
+
+
+/* 우측 */
+.signup-right {
+    display: flex;
+    float: right;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+}
+
+.signup-box {
+    background: white;
+    padding: 3rem 3rem 1rem 3rem;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    height: 50%;
+    margin-left: 8rem;
+    margin-bottom : 8rem;
+}
+
+.signup-box input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px
+}
+
+
+.signup-box select {
+    width: 100%;
+    padding: 0.4rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px
+}
+
+.requiredItems #requiredTitle {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--sub-strong-color);
+    margin-bottom: 1.5rem;
+}
+
+.requiredItems label {
+    margin-bottom: 0.5rem;
+}
+
+.requiredItems input {
+    width: 95%;
+    margin-bottom: 1rem;
+}
+
+.optionalItems #optionTitle {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--sub-strong-color);
+    margin: 1rem 0 1rem 0.5rem;
+}
+
+.optionalItems label {
+    margin-bottom: 0.5rem;
+}
+
+.optionalItems input {
+    width: 95%;
+    margin: 0 2rem 1rem 0;
+}
+.optionalItems select {
+    width : 95%;
+    margin: 0 2rem 1rem 0;
+}
+
+.singup-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.singup-button button {
+    width: 100%;
+    height: 2.5rem;
+    margin: 2rem;
+    border-radius: 25px;
+    font-weight: bold;
+}
+
+.singup-button #signupButton {
+    background-color: var(--main-color);
+    border: 0.2rem solid var(--main-color);
+    color: white;
+}
+.singup-button #signupButton:hover {
+    background-color: var(--sub-strong-color);
+    border : 0.2rem solid var(--sub-strong-color);
+}
+
+.singup-button #cancelButton {
+    background-color: white;
+    border:  0.2rem solid var(--sub-strong-color);
+    color : var(--sub-strong-color)
+}
+
+
+.swal2-container.swal2-center>.swal2-popup {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+    align-self: center !important;
+    justify-self: center !important;
+}
+
+.swal2-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+.signup-box .requiredItems #emailCheckButton{
+    width: 30%;
+    float : right;
+    margin-right : 1.5rem;
+    margin-bottom : 1.5rem;
+    border-radius: 25px;
+    font-weight: 500;
+    background-color: var(--main-color);
+    border: 0.2rem solid var(--main-color);
+    color: white;
+}
+
+.signup-box .requiredItems #emailCheckButton:hover {
+    background-color: var(--sub-strong-color);
+    border : 0.2rem solid var(--sub-strong-color);
+}
