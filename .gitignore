@@ -20,3 +20,6 @@
 # 기타 파일 예외
 /webapp/META-INF/
 /webapp/WEB-INF/classes/
+
+# README.md 파일은 예외
+!/README.md
