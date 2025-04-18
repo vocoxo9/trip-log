@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="productMapper">
+
+	<!-- 
+		PRODUCT_ID, NAME, PRICE, STOCK, DESCRIPTION, ORIGIN_FILE_NAME, CHANGE_FILE_NAME, CREATED_AT, MEMBER_ID, COUNTRY_ID
+	 -->
+
+	<!-- 상품 목록 조회 -->
+	<!-- 
+	<resultMap type="Product" id="productListResultMap">
+		<result column="PRODUCT_ID" property="productId" />
+		<result column="NAME" property="name" />
+		<result column="PRICE" property="price" />
+	</resultMap>
+	<select id="selectProductList" resultMap="productListResultMap" parameterType="Product">
+		SELECT PRODUCT_ID, NAME, PRICE
+		FROM TB_PRODUCT
+		ORDER BY CREATED_AT DESC
+	</select>
+	 -->
+	 
+	 <!-- 회원 아이디로 해당 회원의 상품 찜 목록 수 조회 -->
+	 <select id="selectMyProductFavoriteCount" resultType="_int">
+	 	SELECT COUNT(*)
+	 	FROM TB_PRODUCT_FAVORITES
+	 	WHERE MEMBER_ID = #{memberId}
+	 </select>
+	 
+	 <!-- 회원 아이디로 해당 회원의 상품 찜 목록 조회 -->
+	 <resultMap type="kr.co.khedu.member.model.dto.MemberFavoriteProductDTO" id="myProductFavoriteResultMap">
+	 	<result column="PRODUCT_ID" property="productId" />
+	 	<result column="NAME" property="productName" />
+	 	<result column="PRICE" property="price" />
+	 	<result column="STOCK" property="stock" />
+	 </resultMap>
+	 <select id="selectMyProductFavorite" resultMap="myProductFavoriteResultMap">
+	 	SELECT TPF.PRODUCT_ID, TP.NAME, TP.PRICE, TP.STOCK
+	 	FROM TB_PRODUCT_FAVORITES TPF
+	 		LEFT JOIN TB_PRODUCT TP ON TPF.PRODUCT_ID = TP.PRODUCT_ID
+	 	WHERE TPF.MEMBER_ID = #{memberId}
+	 </select>
+	
+	<!-- 상품아이디로 상품 조회 -->
+	<resultMap type="Product" id="productByProductId">
+		<result column="PRODUCT_ID" property="productId" />
+		<result column="NAME" property="name" />
+		<result column="PRICE" property="price" />
+		<result column="STOCK" property="stock" />
+		<result column="DESCRIPTION" property="description" />
+		<result column="ORIGIN_FILE_NAME" property="originFileName" />
+		<result column="CHANGE_FILE_NAME" property="changeFileName" />
+		<result column="DESCRIPTION" property="description" />
+		<result column="CREATED_AT" property="createdAt" />
+		<result column="MEMBER_ID" property="memberId" />
+		<result column="COUNTRY_ID" property="countryId" />
+	</resultMap>
+	<select id="selectProductByProductId" resultMap="productByProductId" parameterType="Product">
+		SELECT *
+		FROM TB_PRODUCT
+		WHERE PRODUCT_ID = #{productId}
+	</select>
+	
+	<!-- 상품의 전체 갯수 조회 -->
+	<select id="selectByProductNameCount" resultType="_int">
+		SELECT COUNT(*) FROM TB_PRODUCT
+		WHERE 1=1
+		<if test="sort == 'recentValue' or sort == 'reviewValue' or sort == 'priceValue'">
+			AND NAME LIKE '%${keyword}%'
+		</if>
+	</select>
+		
+	
+	<!-- 상품의 전체 데이터 조회(키워드가 있을 검색 포함) -->
+	<resultMap type="kr.co.khedu.product.model.dto.ProductListDTO" id="productListKeywordResultMap">
+	    <result column="PRODUCT_ID" property="productId" />
+	    <result column="NAME" property="name" />
+	    <result column="PRICE" property="price" />
+	    <result column="CHANGE_FILE_NAME" property="changeFileName" />
+	    <result column="CREATED_AT" property="createdAt" />
+	    <result column="COUNTRY_NAME" property="countryName" />
+	    <result column="SCORE" property="score" />
+	</resultMap>
+
+	<select id="findByProductNameLike" resultMap="productListKeywordResultMap">
+		SELECT 
+		    TP.PRODUCT_ID,
+		    TP.NAME,
+		    TP.PRICE,
+		    TP.CHANGE_FILE_NAME,
+		    TP.CREATED_AT,
+		    TRC.NAME AS COUNTRY_NAME,
+		    ROUND(NVL(AVG(TPR.SCORE), 0), 1) AS SCORE
+		FROM TB_PRODUCT TP
+			LEFT JOIN TB_PRODUCT_REVIEW TPR ON TP.PRODUCT_ID = TPR.PRODUCT_ID
+			LEFT JOIN TR_COUNTRY TRC ON TP.COUNTRY_ID = TRC.COUNTRY_ID 
+		WHERE 1 = 1 AND TP.NAME LIKE '%${keyword}%'
+		GROUP BY TP.PRODUCT_ID, TP.NAME, TP.PRICE, TP.CHANGE_FILE_NAME, TRC.NAME, TP.CREATED_AT
+		<choose>
+			<when test="sort == 'reviewValue'">
+				ORDER BY SCORE DESC, TP.CREATED_AT DESC
+			</when>
+			<when test="sort == 'priceValue'">
+				ORDER BY TP.PRICE DESC, TP.CREATED_AT DESC
+			</when>
+			<otherwise>
+				ORDER BY TP.CREATED_AT DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 상품 리뷰 조회 쿼리문 -->
+	<select id="selectProductReview" resultType="_double">
+		SELECT ROUND(NVL(AVG(SCORE), 0), 1) AS SCORE
+		FROM TB_PRODUCT_REVIEW
+		WHERE PRODUCT_ID = #{productId}
+	</select>
+	
+	<!-- 해당 상품 리뷰 작성한 회원 조회 -->
+	<!-- 
+	<resultMap type="kr.co.khedu.product.model.dto.ProductReviewDTO" id="productReviewMemberResultMap">
+		<result column="MEMBER_ID" property="memberId" />
+	</resultMap>
+	<select id="selectProductReviewMemberList" resultMap="productReviewMemberResultMap">
+		SELECT MEMBER_ID
+		FROM TB_PRODUCT_REVIEW
+		WHERE PRODUCT_ID = #{productId}
+	</select>
+	 -->
+	 
+	<!-- 해당 회원이 해당 상품을 찜 했는지 조회 -->
+	<resultMap type="kr.co.khedu.product.model.dto.ProductFavoriteDTO" id="productFavoriteResultMap">
+		<result column="PRODUCT_ID" property="productId" />
+		<result column="MEMBER_ID" property="memberId" />
+	</resultMap>
+	<select id="selectProductFavoriteChecked" resultMap="productFavoriteResultMap">
+		SELECT PRODUCT_ID, MEMBER_ID
+		FROM TB_PRODUCT_FAVORITES
+		WHERE PRODUCT_ID = #{productId} AND MEMBER_ID = #{memberId}
+	</select>
+	
+  	<!-- 상품 등록 쿼리문 -->
+	<insert id="insertProduct" parameterType="Product">
+		INSERT INTO TB_PRODUCT
+		VALUES (SEQ_PRODUCT_ID.NEXTVAL, #{name}, #{price}, #{stock}, #{description}, DEFAULT, #{memberId}, #{countryId}, #{originFileName}, #{changeFileName})
+	</insert>
+	
+	<!-- 상품 찜 하기 쿼리문 -->
+	<insert id="insertProductFavoirte" parameterType="kr.co.khedu.product.model.dto.ProductFavoriteDTO">
+		INSERT INTO TB_PRODUCT_FAVORITES
+		VALUES (SEQ_PRO_FAVOR_ID.NEXTVAL, DEFAULT, #{productId}, #{memberId})
+	</insert>
+	
+	<!-- 상품 찜 취소 쿼리문 -->
+	<delete id="deleteProductFavoirte">
+		DELETE FROM TB_PRODUCT_FAVORITES WHERE PRODUCT_ID = #{productId} AND MEMBER_ID = #{memberId}
+	</delete>
+	
+	<!-- 상품 삭제 쿼리문 -->
+	<delete id="deleteProduct">
+		DELETE FROM TB_PRODUCT WHERE PRODUCT_ID = #{productId}
+	</delete>
+	
+	<!-- 상품 리뷰 등록 쿼리문 -->
+	<insert id="insertProductReview" parameterType="Review">
+		INSERT INTO TB_PRODUCT_REVIEW
+		VALUES (SEQ_PRODUCT_REVIEW_ID.NEXTVAL, #{score}, #{memberId}, #{productId})
+	</insert>
+	
+	<!-- 상품 수정 쿼리문 -->
+	<update id="updateProduct" parameterType="Product">
+		UPDATE TB_PRODUCT SET
+			NAME = #{name},
+			PRICE = #{price},
+			STOCK = #{stock},
+			DESCRIPTION = #{description},
+			ORIGIN_FILE_NAME = #{originFileName},
+			CHANGE_FILE_NAME = #{changeFileName}
+		WHERE PRODUCT_ID = #{productId}
+	</update>
+</mapper>

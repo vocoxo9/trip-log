@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="postMapper">
+    <resultMap type="kr.co.khedu.post.model.dto.PostSummaryDTO" id="postSummaries">
+        <result column="POST_ID" property="postId"/>
+        <result column="TITLE" property="title"/>
+        <result column="CONTENT" property="content"/>
+        <result column="CREATED_AT" property="createdAt"/>
+        <result column="LIKES" property="likes"/>
+        <result column="COMMENTS" property="comments"/>
+    </resultMap>
+    <resultMap type="kr.co.khedu.post.model.dto.PostEditDTO" id="postEditForm">
+        <result column="POST_ID" property="postId"/>
+        <result column="TITLE" property="title"/>
+        <result column="CONTENT" property="content"/>
+        <result column="COUNTRY_ID" property="countryId"/>
+        <result column="MEMBER_ID" property="memberId"/>
+    </resultMap>
+    <resultMap id="postDetailResultMap" type="kr.co.khedu.post.model.dto.PostDetailDTO">
+        <result column="POST_ID" property="postId"/>
+        <result column="TITLE" property="title"/>
+        <result column="CONTENT" property="content"/>
+        <result column="LIKE_COUNT" property="likeCount"/>
+        <result column="MEMBER_ID" property="memberId"/>
+    </resultMap>
+    <resultMap type="kr.co.khedu.post.model.dto.CommentDTO" id="postCommentResultMap">
+        <result column="POST_ID" property="postId"/>
+        <result column="COMMENT_ID" property="commentId"/>
+		<result column="NICKNAME" property="nickname"/>
+        <result column="EMAIL" property="memberId"/>
+        <result column="REGIST_DATE" property="registDate"/>
+        <result column="CONTENT" property="content"/>
+        <result column="LIKE_COUNT" property="likeCount"/>
+    </resultMap>
+    <resultMap type="kr.co.khedu.post.model.dto.ReplyDTO" id="postReplyResultMap">
+        <result column="POST_ID" property="postId"/>
+        <result column="COMMENT_ID" property="commentId"/>
+        <result column="EMAIL" property="userName"/>
+        <result column="REGIST_DATE" property="registDate"/>
+        <result column="CONTENT" property="content"/>
+        <result column="LIKE_COUNT" property="likeCount"/>
+        <result column="PARENT_ID" property="parentId"/>
+    </resultMap>
+    <resultMap type="kr.co.khedu.post.model.dto.CommentDTO" id="postLastCommentResultMap">
+        <result column="POST_ID" property="postId"/>
+        <result column="COMMENT_ID" property="commentId"/>
+        <result column="EMAIL" property="memberId"/>
+        <result column="REGIST_DATE" property="registDate"/>
+        <result column="CONTENT" property="content"/>
+        <result column="LIKE_COUNT" property="likeCount"/>
+        <result column="PARENT_ID" property="parentId"/>
+    </resultMap>
+    <resultMap type="kr.co.khedu.post.model.dto.PostLikeCountDTO" id="PostLikeCountResultMap">
+        <result column="POST_ID" property="postId"/>
+        <result column="LIKE_COUNT" property="postLikeCount"/>
+    </resultMap>
+    <resultMap type="kr.co.khedu.post.model.dto.CommentLikeCountDTO" id="CommentLikeCountResultMap">
+        <result column="COMMENT_ID" property="commentId"/>
+        <result column="LIKE_COUNT" property="commentLikeCount"/>
+	</resultMap>
+	<resultMap type="kr.co.khedu.post.model.dto.PostPairDTO" id="postPair">
+		<result column="PREVIOUS" property="previous"/>
+		<result column="NEXT" property="next"/>
+    </resultMap>
+	<select id="getPostPair" resultMap="postPair">
+		SELECT
+			NVL((
+				SELECT
+					MAX(POST_ID)
+				FROM
+					TB_POST
+				WHERE
+					POST_ID &lt; #{postId}
+			), -1) AS PREVIOUS,
+			NVL((
+				SELECT
+					MIN(POST_ID)
+				FROM
+					TB_POST
+				WHERE
+					POST_ID &gt; #{postId}
+			), -1) AS NEXT
+		FROM
+			DUAL
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+    <select id="getPostSummaries" resultMap="postSummaries">
+        SELECT
+			P.POST_ID,
+            P.TITLE,
+            P.CONTENT,
+            P.CREATED_AT,
+            (
+                SELECT COUNT(*)
+                FROM TB_POST_LIKE L
+                WHERE L.POST_ID = P.POST_ID
+            ) AS LIKES,
+            (
+                SELECT COUNT(*)
+                FROM TB_COMMENT C
+                WHERE C.POST_ID = P.POST_ID
+            ) AS COMMENTS
+        FROM
+            TB_POST P
+        ORDER BY
+            P.POST_ID DESC
+        OFFSET #{offset} ROWS FETCH NEXT 6 ROWS ONLY
+    </select>
+    <select id="getPostSummariesByMemberId" resultMap="postSummaries">
+        SELECT
+			P.POST_ID,
+            P.TITLE,
+            P.CONTENT,
+            P.CREATED_AT,
+            (
+                SELECT COUNT(*)
+                FROM TB_POST_LIKE L
+                WHERE L.POST_ID = P.POST_ID
+            ) AS LIKES,
+            (
+                SELECT COUNT(*)
+                FROM TB_COMMENT C
+                WHERE C.POST_ID = P.POST_ID
+            ) AS COMMENTS
+        FROM
+            TB_POST P
+        WHERE
+            P.MEMBER_ID = #{memberId}
+        ORDER BY
+            P.POST_ID DESC
+        OFFSET #{offset} ROWS FETCH NEXT 6 ROWS ONLY
+    </select>
+    <select id="searchFormById" parameterType="int" resultMap="postEditForm">
+        SELECT
+            POST_ID,
+            TITLE,
+            CONTENT,
+            COUNTRY_ID,
+            MEMBER_ID
+        FROM TB_POST
+        WHERE POST_ID = #{postId}
+    </select>
+    <select id="isPostOwner" resultType="_int">
+        SELECT COUNT(*)
+        FROM TB_POST
+        WHERE POST_ID = #{postId}
+        AND MEMBER_ID = #{memberId}
+    </select>
+    <insert id="insertPost" parameterType="kr.co.khedu.post.model.dto.PostWriteDTO">
+        INSERT INTO TB_POST (
+            POST_ID,
+            TITLE,
+            CONTENT,
+            VIEWS,
+            MEMBER_ID,
+            COUNTRY_ID
+        )
+        VALUES (
+            SEQ_POST_ID.NEXTVAL,
+            #{title},
+            #{content},
+            0,
+            #{memberId},
+            #{countryId}
+        )
+    </insert>
+    <update id="updatePost" parameterType="kr.co.khedu.post.model.dto.PostEditDTO">
+        UPDATE TB_POST
+        SET
+            TITLE = #{title},
+            CONTENT = #{content},
+            COUNTRY_ID = #{countryId}
+        WHERE
+            POST_ID = #{postId}
+    </update>
+	<select id="searchPostDetail" resultMap="postDetailResultMap" parameterType="kr.co.khedu.post.model.dto.PostDetailDTO">
+		SELECT
+			P.POST_ID,
+			P.TITLE,
+			TO_CHAR(P.CONTENT) AS CONTENT,
+			P.MEMBER_ID,
+			COUNT(PL.POST_LIKE_ID) AS LIKE_COUNT
+		FROM TB_POST P
+		LEFT JOIN TB_POST_LIKE PL ON P.POST_ID = PL.POST_ID
+		WHERE P.POST_ID = #{ pNum }
+		GROUP BY P.POST_ID, P.TITLE, TO_CHAR(P.CONTENT), P.MEMBER_ID
+	</select>
+
+	<select id="selectCommentList" resultMap="postCommentResultMap" parameterType="kr.co.khedu.post.model.dto.CommentDTO">
+		SELECT
+			C.POST_ID,
+			C.COMMENT_ID,
+			M.NICKNAME,
+			SUBSTR(M.EMAIL, 1, INSTR(M.EMAIL, '@')-1) AS EMAIL,
+			FLOOR(SYSDATE - C.CREATED_AT) AS REGIST_DATE,
+			C.CONTENT,
+			COUNT(CL.COMMENT_LIKE_ID) AS LIKE_COUNT
+		FROM TB_COMMENT C
+			LEFT JOIN TB_MEMBER M ON C.MEMBER_ID = M.MEMBER_ID
+			LEFT JOIN TB_COMMENT_LIKE CL ON C.COMMENT_ID = CL.COMMENT_ID
+		WHERE PARENT_ID IS NULL AND C.POST_ID = #{pNum}
+		GROUP BY
+			C.POST_ID,
+			C.COMMENT_ID,
+			M.NICKNAME,
+			M.EMAIL,
+			(SYSDATE - C.CREATED_AT),
+			C.CONTENT
+		ORDER BY COMMENT_ID DESC
+	</select>
+
+	<select id="selectReplyList" resultMap="postReplyResultMap" parameterType="kr.co.khedu.post.model.dto.ReplyDTO">
+				SELECT
+			C.POST_ID, C.COMMENT_ID,
+			SUBSTR(M.EMAIL, 1, INSTR(M.EMAIL, '@')-1) AS EMAIL,
+			FLOOR(SYSDATE - C.CREATED_AT) AS REGIST_DATE,
+			C.CONTENT,
+			COUNT(CL.COMMENT_LIKE_ID) AS LIKE_COUNT
+		FROM TB_COMMENT C
+			LEFT JOIN TB_MEMBER M ON C.MEMBER_ID = M.MEMBER_ID
+			LEFT JOIN TB_COMMENT_LIKE CL ON C.COMMENT_ID = CL.COMMENT_ID
+		WHERE PARENT_ID = #{parentNum} AND C.POST_ID = #{postNum}
+		GROUP BY
+			C.POST_ID,
+			C.COMMENT_ID,
+			M.EMAIL,
+			(SYSDATE - C.CREATED_AT),
+			C.CONTENT
+		ORDER BY COMMENT_ID ASC
+	</select>
+
+	<insert id="insertComment">
+		INSERT INTO
+			TB_COMMENT
+		VALUES
+			(
+				SEQ_COMMENT_ID.NEXTVAL,
+				#{content},
+				SYSDATE,
+				NULL,
+				#{postId},
+				#{name}
+			)
+	</insert>
+
+	<select id="selectLastComment" resultMap="postLastCommentResultMap" parameterType="kr.co.khedu.post.model.dto.CommentDTO">
+		SELECT
+		    C.POST_ID,
+		    C.COMMENT_ID,
+			M.NICKNAME,
+		    SUBSTR(M.EMAIL, 1, INSTR(M.EMAIL, '@')-1) AS EMAIL,
+		    FLOOR(SYSDATE - C.CREATED_AT) AS REGIST_DATE,
+		    C.CONTENT,
+		    COUNT(CL.COMMENT_LIKE_ID) AS LIKE_COUNT,
+		    C.PARENT_ID
+		FROM TB_COMMENT C
+		LEFT JOIN TB_MEMBER M ON C.MEMBER_ID = M.MEMBER_ID
+		LEFT JOIN TB_COMMENT_LIKE CL ON C.COMMENT_ID = CL.COMMENT_ID
+		WHERE C.POST_ID = #{postId}
+		GROUP BY
+		    C.POST_ID,
+		    C.COMMENT_ID,
+			M.NICKNAME,
+		    M.EMAIL,
+		    (SYSDATE - C.CREATED_AT),
+		    C.CONTENT,
+		    C.PARENT_ID
+		HAVING C.COMMENT_ID = (
+		    SELECT MAX(COMMENT_ID)
+		    FROM TB_COMMENT
+		)
+	</select>
+
+	<select id="selectPost"
+			resultMap="postDetailResultMap"
+			parameterType="kr.co.khedu.post.model.dto.PostDetailDTO">
+		SELECT
+			POST_ID,
+			TITLE
+		FROM
+			TB_POST
+		WHERE
+			POST_ID = #{pNum}
+	</select>
+
+	<delete id="deletePost">
+		DELETE FROM TB_POST
+		WHERE POST_ID = #{postId}
+	</delete>
+
+	<insert id="insertPostLike">
+		INSERT INTO TB_POST_LIKE VALUES
+			(SEQ_POST_LIKE_ID.NEXTVAL, SYSDATE, #{memberId}, #{postId})
+	</insert>
+
+	<select id="selectPostLikeCount" resultMap="PostLikeCountResultMap" parameterType="kr.co.khedu.post.model.dto.PostLikeCountDTO">
+		SELECT POST_ID, COUNT(*) AS LIKE_COUNT
+		FROM TB_POST_LIKE
+		WHERE POST_ID = #{postId}
+		GROUP BY POST_ID
+	</select>
+
+	<select id="checkPostLike" resultMap="PostLikeCountResultMap" parameterType="kr.co.khedu.post.model.dto.PostLikeCountDTO">
+		SELECT POST_ID, COUNT(*) AS LIKE_COUNT
+		FROM TB_POST_LIKE
+		WHERE MEMBER_ID = #{memberId} AND POST_ID = #{postId}
+		GROUP BY POST_ID
+	</select>
+
+	<select id="checkCommentLike" resultMap="CommentLikeCountResultMap" parameterType="kr.co.khedu.post.model.dto.CommentLikeCountDTO">
+		SELECT COMMENT_ID, COUNT(*) AS LIKE_COUNT
+		FROM TB_COMMENT_LIKE
+		WHERE MEMBER_ID = #{memberId} AND COMMENT_ID = #{commentId}
+		GROUP BY COMMENT_ID
+	</select>
+
+	<insert id="insertCommentLike">
+		INSERT INTO TB_COMMENT_LIKE VALUES
+			(SEQ_COM_LIKE_ID.NEXTVAL, SYSDATE, #{memberId}, #{commentId})
+	</insert>
+
+	<select id="selectCommentLikeCount" resultMap="CommentLikeCountResultMap" parameterType="kr.co.khedu.post.model.dto.CommentLikeCountDTO">
+		SELECT COMMENT_ID, COUNT(*) AS LIKE_COUNT
+		FROM TB_COMMENT_LIKE
+		WHERE COMMENT_ID = #{commentId}
+		GROUP BY COMMENT_ID
+	</select>
+
+	<delete id="deleteCommentLike">
+		DELETE FROM TB_COMMENT_LIKE
+		WHERE COMMENT_ID = #{commentId} AND MEMBER_ID = #{memberId}
+	</delete>
+
+	<delete id="deletePostLike">
+		DELETE FROM TB_POST_LIKE
+		WHERE POST_ID = #{postId} AND MEMBER_ID = #{memberId}
+	</delete>
+
+	<update id="updateComment">
+		UPDATE TB_COMMENT
+			SET CONTENT = #{updatedContent}
+		WHERE COMMENT_ID = #{commentId} AND MEMBER_ID = #{memberId}
+	</update>
+
+	<select id="selectUpdateComment" resultMap="postLastCommentResultMap" parameterType="kr.co.khedu.post.model.dto.CommentDTO">
+		SELECT
+		    C.POST_ID,
+		    C.COMMENT_ID,
+		    SUBSTR(M.EMAIL, 1, INSTR(M.EMAIL, '@')-1) AS EMAIL,
+		    FLOOR(SYSDATE - C.CREATED_AT) AS REGIST_DATE,
+		    C.CONTENT,
+		    COUNT(CL.COMMENT_LIKE_ID) AS LIKE_COUNT,
+		    C.PARENT_ID
+		FROM TB_COMMENT C
+		LEFT JOIN TB_MEMBER M ON C.MEMBER_ID = M.MEMBER_ID
+		LEFT JOIN TB_COMMENT_LIKE CL ON C.COMMENT_ID = CL.COMMENT_ID
+		WHERE C.POST_ID = #{postId}
+		GROUP BY
+		    C.POST_ID,
+		    C.COMMENT_ID,
+		    M.EMAIL,
+		    (SYSDATE - C.CREATED_AT),
+		    C.CONTENT,
+		    C.PARENT_ID
+		HAVING C.COMMENT_ID = #{commentId}
+	</select>
+
+	<delete id="deleteComment">
+		DELETE FROM TB_COMMENT
+		WHERE COMMENT_ID = #{commentId}
+	</delete>
+</mapper>

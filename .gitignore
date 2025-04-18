@@ -23,3 +23,5 @@
 
 # README.md 파일은 예외
 !/README.md
+# 소셜로그인 key 값 제외
+keys.properties
