@@ -33,6 +33,8 @@
 - 검색 및 정렬 기능
 - 웹 필터링 처리
 
+
+
 ## 🧑‍💻👩‍💻 팀원
 ### 팀장 및 형상관리자 임성준 [@Seong-Jun1525](https://github.com/Seong-Jun1525)
 
@@ -140,3 +142,33 @@ DB |  ![Oracle DB](https://img.shields.io/badge/Database-Oracle%20DB-F80000?logo
 API | ![Kakao API](https://img.shields.io/badge/API-Kakao-yellow?logo=kakao&logoColor=black), ![Google API](https://img.shields.io/badge/API-Google-4285F4?logo=google&logoColor=white)
 
 ## 프로젝트 구조
+```
+📦 trip-log
+├── 📂docs                # 프로젝트 문서
+├── 📂resources           # MyBatis 설정, SQL 등
+│   ├── 📂mappers
+│   ├── mybatis-config.xml
+│   └── schema.sql
+├── 📂src
+│   └── 📂main
+│       ├── 📂java
+│       │   └── 📂kr.co.khedu
+│       │       ├── 📂member         # 회원 기능
+│       │       ├── 📂post           # 게시글 기능
+│       │       ├── 📂product        # 상품 기능
+│       │       ├── 📂vote           # 투표 기능
+│       │       ├── 📂comment        # 댓글 기능
+│       │       └── 📂common         # 공통 유틸, 설정 등
+│       ├── 📂resources
+│       └── 📂webapp
+│           └── 📂WEB-INF
+│               └── 📂views         # JSP 뷰 파일
+├── 📂webapp
+│   ├── 📂assets           # 정적 자원
+│   │   ├── 📂css
+│   │   ├── 📂js
+│   │   └── 📂images
+│   └── 📜index.jsp
+├── .gitignore
+└── README.md
+```
