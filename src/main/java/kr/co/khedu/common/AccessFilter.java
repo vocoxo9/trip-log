@@ -43,17 +43,13 @@ public class AccessFilter implements Filter{
 		HttpSession session = req.getSession(false);
 		
 		// 로그인 없이 접근 가능한 uri인지 확인
-		//boolean isLoggedIn = session != null && session.getAttribute("loginMember") != null;
 		boolean isExcluded = EXCLUDED_URLS.stream().anyMatch(uri::equals);
-		//boolean isExcluded = EXCLUDED_URLS.stream().anyMatch(uri::startsWith);
 		
-		System.out.println("--------------------doFilter");
 		if(isExcluded) {
 			chain.doFilter(request, response);
 			return;
 		}
 		
-		//System.out.println("--------------------2");
 		if (session == null || session.getAttribute("loginMember") == null) {
 			res.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = res.getWriter();
@@ -64,7 +60,6 @@ public class AccessFilter implements Filter{
 			out.println("</head> <body>");
 			
 			out.println("<script>");
-			//out.println("Swal.fire(\"로그인 후 이용해 주세요\");");
 			out.println("Swal.fire({\r\n"
 					+ "  title: \"로그인 후 이용 가능합니다.\",\r\n"
 					+ "  icon: \"warning\"\r\n"
@@ -78,21 +73,5 @@ public class AccessFilter implements Filter{
 		} else {
 			chain.doFilter(request, response);
 		}
-		// 로그인 없이 접근 가능한 uri
-//		if(uri.equals("/members/sign-in") ||
-//				uri.equals("members/sign-up") ||
-//				uri.equals("/products/")
-//				) {
-//			chain.doFilter(request, response);
-//			return;
-//		}
-//		
-		// 로그인 되어있어야 접근 가능
-		// 로그인 안 되어있으면 alert 표시 후 로그인 페이지로 이동
-//		if(session.getAttribute("loginMember") == null) {
-//			res.sendRedirect(req.getContextPath());
-//		} else {
-//			chain.doFilter(request, response);
-//		}
 	}
 }
