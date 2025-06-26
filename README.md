@@ -3,8 +3,12 @@
 * [개발 환경](#개발-환경)
 * [프로젝트 구조](#프로젝트-구조)
 
+<br><br>
+
 ## 팀명 : I UNION I
 > KH 정보교육원 (디지털컨버전스) 공공데이터 융합 자바개발자 양성과정<br>개발기간 : 2025.03.19 ~ 2025.04.16
+
+<br><br>
 
 ## 📌 주요 개발 기능
 - 프로젝트
@@ -22,6 +26,8 @@
     - 회원탈퇴 기능 구현
     - 웹 필터링 기능 구현
 
+<br><br>
+
 ## 개발 환경
 항목 | 내용
 :--: |:--
@@ -32,6 +38,8 @@ Library | ![Lombok](https://img.shields.io/badge/Library-Lombok-EA1B1B?logo=java
 Framework | ![MyBatis](https://img.shields.io/badge/Framework-MyBatis-1F6E43?logo=java&logoColor=white), ![Bootstrap](https://img.shields.io/badge/Framework-Bootstrap-7952B3?logo=bootstrap&logoColor=white)
 DB |  ![Oracle DB](https://img.shields.io/badge/Database-Oracle%20DB-F80000?logo=oracle&logoColor=white)
 API | ![Kakao API](https://img.shields.io/badge/API-Kakao-yellow?logo=kakao&logoColor=black), ![Google API](https://img.shields.io/badge/API-Google-4285F4?logo=google&logoColor=white)
+
+<br><br>
 
 ## 프로젝트 구조
 ```
