@@ -21,15 +21,16 @@ public class AccessFilter implements Filter{
 	// 접근 허용할 url들
 	   private static final List<String> EXCLUDED_URLS = 
 		         Arrays.asList("/trip-log/", "/trip-log/members/sign-in","/trip-log/members/sign-up",
-		               "/trip-log/products", "/trip-log/auth/sign-in", "/trip-log/google-login/callback", "/trip-log/kakao-login", "/trip-log/members/email-check"  );
+		               "/trip-log/products", 
+		               "/trip-log/auth/sign-in", "/trip-log/google-login/callback", 
+		               "/trip-log/kakao-login", "/trip-log/members/email-check"  );
 
 	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
-		
+			throws IOException, ServletException {		
 		HttpServletRequest req = (HttpServletRequest) request;
-		HttpServletResponse res = (HttpServletResponse) response;
+		HttpServletResponse res =  (HttpServletResponse) response;
 		
 		String uri = req.getRequestURI();
 		// 정적 리소스 예외처리
@@ -39,7 +40,6 @@ public class AccessFilter implements Filter{
             return;
         }
 
-		
 		HttpSession session = req.getSession(false);
 		
 		// 로그인 없이 접근 가능한 uri인지 확인
@@ -53,7 +53,6 @@ public class AccessFilter implements Filter{
 		if (session == null || session.getAttribute("loginMember") == null) {
 			res.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = res.getWriter();
-			
 			
 			out.println("<html> <head>");
 			out.println("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>");
@@ -69,7 +68,6 @@ public class AccessFilter implements Filter{
 			out.println("</body> </html>");
 			out.close();
 			
-			//res.sendRedirect(req.getContextPath() + "/members/sign-in");
 		} else {
 			chain.doFilter(request, response);
 		}

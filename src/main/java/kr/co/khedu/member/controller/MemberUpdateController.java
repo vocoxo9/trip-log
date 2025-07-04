@@ -19,24 +19,31 @@ import kr.co.khedu.member.service.MemberServiceImpl;
 public class MemberUpdateController extends HttpServlet {
 	private final MemberService mService = new MemberServiceImpl();
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
 		MemberDTO loginMember = (MemberDTO)request.getSession().getAttribute("loginMember");
+		// 세션 정보 확인
+		if (loginMember == null) {
+			response.getWriter().write("failed");
+			return;
+		}
+		
 		int memberId = loginMember.getMemberId();
 		String password = request.getParameter("password");
 		String phone = request.getParameter("phone");
 		String nickname = request.getParameter("nickname");
 		int countryId = Integer.parseInt(request.getParameter("countryId"));
+
+		// 필수항목 유효성 검사
+		if (password == null || password.trim().isEmpty()) {
+			response.getWriter().write("failed");
+			return;
+		}
 		
 		MemberDTO member = new MemberDTO(memberId, password, nickname, phone, countryId);
 		int result = mService.updateMember(member);
-		
-		System.out.println("memberId : " + memberId);
-		System.out.println("password : " + password);
-		System.out.println("phone : " + phone);
-		System.out.println("nickname : " + nickname);
-		System.out.println("countryId : " + countryId);
 		
 		if(result > 0) {
 			MemberDTO updateMember = mService.selectMember(memberId);
