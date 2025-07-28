@@ -1,6 +1,7 @@
 package kr.co.khedu.member.service;
 
 import org.apache.ibatis.session.SqlSession;
+import org.mindrot.jbcrypt.BCrypt;
 
 import kr.co.khedu.member.model.dao.MemberDAO;
 import kr.co.khedu.member.model.dto.MemberDTO;
@@ -16,6 +17,13 @@ public class MemberServiceImpl implements MemberService {
 
 		MemberDTO loginMember = mDAO.loginMember(sqlSession, m);
 
+		if (loginMember != null) {
+			// 비밀번호 암호화 비교
+			boolean isMatched = BCrypt.checkpw(m.getPassword(), loginMember.getPassword());
+			if (isMatched) {
+				return loginMember;
+			}
+		}
 		sqlSession.close();
 
 		return loginMember;
@@ -25,7 +33,7 @@ public class MemberServiceImpl implements MemberService {
 	public int insertMember(Member member) {
 		SqlSession sqlSession = Template.getSqlSession();
 		if (sqlSession == null) {
-		    throw new RuntimeException("SqlSession 생성 실패");
+			throw new RuntimeException("SqlSession 생성 실패");
 		}
 
 		int result = 0;
@@ -51,7 +59,7 @@ public class MemberServiceImpl implements MemberService {
 	public int countMemberByEmail(String email) {
 		SqlSession sqlSession = Template.getSqlSession();
 		if (sqlSession == null) {
-		    throw new RuntimeException("SqlSession 생성 실패");
+			throw new RuntimeException("SqlSession 생성 실패");
 		}
 
 		int result = 0;
@@ -77,7 +85,7 @@ public class MemberServiceImpl implements MemberService {
 	public int updateMember(MemberDTO member) {
 		SqlSession sqlSession = Template.getSqlSession();
 		if (sqlSession == null) {
-		    throw new RuntimeException("SqlSession 생성 실패");
+			throw new RuntimeException("SqlSession 생성 실패");
 		}
 
 		int result = 0;
@@ -103,7 +111,7 @@ public class MemberServiceImpl implements MemberService {
 	public int deleteMember(int memNo) {
 		SqlSession sqlSession = Template.getSqlSession();
 		if (sqlSession == null) {
-		    throw new RuntimeException("SqlSession 생성 실패");
+			throw new RuntimeException("SqlSession 생성 실패");
 		}
 
 		int result = 0;

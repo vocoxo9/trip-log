@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import kr.co.khedu.member.model.vo.Member;
 import kr.co.khedu.member.service.MemberService;
 import kr.co.khedu.member.service.MemberServiceImpl;
@@ -59,8 +61,11 @@ public class MemberSignupController extends HttpServlet {
 			return;
 		}
 		
+		// 비밀번호 암호화 적용
+		String encryptedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+		
 		// 회원가입 처리
-		Member member = new Member(email, password, nickname, birthday, phone, countryId);
+		Member member = new Member(email, encryptedPassword, nickname, birthday, phone, countryId);
 		int result = new MemberServiceImpl().insertMember(member);
 
 		if (result > 0) {
